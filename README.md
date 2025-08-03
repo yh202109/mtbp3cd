@@ -13,7 +13,7 @@ Quick links:
 
 Functions are grouped into:
 
-- GUI
+- GUI <sup>[*]</sup>
 
 
 <sup>[*]</sup> Documents are not executed while building.
