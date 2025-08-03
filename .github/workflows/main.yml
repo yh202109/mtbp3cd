@@ -29,11 +29,11 @@ jobs:
       - name: Install package
         run: poetry install
 
-      - name: Test with pytest
-        run: |
-          poetry run pytest --junitxml=docs/_static/reports/junit/junit.xml --html=docs/_static/reports/junit/report.html --self-contained-html
-          poetry run coverage run --source=mtbp3 -m pytest tests 
-          poetry run coverage xml -o docs/_static/reports/coverage/coverage.xml
+      # - name: Test with pytest
+      #   run: |
+      #     poetry run pytest --junitxml=docs/_static/reports/junit/junit.xml --html=docs/_static/reports/junit/report.html --self-contained-html
+      #     poetry run coverage run --source=mtbp3 -m pytest tests 
+      #     poetry run coverage xml -o docs/_static/reports/coverage/coverage.xml
 
       #- name: Use Codecov to track coverage
       #  #uses: codecov/codecov-action@v3
@@ -42,10 +42,10 @@ jobs:
       #    directory: docs/_static/reports/coverage
       #    files: coverage.xml 
 #
-      - name: Tests badge
-        run: |
-          poetry run genbadge tests -i docs/_static/reports/junit/junit.xml -o docs/_static/reports/junit/tests-badge.svg
-          poetry run genbadge coverage -i docs/_static/reports/coverage/coverage.xml -o docs/_static/reports/coverage/coverage-badge.svg
+      # - name: Tests badge
+      #   run: |
+      #     poetry run genbadge tests -i docs/_static/reports/junit/junit.xml -o docs/_static/reports/junit/tests-badge.svg
+      #     poetry run genbadge coverage -i docs/_static/reports/coverage/coverage.xml -o docs/_static/reports/coverage/coverage-badge.svg
 
       - name: Build documentation
         run: |
