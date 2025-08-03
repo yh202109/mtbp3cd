@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "mtbp3cd"
+version = "0.1.0"
+description = "my tool box for files management"
+authors = ["Y. Hsu"]
+license = "GNU General Public License v3.0"
+readme = "README.md"
+packages = [{include = "mtbp3cd"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^2.0.0"
+seaborn = "^0.13.2"
+
+[tool.poetry.dev-dependencies]
+sphinx = { version = "7.4.7", optional = false }
+myst-nb = { version = "*", optional = false }
+sphinx-autoapi = { version = "*", optional = false }
+sphinx_rtd_theme = { version = "*", optional = false }
+pytest = { version = "*", optional = false }
+pytest-html = { version = "*", optional = false }
+coverage = { version = "*", optional = false }
+genbadge = { version = "*", optional = false }
+matplotlib = { version = "*", optional = false }
+seaborn = { version = ">=0.13.2", optional = false }
+pypdf = { version = "*", optional = false }
+ipywidgets = { version = "*", optional = false }
+scikit-learn = { version = "*", optional = false }
+statsmodels = { version = "*", optional = false }
+defusedxml = { version = "*", optional = false }
+genson = { version = "*", optional = false }
+openpyxl = { version = "*", optional = false }
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.extras]
+docs = ["Sphinx"]
