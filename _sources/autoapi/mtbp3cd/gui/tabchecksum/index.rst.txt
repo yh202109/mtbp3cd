@@ -1,0 +1,54 @@
+mtbp3cd.gui.tabchecksum
+=======================
+
+.. py:module:: mtbp3cd.gui.tabchecksum
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   mtbp3cd.gui.tabchecksum.TabChecksum
+
+
+Module Contents
+---------------
+
+.. py:class:: TabChecksum(_p)
+
+   Bases: :py:obj:`PyQt6.QtWidgets.QWidget`
+
+
+   .. py:attribute:: selected_checksum_file
+      :value: None
+
+
+
+   .. py:attribute:: checksum_type
+
+
+   .. py:attribute:: tab_checksum2_button
+
+
+   .. py:attribute:: tab_checksum1_button
+
+
+   .. py:attribute:: tab_checksum3_button
+
+
+   .. py:attribute:: tab_widget
+
+
+   .. py:attribute:: check_results_tab
+
+
+   .. py:method:: tab_checksum1_button_f()
+
+
+   .. py:method:: tab_checksum3_button_f(_p)
+
+
+   .. py:method:: tab_checksum2_button_f(_p)
+
+

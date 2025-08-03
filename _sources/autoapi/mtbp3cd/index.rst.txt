@@ -1,0 +1,191 @@
+mtbp3cd
+=======
+
+.. py:module:: mtbp3cd
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/mtbp3cd/data/index
+   /autoapi/mtbp3cd/gui/index
+   /autoapi/mtbp3cd/util/index
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   mtbp3cd.app
+   mtbp3cd._ROOT
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   mtbp3cd.MainWedge
+   mtbp3cd.FileInventoryApp
+   mtbp3cd.LsrTree
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   mtbp3cd.runapp
+   mtbp3cd.get_data
+
+
+Package Contents
+----------------
+
+.. py:function:: runapp(type='FileInventory')
+
+.. py:class:: MainWedge
+
+   Bases: :py:obj:`PyQt6.QtWidgets.QWidget`
+
+
+   .. py:attribute:: style_btn_clicked
+      :value: 'QPushButton { background-color: #0078d7; color: white; border: none; padding: 3px 16px;...
+
+
+
+   .. py:attribute:: tabs
+
+
+   .. py:attribute:: tab_starting
+
+
+   .. py:attribute:: tab_folder
+
+
+   .. py:attribute:: tab_checksum
+
+
+   .. py:attribute:: sidebar_button_starting
+
+
+   .. py:attribute:: sidebar_button_folder
+
+
+   .. py:attribute:: sidebar_button_checksum
+
+
+   .. py:method:: update_sidebar_buttons_f(clicked_button)
+
+
+   .. py:method:: sidebar_button_starting_f()
+
+
+   .. py:method:: sidebar_button_folder_f()
+
+
+   .. py:method:: sidebar_button_checksum_f()
+
+
+.. py:class:: FileInventoryApp
+
+   Bases: :py:obj:`PyQt6.QtWidgets.QMainWindow`
+
+
+   .. py:attribute:: main_widget
+
+
+.. py:data:: app
+
+.. py:data:: _ROOT
+   :value: b'.'
+
+
+.. py:function:: get_data(path)
+
+.. py:class:: LsrTree(path='', outfmt='list', with_counts=False, count_str='', with_file_label=False, label_str='')
+
+   .. py:attribute:: path
+      :value: ''
+
+
+
+   .. py:attribute:: outfmt
+      :value: 'list'
+
+
+
+   .. py:attribute:: with_counts
+      :value: False
+
+
+
+   .. py:attribute:: count_str
+      :value: ''
+
+
+
+   .. py:method:: list_files()
+
+      List files in the specified directory based on the output format.
+
+      :returns: The list of files, JSON string, or DataFrame based on the output format.
+      :rtype: list or str or pd.DataFrame
+
+      .. rubric:: Examples
+
+      >>> lsr = LsrTree("/path/to/directory", outfmt="list")
+      >>> lsr.list_files()
+      ['file1.txt', 'file2.txt', 'file3.txt']
+
+
+
+   .. py:method:: list_files_json()
+
+      List files in the specified directory and return the result as a JSON string.
+
+      :returns: The JSON string representing the file list.
+      :rtype: str
+
+
+
+   .. py:method:: list_files_list()
+
+      List files in the specified directory and return the result as a list.
+
+      :returns: The list of files.
+      :rtype: list
+
+
+
+   .. py:method:: list_files_dataframe()
+
+      List files in the specified directory and return the result as a pandas DataFrame.
+
+      :returns: The DataFrame representing the file list.
+      :rtype: pd.DataFrame
+
+
+
+   .. py:method:: list_files_string()
+
+      List files in the specified directory using the default output format.
+
+      :returns: The file list as a string.
+      :rtype: str
+
+
+
+   .. py:method:: list_files_tree()
+
+      List files in the specified directory and return the result as a tree structure.
+
+      :returns: The tree structure representing the file list.
+      :rtype: str
+
+
+

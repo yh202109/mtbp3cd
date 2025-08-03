@@ -1,0 +1,78 @@
+mtbp3cd.gui.tabfolder
+=====================
+
+.. py:module:: mtbp3cd.gui.tabfolder
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   mtbp3cd.gui.tabfolder.TabFolder
+
+
+Module Contents
+---------------
+
+.. py:class:: TabFolder(_p)
+
+   Bases: :py:obj:`PyQt6.QtWidgets.QWidget`
+
+
+   .. py:attribute:: select_button
+
+
+   .. py:attribute:: list_tree_button
+
+
+   .. py:attribute:: list_table_button
+
+
+   .. py:attribute:: tabs
+
+
+   .. py:attribute:: tab_meta
+
+
+   .. py:attribute:: tab_tree
+
+
+   .. py:attribute:: tab_table
+
+
+   .. py:attribute:: tab_list
+
+
+   .. py:attribute:: meta_info
+
+
+   .. py:attribute:: tab_tree_str
+
+
+   .. py:attribute:: tab_table_qttable
+
+
+   .. py:attribute:: tab_list_str
+
+
+   .. py:attribute:: message_list
+
+
+   .. py:method:: show_message(message, success=True)
+
+
+   .. py:method:: select_button_f()
+
+
+   .. py:method:: util_get_folder_meta_info(folder)
+      :staticmethod:
+
+
+
+   .. py:method:: list_tree_button_f(_p)
+
+
+   .. py:method:: list_table_button_f(_p)
+
+

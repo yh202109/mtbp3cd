@@ -1,0 +1,105 @@
+mtbp3cd.gui.appfileinventory
+============================
+
+.. py:module:: mtbp3cd.gui.appfileinventory
+
+.. autoapi-nested-parse::
+
+   This module provides the main GUI components for the File Inventory Tool application.
+
+   Classes:
+       MainWedge (QWidget): The main widget containing the sidebar and tabbed interface for navigating
+           between different sections of the application, including output folder selection, input folder
+           selection, and checksum viewing.
+       FileInventoryApp (QMainWindow): The main window of the application, setting up the main widget
+           and window properties.
+
+   The GUI is built using PyQt6 and organizes the workflow into three main tabs, accessible via a sidebar:
+       - "Select Output Folder": For selecting and viewing the output folder.
+       - "Select Input Folder": For selecting and viewing the input folder.
+       - "Checksums": For viewing file checksums.
+
+   The sidebar buttons update the visible tab and highlight the selected section for user navigation.
+
+   Dependencies:
+       - PyQt6
+       - pandas
+
+   Usage:
+       Run this module as the main program to launch the File Inventory Tool GUI.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   mtbp3cd.gui.appfileinventory.app
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   mtbp3cd.gui.appfileinventory.MainWedge
+   mtbp3cd.gui.appfileinventory.FileInventoryApp
+
+
+Module Contents
+---------------
+
+.. py:class:: MainWedge
+
+   Bases: :py:obj:`PyQt6.QtWidgets.QWidget`
+
+
+   .. py:attribute:: style_btn_clicked
+      :value: 'QPushButton { background-color: #0078d7; color: white; border: none; padding: 3px 16px;...
+
+
+
+   .. py:attribute:: tabs
+
+
+   .. py:attribute:: tab_starting
+
+
+   .. py:attribute:: tab_folder
+
+
+   .. py:attribute:: tab_checksum
+
+
+   .. py:attribute:: sidebar_button_starting
+
+
+   .. py:attribute:: sidebar_button_folder
+
+
+   .. py:attribute:: sidebar_button_checksum
+
+
+   .. py:method:: update_sidebar_buttons_f(clicked_button)
+
+
+   .. py:method:: sidebar_button_starting_f()
+
+
+   .. py:method:: sidebar_button_folder_f()
+
+
+   .. py:method:: sidebar_button_checksum_f()
+
+
+.. py:class:: FileInventoryApp
+
+   Bases: :py:obj:`PyQt6.QtWidgets.QMainWindow`
+
+
+   .. py:attribute:: main_widget
+
+
+.. py:data:: app
+

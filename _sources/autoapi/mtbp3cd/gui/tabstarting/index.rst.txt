@@ -1,0 +1,45 @@
+mtbp3cd.gui.tabstarting
+=======================
+
+.. py:module:: mtbp3cd.gui.tabstarting
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   mtbp3cd.gui.tabstarting.TabStarting
+
+
+Module Contents
+---------------
+
+.. py:class:: TabStarting
+
+   Bases: :py:obj:`PyQt6.QtWidgets.QWidget`
+
+
+   .. py:attribute:: output_folder_path
+      :value: None
+
+
+
+   .. py:attribute:: box_proj_name
+
+
+   .. py:attribute:: output_folder_btn
+
+
+   .. py:attribute:: output_folder_label
+
+
+   .. py:attribute:: create_folder_btn
+
+
+   .. py:method:: output_folder_btn_f()
+
+
+   .. py:method:: create_folder_btn_f()
+
+

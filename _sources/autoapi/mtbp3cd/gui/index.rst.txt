@@ -1,0 +1,101 @@
+mtbp3cd.gui
+===========
+
+.. py:module:: mtbp3cd.gui
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/mtbp3cd/gui/appfileinventory/index
+   /autoapi/mtbp3cd/gui/tabchecksum/index
+   /autoapi/mtbp3cd/gui/tabfolder/index
+   /autoapi/mtbp3cd/gui/tabstarting/index
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   mtbp3cd.gui.app
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   mtbp3cd.gui.MainWedge
+   mtbp3cd.gui.FileInventoryApp
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   mtbp3cd.gui.runapp
+
+
+Package Contents
+----------------
+
+.. py:class:: MainWedge
+
+   Bases: :py:obj:`PyQt6.QtWidgets.QWidget`
+
+
+   .. py:attribute:: style_btn_clicked
+      :value: 'QPushButton { background-color: #0078d7; color: white; border: none; padding: 3px 16px;...
+
+
+
+   .. py:attribute:: tabs
+
+
+   .. py:attribute:: tab_starting
+
+
+   .. py:attribute:: tab_folder
+
+
+   .. py:attribute:: tab_checksum
+
+
+   .. py:attribute:: sidebar_button_starting
+
+
+   .. py:attribute:: sidebar_button_folder
+
+
+   .. py:attribute:: sidebar_button_checksum
+
+
+   .. py:method:: update_sidebar_buttons_f(clicked_button)
+
+
+   .. py:method:: sidebar_button_starting_f()
+
+
+   .. py:method:: sidebar_button_folder_f()
+
+
+   .. py:method:: sidebar_button_checksum_f()
+
+
+.. py:class:: FileInventoryApp
+
+   Bases: :py:obj:`PyQt6.QtWidgets.QMainWindow`
+
+
+   .. py:attribute:: main_widget
+
+
+.. py:data:: app
+
+.. py:function:: runapp(type='FileInventory')
+
