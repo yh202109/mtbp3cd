@@ -1,0 +1,63 @@
+name: ci
+
+on: [push, pull_request]
+
+jobs:
+  ci:
+    # Set up operating system
+    runs-on: ubuntu-latest
+
+    # Define job steps
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Check-out repository
+        uses: actions/checkout@v3
+
+      - name: Install poetry
+        uses: snok/install-poetry@v1
+
+      #- name: Install dvipng
+      #  run: sudo apt-get install dvipng
+
+      #- name: Install dvipng
+      #  run: sudo apt-get install dvisvgm
+
+      - name: Install package
+        run: poetry install
+
+      - name: Test with pytest
+        run: |
+          poetry run pytest --junitxml=docs/_static/reports/junit/junit.xml --html=docs/_static/reports/junit/report.html --self-contained-html
+          poetry run coverage run --source=mtbp3 -m pytest tests 
+          poetry run coverage xml -o docs/_static/reports/coverage/coverage.xml
+
+      #- name: Use Codecov to track coverage
+      #  #uses: codecov/codecov-action@v3
+      #  uses: codecov/codecov-action@v4
+      #  with:
+      #    directory: docs/_static/reports/coverage
+      #    files: coverage.xml 
+#
+      - name: Tests badge
+        run: |
+          poetry run genbadge tests -i docs/_static/reports/junit/junit.xml -o docs/_static/reports/junit/tests-badge.svg
+          poetry run genbadge coverage -i docs/_static/reports/coverage/coverage.xml -o docs/_static/reports/coverage/coverage-badge.svg
+
+      - name: Build documentation
+        run: |
+          mkdir gh-pages
+          touch gh-pages/.nojekyll
+          cd docs/
+          poetry run sphinx-build -b html . _build
+          cp -r _build/* ../gh-pages/        
+
+      - name: Deploy documentation
+        if: ${{ github.event_name == 'push' }}
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: gh-pages
