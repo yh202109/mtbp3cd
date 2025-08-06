@@ -11,9 +11,9 @@ Submodules
    :maxdepth: 1
 
    /autoapi/mtbp3cd/gui/appfileinventory/index
-   /autoapi/mtbp3cd/gui/tabchecksum/index
-   /autoapi/mtbp3cd/gui/tabfolder/index
-   /autoapi/mtbp3cd/gui/tabstarting/index
+   /autoapi/mtbp3cd/gui/gt01o_checksum/index
+   /autoapi/mtbp3cd/gui/gt01r_inputfolder/index
+   /autoapi/mtbp3cd/gui/gt01r_starting/index
 
 
 Attributes

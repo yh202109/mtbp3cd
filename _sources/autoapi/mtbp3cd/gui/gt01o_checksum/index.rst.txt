@@ -1,7 +1,7 @@
-mtbp3cd.gui.tabchecksum
-=======================
+mtbp3cd.gui.gt01o_checksum
+==========================
 
-.. py:module:: mtbp3cd.gui.tabchecksum
+.. py:module:: mtbp3cd.gui.gt01o_checksum
 
 
 Classes
@@ -9,7 +9,7 @@ Classes
 
 .. autoapisummary::
 
-   mtbp3cd.gui.tabchecksum.TabChecksum
+   mtbp3cd.gui.gt01o_checksum.TabChecksum
 
 
 Module Contents

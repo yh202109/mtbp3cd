@@ -1,7 +1,7 @@
-mtbp3cd.gui.tabstarting
-=======================
+mtbp3cd.gui.gt01r_starting
+==========================
 
-.. py:module:: mtbp3cd.gui.tabstarting
+.. py:module:: mtbp3cd.gui.gt01r_starting
 
 
 Classes
@@ -9,7 +9,7 @@ Classes
 
 .. autoapisummary::
 
-   mtbp3cd.gui.tabstarting.TabStarting
+   mtbp3cd.gui.gt01r_starting.TabStarting
 
 
 Module Contents

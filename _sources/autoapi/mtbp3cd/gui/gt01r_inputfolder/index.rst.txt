@@ -1,7 +1,7 @@
-mtbp3cd.gui.tabfolder
-=====================
+mtbp3cd.gui.gt01r_inputfolder
+=============================
 
-.. py:module:: mtbp3cd.gui.tabfolder
+.. py:module:: mtbp3cd.gui.gt01r_inputfolder
 
 
 Classes
@@ -9,7 +9,7 @@ Classes
 
 .. autoapisummary::
 
-   mtbp3cd.gui.tabfolder.TabFolder
+   mtbp3cd.gui.gt01r_inputfolder.TabFolder
 
 
 Module Contents
