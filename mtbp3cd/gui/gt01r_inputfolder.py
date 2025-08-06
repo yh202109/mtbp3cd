@@ -74,9 +74,8 @@ class TabFolder(QWidget):
         # BOX - Tab Tree 
         layout_tab_tree = QVBoxLayout()
         layout_tab_tree.setAlignment(Qt.AlignmentFlag.AlignTop)
-        self.tab_tree_str = QLabel("")
-        self.tab_tree_str.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
-        self.tab_tree_str.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
+        self.tab_tree_str = QListWidget()
+        self.tab_tree_str.setSelectionMode(QListWidget.SelectionMode.ExtendedSelection)
         self.tab_tree_str.setStyleSheet("font-family: 'Courier New', monospace;")
         layout_tab_tree.addWidget(self.tab_tree_str)
         self.tab_tree.setLayout(layout_tab_tree)
@@ -111,14 +110,13 @@ class TabFolder(QWidget):
         # BOX - Message List Widget
         self.message_list = QListWidget()
         self.message_list.setFixedHeight(self.message_list.sizeHintForRow(0) + 40)
-        self.message_list.setStyleSheet("background-color: rgba(211, 211, 211, 0.25);")
-        #self.message_list.setStyleSheet("background: transparent;")
+        self.message_list.setStyleSheet("background-color: rgba(211, 211, 211, 0.15);")
         layout_tab_folder.addWidget(self.message_list)
 
         self.setLayout(layout_tab_folder)
 
     def show_message(self, message, success=True):
-        color = "#228B22" if success else "#B22222"
+        color = "#528B55" if success else "#B55555"
         self.message_list.addItem(message)
         self.message_list.item(self.message_list.count() - 1).setForeground(Qt.GlobalColor.green if success else Qt.GlobalColor.red)
         self.message_list.scrollToBottom()
@@ -129,10 +127,12 @@ class TabFolder(QWidget):
             self.tab_folder_meta_str = self.util_get_folder_meta_info(folder)
             self.tab_folder_path = folder
             self.meta_info.setText(self.tab_folder_meta_str)
-            lsr1 = LsrTree(folder, outfmt="tree", with_counts=False)
+            lsr1 = LsrTree(folder, outfmt="tree", with_counts=True)
             self.tab_folder_tree_str = lsr1.list_files() 
-            self.list_tree_button.setEnabled(bool(self.tab_folder_tree_str.strip()))
-            self.tab_tree_str.setText( self.tab_folder_tree_str )
+            self.list_tree_button.setEnabled(bool(len(self.tab_folder_tree_str)>0))
+            self.tab_tree_str.clear()
+            self.tab_tree_str.addItems([str(item) for item in self.tab_folder_tree_str])
+            #self.tab_tree_str.setText( self.tab_folder_tree_str )
             lsr2 = LsrTree(folder, outfmt="dataframe")
             self.folder_file_list = lsr2.list_files_list()
             self.folder_file_df = lsr2.list_files_dataframe()
@@ -181,7 +181,8 @@ class TabFolder(QWidget):
         try:
             with open(file_path, "w", encoding="utf-8") as f:
                 f.write(self.tab_folder_meta_str + "\n\n")
-                f.write(self.tab_folder_tree_str + "\n\n")
+                for item in self.tab_folder_tree_str:
+                    f.write(str(item) + "\n")
                 for item in self.folder_file_list:
                     f.write(str(item) + "\n")
             self.show_message(f"Tree exported: {file_path}", success=True)

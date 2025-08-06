@@ -267,7 +267,7 @@ class LsrTree:
 
         prelst = prelst.loc[:, :'file']
         prelst_joined = prelst.apply(lambda row: ''.join(row), axis=1)
-        return "\n".join(prelst_joined)
+        return prelst_joined
 
 if __name__ == "__main__":
     #lsr = LsrTree("mtbp3/data/test_lsr", outfmt="list")

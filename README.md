@@ -71,12 +71,12 @@ Working Environment and Tools:
 
 ## How to Cite 
 
-Hsu, Y. (2024). mtbp3cd: My tool box for managing files and contents. [Software]. Retrieved from https://yh202109.github.io/mtbp3/index.html.
+Hsu, Y. (2025). mtbp3cd: My tool box for managing files and contents. [Software]. Retrieved from https://yh202109.github.io/mtbp3/index.html.
 
 ```
 @software{mtbp3,
   author = {Hsu, Y.},
-  title = {mtbp3: My tool box built for managing files and contents},
+  title = {mtbp3cd: My tool box built for managing files and contents},
   year = {2025},
   url = {https://yh202109.github.io/mtbp3cd/index.html},
   note = {Software}

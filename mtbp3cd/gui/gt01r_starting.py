@@ -42,8 +42,8 @@ class TabStarting(QWidget):
             QLineEdit().validator() or 
             QRegularExpressionValidator(QRegularExpression("[A-Za-z0-9]+"))
         )
-        self.box_proj_name.setPlaceholderText("Enter up to 12 chars (A-Za-z0-9)")
-        layout_proj_name.addWidget(QLabel("Step 1:\nType in a NEW output folder name (or leave blank for selecting an existing folder):"))
+        self.box_proj_name.setPlaceholderText("Enter up to 24 chars (A-Za-z0-9)")
+        layout_proj_name.addWidget(QLabel("Step 1:\nType in a NEW output folder name (or leave blank if save to an existing folder):"))
         layout_proj_name.addWidget(self.box_proj_name)
         layout_tab.addLayout(layout_proj_name)
 
@@ -77,7 +77,7 @@ class TabStarting(QWidget):
             else:
                 folder2 = folder
             if os.path.exists(folder2):
-                self.output_folder_label.setText(f"{folder2} (Ready!)")
+                self.output_folder_label.setText(f"{folder2}\n\nOutput folder selected. Continue to select input folder.")
                 self.create_folder_btn.setEnabled(False)
             else:
                 self.output_folder_label.setText(folder2)
@@ -91,7 +91,7 @@ class TabStarting(QWidget):
         if folder_path:
             try:
                 os.makedirs(folder_path, exist_ok=True)
-                self.output_folder_label.setText(f"{folder_path} (Ready!)")
+                self.output_folder_label.setText(f"{folder_path}\n\nOutput folder created. Continue to select input folder.")
             except Exception as e:
                 self.output_folder_label.setText(f"Error: {str(e)}")
                 self.output_folder_path = None
