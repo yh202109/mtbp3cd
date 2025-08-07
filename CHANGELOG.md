@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.3 (2025-08-06)
+
+- gt01
+    - add line number
+
 ## v0.1.2 (2025-08-06)
 
 - gt01

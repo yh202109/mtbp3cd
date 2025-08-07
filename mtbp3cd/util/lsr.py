@@ -225,7 +225,7 @@ class LsrTree:
             level = s1.count(os.sep)
             if len(d0) + len(f0) > 0:
                 if self.with_counts:
-                    data.append((os.path.dirname(s1), level, "folder", os.path.basename(s1), f"{pre[5]}<<<((( F={len(f0)}; D={len(d0)} )))>>>"))
+                    data.append((os.path.dirname(s1), level, "folder", os.path.basename(s1), f"{pre[5]}............ [Count: F={len(f0)}; D={len(d0)}]"))
                 else:
                     data.append((os.path.dirname(s1), level, "folder", os.path.basename(s1), ""))
                 for index, f1 in enumerate(sorted(f0)):
@@ -234,7 +234,7 @@ class LsrTree:
                     data.append((s1, level + 1, "folder", d1, ""))
             else:
                 if self.with_counts:
-                    data.append((os.path.dirname(s1), level, "folder", os.path.basename(s1), f"{pre[5]}<<<((( Empty Folder )))>>>"))
+                    data.append((os.path.dirname(s1), level, "folder", os.path.basename(s1), f"{pre[5]}............ [Count: Empty Folder]"))
                 else:
                     data.append((os.path.dirname(s1), level, "folder", os.path.basename(s1), ""))
 

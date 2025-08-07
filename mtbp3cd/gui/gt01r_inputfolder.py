@@ -131,14 +131,15 @@ class TabFolder(QWidget):
             self.tab_folder_tree_str = lsr1.list_files() 
             self.list_tree_button.setEnabled(bool(len(self.tab_folder_tree_str)>0))
             self.tab_tree_str.clear()
-            self.tab_tree_str.addItems([str(item) for item in self.tab_folder_tree_str])
+            width = len(str(len(self.tab_folder_tree_str)))
+            self.tab_tree_str.addItems([f"{str(idx+1).zfill(width)}: {str(item)}" for idx, item in enumerate(self.tab_folder_tree_str)])
             #self.tab_tree_str.setText( self.tab_folder_tree_str )
             lsr2 = LsrTree(folder, outfmt="dataframe")
             self.folder_file_list = lsr2.list_files_list()
             self.folder_file_df = lsr2.list_files_dataframe()
             self.list_table_button.setEnabled(self.folder_file_df is not None)
             self.tab_list_str.clear()
-            self.tab_list_str.addItems([str(item) for item in self.folder_file_list])
+            self.tab_list_str.addItems([f"{str(idx+1).zfill(width)}: {str(item)}" for idx, item in enumerate(self.folder_file_list)])
 
             # Display DataFrame in the QTableWidget
             self.tab_table_qttable.clear()

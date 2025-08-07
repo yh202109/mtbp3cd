@@ -45,7 +45,7 @@ import sys
 from PyQt6.QtCore import Qt
 
 from datetime import datetime
-import mtbp3cd.gui.gt01r_starting as gt01r_starting, mtbp3cd.gui.gt01r_inputfolder as gt01r_inputfolder, mtbp3cd.gui.gt01o_tabchecksum as gt01o_tabchecksum 
+import mtbp3cd.gui.gt01r_starting as gt01r_starting, mtbp3cd.gui.gt01r_inputfolder as gt01r_inputfolder, mtbp3cd.gui.gt01o_checksum as gt01o_checksum 
 
 from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QWidget, 
@@ -62,7 +62,7 @@ class MainWedge(QWidget):
         self.tabs.tabBar().setVisible(False)
         self.tab_starting = gt01r_starting.TabStarting()
         self.tab_folder = gt01r_inputfolder.TabFolder(self)
-        self.tab_checksum = gt01o_tabchecksum.TabChecksum(self)
+        self.tab_checksum = gt01o_checksum.TabChecksum(self)
 
         ###### TAB - starting ######
         layout_tab_starting = QVBoxLayout()
