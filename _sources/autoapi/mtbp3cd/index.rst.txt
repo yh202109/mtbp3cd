@@ -22,6 +22,7 @@ Attributes
 
    mtbp3cd.app
    mtbp3cd._ROOT
+   mtbp3cd.__version__
 
 
 Classes
@@ -58,7 +59,16 @@ Package Contents
 
 
 
-   .. py:attribute:: tabs
+   .. py:attribute:: sidebar_button_starting
+
+
+   .. py:attribute:: sidebar_button_folder
+
+
+   .. py:attribute:: sidebar_button_checksum
+
+
+   .. py:attribute:: sidebar_button_record
 
 
    .. py:attribute:: tab_starting
@@ -70,13 +80,10 @@ Package Contents
    .. py:attribute:: tab_checksum
 
 
-   .. py:attribute:: sidebar_button_starting
+   .. py:attribute:: tab_record
 
 
-   .. py:attribute:: sidebar_button_folder
-
-
-   .. py:attribute:: sidebar_button_checksum
+   .. py:attribute:: tabs
 
 
    .. py:method:: update_sidebar_buttons_f(clicked_button)
@@ -89,6 +96,9 @@ Package Contents
 
 
    .. py:method:: sidebar_button_checksum_f()
+
+
+   .. py:method:: sidebar_button_record_f()
 
 
 .. py:class:: FileInventoryApp
@@ -162,6 +172,11 @@ Package Contents
 
 
 
+   .. py:method:: get_md5(file_path)
+      :staticmethod:
+
+
+
    .. py:method:: list_files_dataframe()
 
       List files in the specified directory and return the result as a pandas DataFrame.
@@ -188,4 +203,6 @@ Package Contents
       :rtype: str
 
 
+
+.. py:data:: __version__
 

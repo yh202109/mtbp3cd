@@ -12,6 +12,7 @@ Submodules
 
    /autoapi/mtbp3cd/gui/appfileinventory/index
    /autoapi/mtbp3cd/gui/gt01o_checksum/index
+   /autoapi/mtbp3cd/gui/gt01o_record/index
    /autoapi/mtbp3cd/gui/gt01r_inputfolder/index
    /autoapi/mtbp3cd/gui/gt01r_starting/index
 
@@ -54,7 +55,16 @@ Package Contents
 
 
 
-   .. py:attribute:: tabs
+   .. py:attribute:: sidebar_button_starting
+
+
+   .. py:attribute:: sidebar_button_folder
+
+
+   .. py:attribute:: sidebar_button_checksum
+
+
+   .. py:attribute:: sidebar_button_record
 
 
    .. py:attribute:: tab_starting
@@ -66,13 +76,10 @@ Package Contents
    .. py:attribute:: tab_checksum
 
 
-   .. py:attribute:: sidebar_button_starting
+   .. py:attribute:: tab_record
 
 
-   .. py:attribute:: sidebar_button_folder
-
-
-   .. py:attribute:: sidebar_button_checksum
+   .. py:attribute:: tabs
 
 
    .. py:method:: update_sidebar_buttons_f(clicked_button)
@@ -85,6 +92,9 @@ Package Contents
 
 
    .. py:method:: sidebar_button_checksum_f()
+
+
+   .. py:method:: sidebar_button_record_f()
 
 
 .. py:class:: FileInventoryApp

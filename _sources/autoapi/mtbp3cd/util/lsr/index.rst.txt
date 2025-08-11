@@ -70,6 +70,11 @@ Module Contents
 
 
 
+   .. py:method:: get_md5(file_path)
+      :staticmethod:
+
+
+
    .. py:method:: list_files_dataframe()
 
       List files in the specified directory and return the result as a pandas DataFrame.

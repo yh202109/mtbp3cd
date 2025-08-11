@@ -69,6 +69,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#mtbp3cd._ROOT"><code class="docutils literal notranslate"><span class="pre">_ROOT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mtbp3cd.get_data"><code class="docutils literal notranslate"><span class="pre">get_data()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mtbp3cd.LsrTree"><code class="docutils literal notranslate"><span class="pre">LsrTree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mtbp3cd.__version__"><code class="docutils literal notranslate"><span class="pre">__version__</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -124,6 +125,9 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#mtbp3cd._ROOT" title="mtbp3cd._ROOT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_ROOT</span></code></a></p></td>
 <td><p></p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mtbp3cd.__version__" title="mtbp3cd.__version__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__version__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -173,8 +177,23 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mtbp3cd.MainWedge.tabs">
-<span class="sig-name descname"><span class="pre">tabs</span></span><a class="headerlink" href="#mtbp3cd.MainWedge.tabs" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mtbp3cd.MainWedge.sidebar_button_starting">
+<span class="sig-name descname"><span class="pre">sidebar_button_starting</span></span><a class="headerlink" href="#mtbp3cd.MainWedge.sidebar_button_starting" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mtbp3cd.MainWedge.sidebar_button_folder">
+<span class="sig-name descname"><span class="pre">sidebar_button_folder</span></span><a class="headerlink" href="#mtbp3cd.MainWedge.sidebar_button_folder" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mtbp3cd.MainWedge.sidebar_button_checksum">
+<span class="sig-name descname"><span class="pre">sidebar_button_checksum</span></span><a class="headerlink" href="#mtbp3cd.MainWedge.sidebar_button_checksum" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mtbp3cd.MainWedge.sidebar_button_record">
+<span class="sig-name descname"><span class="pre">sidebar_button_record</span></span><a class="headerlink" href="#mtbp3cd.MainWedge.sidebar_button_record" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -193,18 +212,13 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mtbp3cd.MainWedge.sidebar_button_starting">
-<span class="sig-name descname"><span class="pre">sidebar_button_starting</span></span><a class="headerlink" href="#mtbp3cd.MainWedge.sidebar_button_starting" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mtbp3cd.MainWedge.tab_record">
+<span class="sig-name descname"><span class="pre">tab_record</span></span><a class="headerlink" href="#mtbp3cd.MainWedge.tab_record" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mtbp3cd.MainWedge.sidebar_button_folder">
-<span class="sig-name descname"><span class="pre">sidebar_button_folder</span></span><a class="headerlink" href="#mtbp3cd.MainWedge.sidebar_button_folder" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mtbp3cd.MainWedge.sidebar_button_checksum">
-<span class="sig-name descname"><span class="pre">sidebar_button_checksum</span></span><a class="headerlink" href="#mtbp3cd.MainWedge.sidebar_button_checksum" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mtbp3cd.MainWedge.tabs">
+<span class="sig-name descname"><span class="pre">tabs</span></span><a class="headerlink" href="#mtbp3cd.MainWedge.tabs" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -225,6 +239,11 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="mtbp3cd.MainWedge.sidebar_button_checksum_f">
 <span class="sig-name descname"><span class="pre">sidebar_button_checksum_f</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mtbp3cd.MainWedge.sidebar_button_checksum_f" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mtbp3cd.MainWedge.sidebar_button_record_f">
+<span class="sig-name descname"><span class="pre">sidebar_button_record_f</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mtbp3cd.MainWedge.sidebar_button_record_f" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -327,6 +346,11 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="mtbp3cd.LsrTree.get_md5">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_md5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mtbp3cd.LsrTree.get_md5" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="mtbp3cd.LsrTree.list_files_dataframe">
 <span class="sig-name descname"><span class="pre">list_files_dataframe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mtbp3cd.LsrTree.list_files_dataframe" title="Link to this definition"></a></dt>
 <dd><p>List files in the specified directory and return the result as a pandas DataFrame.</p>
@@ -369,6 +393,11 @@
 </dd></dl>
 
 </dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="mtbp3cd.__version__">
+<span class="sig-prename descclassname"><span class="pre">mtbp3cd.</span></span><span class="sig-name descname"><span class="pre">__version__</span></span><a class="headerlink" href="#mtbp3cd.__version__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 </section>
 </section>

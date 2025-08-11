@@ -20,26 +20,26 @@ Module Contents
    Bases: :py:obj:`PyQt6.QtWidgets.QWidget`
 
 
-   .. py:attribute:: output_folder_path
+   .. py:attribute:: gt01_output_folder_path
       :value: None
 
 
 
-   .. py:attribute:: box_proj_name
+   .. py:attribute:: tab_input1
 
 
-   .. py:attribute:: output_folder_btn
+   .. py:attribute:: tab_button_1
 
 
-   .. py:attribute:: output_folder_label
+   .. py:attribute:: tab_button_2_label
 
 
-   .. py:attribute:: create_folder_btn
+   .. py:attribute:: tab_button_2
 
 
-   .. py:method:: output_folder_btn_f()
+   .. py:method:: tab_button_1_f()
 
 
-   .. py:method:: create_folder_btn_f()
+   .. py:method:: tab_button_2_f()
 
 

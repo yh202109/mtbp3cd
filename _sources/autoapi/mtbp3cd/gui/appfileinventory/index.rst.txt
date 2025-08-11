@@ -60,7 +60,16 @@ Module Contents
 
 
 
-   .. py:attribute:: tabs
+   .. py:attribute:: sidebar_button_starting
+
+
+   .. py:attribute:: sidebar_button_folder
+
+
+   .. py:attribute:: sidebar_button_checksum
+
+
+   .. py:attribute:: sidebar_button_record
 
 
    .. py:attribute:: tab_starting
@@ -72,13 +81,10 @@ Module Contents
    .. py:attribute:: tab_checksum
 
 
-   .. py:attribute:: sidebar_button_starting
+   .. py:attribute:: tab_record
 
 
-   .. py:attribute:: sidebar_button_folder
-
-
-   .. py:attribute:: sidebar_button_checksum
+   .. py:attribute:: tabs
 
 
    .. py:method:: update_sidebar_buttons_f(clicked_button)
@@ -91,6 +97,9 @@ Module Contents
 
 
    .. py:method:: sidebar_button_checksum_f()
+
+
+   .. py:method:: sidebar_button_record_f()
 
 
 .. py:class:: FileInventoryApp

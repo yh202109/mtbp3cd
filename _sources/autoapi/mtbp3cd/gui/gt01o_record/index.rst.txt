@@ -1,0 +1,55 @@
+mtbp3cd.gui.gt01o_record
+========================
+
+.. py:module:: mtbp3cd.gui.gt01o_record
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   mtbp3cd.gui.gt01o_record.TabRecord
+
+
+Module Contents
+---------------
+
+.. py:class:: TabRecord(_p)
+
+   Bases: :py:obj:`PyQt6.QtWidgets.QWidget`
+
+
+   .. py:attribute:: _p
+
+
+   .. py:attribute:: tab_button_1
+
+
+   .. py:attribute:: tab_button_2
+
+
+   .. py:attribute:: tab_tabs_table_1
+
+
+   .. py:attribute:: tab_tabs_table_2
+
+
+   .. py:attribute:: tab_tabs_table_3
+
+
+   .. py:attribute:: tab_tabs
+
+
+   .. py:attribute:: message_list
+
+
+   .. py:method:: tab_button_1_f()
+
+
+   .. py:method:: tab_button_2_f()
+
+
+   .. py:method:: show_message(message, success=True)
+
+
