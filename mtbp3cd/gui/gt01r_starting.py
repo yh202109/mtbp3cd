@@ -17,14 +17,13 @@
 import os
 import pandas as pd
 from datetime import datetime
-from PyQt6.QtWidgets import QLineEdit, QHBoxLayout
 from PyQt6.QtCore import Qt, QRegularExpression
 from PyQt6.QtGui import QRegularExpressionValidator 
 
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, 
     QPushButton, QLabel,
-    QTableWidget, QFileDialog
+    QFileDialog, QLineEdit
 )
 
 class TabStarting(QWidget):
@@ -32,71 +31,84 @@ class TabStarting(QWidget):
         super().__init__()
         layout_tab = QVBoxLayout()
         layout_tab.setAlignment(Qt.AlignmentFlag.AlignTop)
-        self.output_folder_path = None
+        self.gt01_output_folder_path = None
 
         ###### Step 1
-        layout_proj_name = QVBoxLayout()
-        self.box_proj_name = QLineEdit()
-        self.box_proj_name.setMaxLength(12)
-        self.box_proj_name.setValidator(
+        self.tab_input1 = QLineEdit()
+        self.tab_input1.setMaxLength(12)
+        self.tab_input1.setValidator(
             QLineEdit().validator() or 
             QRegularExpressionValidator(QRegularExpression("[A-Za-z0-9]+"))
         )
-        self.box_proj_name.setPlaceholderText("Enter up to 24 chars (A-Za-z0-9)")
-        layout_proj_name.addWidget(QLabel("Step 1:\nType in a NEW output folder name (or leave blank if save to an existing folder):"))
-        layout_proj_name.addWidget(self.box_proj_name)
-        layout_tab.addLayout(layout_proj_name)
+        self.tab_input1.setText("output")
+        self.tab_input1.setPlaceholderText("Enter up to 24 chars (A-Za-z0-9)")
+
+        layout_tab_input1 = QVBoxLayout()
+        layout_tab_input1.addWidget(QLabel("Step 1:\nType in a NEW output folder prefix (or leave blank if save to an existing folder):"))
+        layout_tab_input1.addWidget(self.tab_input1)
+        layout_tab.addLayout(layout_tab_input1)
 
         ###### Step 2
-        layout_output_folder1 = QVBoxLayout()
-        self.output_folder_btn = QPushButton("Select Output Path")
-        self.output_folder_btn.clicked.connect(self.output_folder_btn_f)
-        layout_output_folder1.addWidget(QLabel("Step 2:\nSelect output path:"))
-        layout_output_folder1.addWidget(self.output_folder_btn)
-        layout_tab.addLayout(layout_output_folder1)
+        self.tab_button_1 = QPushButton("Select Output Path")
+        self.tab_button_1.clicked.connect(self.tab_button_1_f)
+
+        layout_tab_button_1 = QVBoxLayout()
+        layout_tab_button_1.addWidget(QLabel("Step 2:\nSelect output path:"))
+        layout_tab_button_1.addWidget(self.tab_button_1)
+        layout_tab.addLayout(layout_tab_button_1)
 
         ###### Step 3
-        layout_output_folder2 = QVBoxLayout()
-        self.output_folder_label = QLabel("No folder selected")
-        self.create_folder_btn = QPushButton("Create and Set Output Folder")
-        self.create_folder_btn.setEnabled(False)
-        self.create_folder_btn.clicked.connect(self.create_folder_btn_f)
-        layout_output_folder2.addWidget(QLabel("Step 3:\nConfirm that outputs will be saved to this folder:"))
-        layout_output_folder2.addWidget(self.output_folder_label)
-        layout_output_folder2.addWidget(self.create_folder_btn)
-        layout_tab.addLayout(layout_output_folder2)
+        self.tab_button_2_label = QLabel("No folder selected")
+        self.tab_button_2 = QPushButton("Create and Set Output Folder")
+        self.tab_button_2.setEnabled(False)
+        self.tab_button_2.clicked.connect(self.tab_button_2_f)
+
+        layout_tab_button_2 = QVBoxLayout()
+        layout_tab_button_2.addWidget(QLabel("Step 3:\nConfirm that outputs will be saved to this folder:"))
+        layout_tab_button_2.addWidget(self.tab_button_2_label)
+        layout_tab_button_2.addWidget(self.tab_button_2)
+        layout_tab.addLayout(layout_tab_button_2)
 
         self.setLayout(layout_tab)
 
-    def output_folder_btn_f(self):
+    def tab_button_1_f(self):
         folder = QFileDialog.getExistingDirectory(self, "Select Output Folder")
         if folder:
-            if self.box_proj_name.text():
-                date_int = int(datetime.now().strftime("%Y%m%d"))
-                folder2 = os.path.join(folder, f"{self.box_proj_name.text()}_{date_int}")
+            if self.tab_input1.text():
+                date_str = datetime.now().strftime("%Y%m%dT%H%M%S")
+                folder2 = os.path.join(folder, f"{self.tab_input1.text()}_{date_str}")
             else:
                 folder2 = folder
             if os.path.exists(folder2):
-                self.output_folder_label.setText(f"{folder2}\n\nOutput folder selected. Continue to select input folder.")
-                self.create_folder_btn.setEnabled(False)
+                existing_files = os.listdir(folder2)
+                if existing_files:
+                    self.tab_button_2_label.setText(
+                        f"{folder2}\n\nWARNING: {len(existing_files)} file(s) exist and may be overwritten!\n\nOutput folder selected. Please continue to select input folder."
+                    )
+                else:
+                    self.tab_button_2_label.setText(
+                        f"{folder2}\n\nOutput folder selected. Please continue to select input folder."
+                    )
+                self.tab_button_2.setEnabled(False)
             else:
-                self.output_folder_label.setText(folder2)
-                self.create_folder_btn.setEnabled(True)
-            self.output_folder_path = folder2
+                self.tab_button_2_label.setText(folder2)
+                self.tab_button_2.setEnabled(True)
+            self.gt01_output_folder_path = folder2
         else:
-            self.output_folder_label.setText("No folder selected")
+            self.tab_button_2_label.setText("No folder selected")
 
-    def create_folder_btn_f(self):
-        folder_path = self.output_folder_path
+    def tab_button_2_f(self):
+        folder_path = self.gt01_output_folder_path
         if folder_path:
             try:
                 os.makedirs(folder_path, exist_ok=True)
-                self.output_folder_label.setText(f"{folder_path}\n\nOutput folder created. Continue to select input folder.")
+                self.tab_button_2_label.setText(f"{folder_path}\n\nOutput folder created. Continue to select input folder.")
+                self.tab_button_2.setEnabled(False)
             except Exception as e:
-                self.output_folder_label.setText(f"Error: {str(e)}")
-                self.output_folder_path = None
+                self.tab_button_2_label.setText(f"Error: {str(e)}")
+                self.gt01_output_folder_path = None
         else:
-            self.output_folder_label.setText("No folder selected")
+            self.tab_button_2_label.setText("No folder selected")
 
 if __name__ == "__main__":
     pass

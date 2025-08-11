@@ -39,13 +39,10 @@ Usage:
     Run this module as the main program to launch the File Inventory Tool GUI.
 
 """
-import os
-import pandas as pd
 import sys
 from PyQt6.QtCore import Qt
 
-from datetime import datetime
-import mtbp3cd.gui.gt01r_starting as gt01r_starting, mtbp3cd.gui.gt01r_inputfolder as gt01r_inputfolder, mtbp3cd.gui.gt01o_checksum as gt01o_checksum 
+import mtbp3cd.gui.gt01r_starting as gt01r_starting, mtbp3cd.gui.gt01r_inputfolder as gt01r_inputfolder, mtbp3cd.gui.gt01o_checksum as gt01o_checksum, mtbp3cd.gui.gt01o_record as gt01o_record  
 
 from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QWidget, 
@@ -58,49 +55,51 @@ class MainWedge(QWidget):
         super().__init__()
         self.style_btn_clicked = "QPushButton { background-color: #0078d7; color: white; border: none; padding: 3px 16px; border-radius: 4px; }"
 
-        self.tabs = QTabWidget()
-        self.tabs.tabBar().setVisible(False)
-        self.tab_starting = gt01r_starting.TabStarting()
-        self.tab_folder = gt01r_inputfolder.TabFolder(self)
-        self.tab_checksum = gt01o_checksum.TabChecksum(self)
-
-        ###### TAB - starting ######
-        layout_tab_starting = QVBoxLayout()
-        layout_tab_starting.setAlignment(Qt.AlignmentFlag.AlignTop)
-
-        ###### TAB - ALL ######
-        self.tabs.addTab(self.tab_starting, "View Output Folder")
-        self.tabs.addTab(self.tab_folder, "View Input Folder")
-        self.tabs.addTab(self.tab_checksum, "View Checksums")
-
         ###### SIDEBAR ######
         self.sidebar_button_starting = QPushButton("Select Output Folder")
-        self.sidebar_button_starting.setChecked(True)
         self.sidebar_button_starting.setStyleSheet(self.style_btn_clicked)
-        self.sidebar_button_folder = QPushButton("Select Input Folder")
-        self.sidebar_button_checksum = QPushButton("Checksums")
-
         self.sidebar_button_starting.clicked.connect(self.sidebar_button_starting_f)
-        self.sidebar_button_folder.clicked.connect(self.sidebar_button_folder_f)
-        self.sidebar_button_checksum.clicked.connect(self.sidebar_button_checksum_f)
-
         self.sidebar_button_starting.setCheckable(True)
+
+        self.sidebar_button_folder = QPushButton("Select Input Folder")
+        self.sidebar_button_folder.clicked.connect(self.sidebar_button_folder_f)
         self.sidebar_button_folder.setCheckable(True)
+
+        self.sidebar_button_checksum = QPushButton("Checksum")
+        self.sidebar_button_checksum.clicked.connect(self.sidebar_button_checksum_f)
         self.sidebar_button_checksum.setCheckable(True)
 
-        # Sidebar layout
+        self.sidebar_button_record = QPushButton("Compare Record")
+        self.sidebar_button_record.clicked.connect(self.sidebar_button_record_f)
+        self.sidebar_button_record.setCheckable(True)
+
+        ###### Layout - SIDEBAR ######
         layout_sidebar = QVBoxLayout()
         layout_sidebar.setAlignment(Qt.AlignmentFlag.AlignTop)
         layout_sidebar.addWidget(QLabel("<b>Starts Here:</b>"))
         layout_sidebar.addWidget(self.sidebar_button_starting)
         layout_sidebar.addWidget(self.sidebar_button_folder)
-        layout_sidebar.addWidget(self.sidebar_button_checksum)
         layout_sidebar.addWidget(QLabel("<b>Task:</b>"))
+        layout_sidebar.addWidget(self.sidebar_button_checksum)
+        layout_sidebar.addWidget(self.sidebar_button_record)
 
         sidebar_widget = QWidget()
         sidebar_widget.setLayout(layout_sidebar)
 
-        # Main Layout
+        ###### TAB - ALL ######
+        self.tab_starting = gt01r_starting.TabStarting()
+        self.tab_folder = gt01r_inputfolder.TabFolder(self)
+        self.tab_checksum = gt01o_checksum.TabChecksum(self)
+        self.tab_record = gt01o_record.TabRecord(self)
+
+        self.tabs = QTabWidget()
+        self.tabs.tabBar().setVisible(False)
+        self.tabs.addTab(self.tab_starting, "View Output Folder")
+        self.tabs.addTab(self.tab_folder, "View Input Folder")
+        self.tabs.addTab(self.tab_checksum, "View Checksums")
+        self.tabs.addTab(self.tab_record, "View Record")
+
+        ###### Layout - TAB - ALL ######
         layout_h = QHBoxLayout()
         layout_h.addWidget(sidebar_widget)
         layout_h.addWidget(self.tabs)
@@ -111,6 +110,7 @@ class MainWedge(QWidget):
             self.sidebar_button_starting,
             self.sidebar_button_folder,
             self.sidebar_button_checksum,
+            self.sidebar_button_record,
         ]:
             if btn is clicked_button:
                 btn.setStyleSheet(self.style_btn_clicked)
@@ -131,6 +131,9 @@ class MainWedge(QWidget):
         self.tabs.setCurrentWidget(self.tab_checksum)
         self.update_sidebar_buttons_f(self.sidebar_button_checksum)
 
+    def sidebar_button_record_f(self):
+        self.tabs.setCurrentWidget(self.tab_record)
+        self.update_sidebar_buttons_f(self.sidebar_button_record)
 
 class FileInventoryApp(QMainWindow):
     def __init__(self):

@@ -21,6 +21,7 @@ import pandas as pd
 import time
 import numpy as np
 import pypdf 
+import hashlib
 
 class LsrTree:
     def __init__(self, path="", outfmt="list", with_counts=False, count_str="", with_file_label=False, label_str=""):
@@ -113,6 +114,18 @@ class LsrTree:
                 files.append(s1 + "/(((empty folder)))")
         return files
 
+    @staticmethod
+    def get_md5(file_path):
+        hash_md5 = hashlib.md5()
+        try:
+            with open(file_path, "rb") as f:
+                for chunk in iter(lambda: f.read(4096), b""):
+                    hash_md5.update(chunk)
+            return hash_md5.hexdigest()
+        except Exception:
+            return None
+
+
     def list_files_dataframe(self):
         """
         List files in the specified directory and return the result as a pandas DataFrame.
@@ -139,6 +152,7 @@ class LsrTree:
                     num_pages = None
                     num_columns = None
                     num_rows = None
+                    file_md5 = self.get_md5(file_path)
                     if file_type == "xlsx":
                         try:
                             excel_file = pd.ExcelFile(file_path)
@@ -172,10 +186,10 @@ class LsrTree:
                             pdf = pypdf.PdfReader(f, strict=False)
                             num_pages = pdf.get_num_pages()
 
-                    data.append((s1, level + 1, "file", f1, str(file_size), file_modified, file_created, file_type, str(num_pages), str(num_columns), str(num_rows)))
+                    data.append((s1, level + 1, "file", f1, str(file_size), file_modified, file_created, file_type, str(num_pages), str(num_columns), str(num_rows), file_md5))
             elif len(d0) == 0:
                 data.append((s1, level, "folder", "<<<((( Empty Folder )))>>>", None, None, None, None, None, None, None))
-        df = pd.DataFrame(data, columns=["path", "level", "type", "file", "size_in_bytes", "modified", "created", "file_type", "N_page", "N_column", "N_row"])
+        df = pd.DataFrame(data, columns=["path", "level", "type", "file", "size_in_bytes", "modified", "created", "file_type", "N_page", "N_column", "N_row", "md5"])
         return df
 
     def list_files_string(self):

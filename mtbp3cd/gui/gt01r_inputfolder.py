@@ -17,42 +17,37 @@ import os
 import pandas as pd
 from PyQt6.QtCore import Qt
 from datetime import datetime
-from PyQt6.QtWidgets import QListWidget
 from mtbp3cd.util.lsr import LsrTree
+import json
 
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, 
     QPushButton, QLabel,
     QTableWidget, QFileDialog,
     QTabWidget, QHBoxLayout,
-    QTableWidgetItem
+    QTableWidgetItem, QListWidget
 )
 
 class TabFolder(QWidget):
     def __init__(self, _p):
         super().__init__()
-        layout_tab_folder = QVBoxLayout()
-        layout_tab_folder.setAlignment(Qt.AlignmentFlag.AlignTop)
 
-        # BOX - Save button
+        self.tab_button_1 = QPushButton("Step 1: Select")
+        self.tab_button_1.setEnabled(True)
+        self.tab_button_1.clicked.connect(self.tab_button_1_f)
+
+        self.tab_button_2 = QPushButton("Step 2: Save tree.txt and meta.json")
+        self.tab_button_2.setEnabled(False)
+        self.tab_button_2.clicked.connect(lambda: self.tab_button_2_f(_p))
+
+        self.tab_button_3 = QPushButton("Step 3: Save table.csv")
+        self.tab_button_3.setEnabled(False)
+        self.tab_button_3.clicked.connect(lambda: self.tab_button_3_f(_p))
+
         layout_button = QHBoxLayout()
-
-        self.select_button = QPushButton("Step 1: Select")
-        self.select_button.setEnabled(True)
-        self.select_button.clicked.connect(self.select_button_f)
-        layout_button.addWidget(self.select_button)
-
-        self.list_tree_button = QPushButton("Step 2: Save tree and list")
-        self.list_tree_button.setEnabled(False)
-        self.list_tree_button.clicked.connect(lambda: self.list_tree_button_f(_p))
-        layout_button.addWidget(self.list_tree_button)
-
-        # BOX - Export DataFrame as CSV
-        self.list_table_button = QPushButton("Step 3: Save table")
-        self.list_table_button.setEnabled(False)
-        self.list_table_button.clicked.connect(lambda: self.list_table_button_f(_p))
-        layout_button.addWidget(self.list_table_button)
-        layout_tab_folder.addLayout(layout_button)
+        layout_button.addWidget(self.tab_button_1)
+        layout_button.addWidget(self.tab_button_2)
+        layout_button.addWidget(self.tab_button_3)
 
         # BOX - tabs
         self.tabs = QTabWidget()
@@ -62,40 +57,46 @@ class TabFolder(QWidget):
         self.tab_list = QWidget()
 
         # BOX - Tab Meta 
+        self.tab_meta_table = QTableWidget()
+        self.tab_meta_table.setColumnCount(2)
+        self.tab_meta_table.setHorizontalHeaderLabels(["Key", "Value"])
+        self.tab_meta_table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
+        self.tab_meta_table.setSelectionMode(QTableWidget.SelectionMode.NoSelection)
+        self.tab_meta_table.setStyleSheet("font-family: 'Courier New', monospace;")
+
         layout_tab_meta = QVBoxLayout()
         layout_tab_meta.setAlignment(Qt.AlignmentFlag.AlignTop)
-        self.meta_info = QLabel("Info: None")
-        self.meta_info.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
-        self.meta_info.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
-        self.meta_info.setStyleSheet("font-family: 'Courier New', monospace; border: 1px groove #cccccc; border-radius: 4px; padding: 4px 8px;")
-        layout_tab_meta.addWidget(self.meta_info)
+        layout_tab_meta.addWidget(self.tab_meta_table)
         self.tab_meta.setLayout(layout_tab_meta)
 
         # BOX - Tab Tree 
-        layout_tab_tree = QVBoxLayout()
-        layout_tab_tree.setAlignment(Qt.AlignmentFlag.AlignTop)
         self.tab_tree_str = QListWidget()
         self.tab_tree_str.setSelectionMode(QListWidget.SelectionMode.ExtendedSelection)
         self.tab_tree_str.setStyleSheet("font-family: 'Courier New', monospace;")
+
+        layout_tab_tree = QVBoxLayout()
+        layout_tab_tree.setAlignment(Qt.AlignmentFlag.AlignTop)
         layout_tab_tree.addWidget(self.tab_tree_str)
         self.tab_tree.setLayout(layout_tab_tree)
 
         # BOX - DataFrame Preview 
-        layout_tab_table = QVBoxLayout()
-        layout_tab_table.setAlignment(Qt.AlignmentFlag.AlignTop)
         self.tab_table_qttable = QTableWidget()
         self.tab_table_qttable.setColumnCount(0)
         self.tab_table_qttable.setRowCount(0)
         self.tab_table_qttable.setVisible(True)
+
+        layout_tab_table = QVBoxLayout()
+        layout_tab_table.setAlignment(Qt.AlignmentFlag.AlignTop)
         layout_tab_table.addWidget(self.tab_table_qttable)
         self.tab_table.setLayout(layout_tab_table)
 
         # BOX - Tab List 
-        layout_tab_list = QVBoxLayout()
-        layout_tab_list.setAlignment(Qt.AlignmentFlag.AlignTop)
         self.tab_list_str = QListWidget()
         self.tab_list_str.setSelectionMode(QListWidget.SelectionMode.ExtendedSelection)
         self.tab_list_str.setStyleSheet("font-family: 'Courier New', monospace;")
+
+        layout_tab_list = QVBoxLayout()
+        layout_tab_list.setAlignment(Qt.AlignmentFlag.AlignTop)
         layout_tab_list.addWidget(self.tab_list_str)
         self.tab_list.setLayout(layout_tab_list)
 
@@ -105,39 +106,45 @@ class TabFolder(QWidget):
         self.tabs.addTab(self.tab_table, "Table")
         self.tabs.addTab(self.tab_list, "List")
 
-        layout_tab_folder.addWidget(self.tabs)
-
         # BOX - Message List Widget
         self.message_list = QListWidget()
         self.message_list.setFixedHeight(self.message_list.sizeHintForRow(0) + 40)
-        self.message_list.setStyleSheet("background-color: rgba(211, 211, 211, 0.15);")
-        layout_tab_folder.addWidget(self.message_list)
+        self.message_list.setStyleSheet("background-color: rgba(80, 80, 80, 0.15);")
 
-        self.setLayout(layout_tab_folder)
+        layout_tab = QVBoxLayout()
+        layout_tab.setAlignment(Qt.AlignmentFlag.AlignTop)
+        layout_tab.addLayout(layout_button)
+        layout_tab.addWidget(self.tabs)
+        layout_tab.addWidget(self.message_list)
+        self.setLayout(layout_tab)
 
     def show_message(self, message, success=True):
-        color = "#528B55" if success else "#B55555"
         self.message_list.addItem(message)
         self.message_list.item(self.message_list.count() - 1).setForeground(Qt.GlobalColor.green if success else Qt.GlobalColor.red)
         self.message_list.scrollToBottom()
 
-    def select_button_f(self):
+    def tab_button_1_f(self):
         folder = QFileDialog.getExistingDirectory(self, "Select Folder")
         if folder:
-            self.tab_folder_meta_str = self.util_get_folder_meta_info(folder)
-            self.tab_folder_path = folder
-            self.meta_info.setText(self.tab_folder_meta_str)
+            self.gt01_input_folder_path = folder
+            self.tab_folder_meta_json = self.util_get_folder_meta_info(folder)
+            self.tab_meta_table.setRowCount(len(self.tab_folder_meta_json))
+            for row, (key, value) in enumerate(self.tab_folder_meta_json.items()):
+                key_item = QTableWidgetItem(str(key))
+                value_item = QTableWidgetItem(str(value))
+                self.tab_meta_table.setItem(row, 0, key_item)
+                self.tab_meta_table.setItem(row, 1, value_item)
+            self.tab_meta_table.resizeColumnsToContents()
             lsr1 = LsrTree(folder, outfmt="tree", with_counts=True)
             self.tab_folder_tree_str = lsr1.list_files() 
-            self.list_tree_button.setEnabled(bool(len(self.tab_folder_tree_str)>0))
+            self.tab_button_2.setEnabled(bool(len(self.tab_folder_tree_str)>0))
             self.tab_tree_str.clear()
             width = len(str(len(self.tab_folder_tree_str)))
             self.tab_tree_str.addItems([f"{str(idx+1).zfill(width)}: {str(item)}" for idx, item in enumerate(self.tab_folder_tree_str)])
-            #self.tab_tree_str.setText( self.tab_folder_tree_str )
             lsr2 = LsrTree(folder, outfmt="dataframe")
             self.folder_file_list = lsr2.list_files_list()
             self.folder_file_df = lsr2.list_files_dataframe()
-            self.list_table_button.setEnabled(self.folder_file_df is not None)
+            self.tab_button_3.setEnabled(self.folder_file_df is not None)
             self.tab_list_str.clear()
             self.tab_list_str.addItems([f"{str(idx+1).zfill(width)}: {str(item)}" for idx, item in enumerate(self.folder_file_list)])
 
@@ -148,7 +155,7 @@ class TabFolder(QWidget):
             self.tab_table_qttable.setHorizontalHeaderLabels([str(col) for col in self.folder_file_df.columns])
 
             for row in range(self.folder_file_df.shape[0]):
-                for col in range(self.folder_file_df.shape[1]):
+                for col in range(self.folder_file_df.shape[1]-1):
                     value = str(self.folder_file_df.iat[row, col])
                     item = QTableWidgetItem(value)
                     self.tab_table_qttable.setItem(row, col, item)
@@ -164,38 +171,45 @@ class TabFolder(QWidget):
         folder_ctime = datetime.fromtimestamp(os.path.getctime(folder))
         folder_mtime = datetime.fromtimestamp(os.path.getmtime(folder))
         now = datetime.now()
-        return (
-            f"Folder path: {folder}\n"
-            f"Folder size: {folder_size:,} bytes\n"
-            f"Created: {folder_ctime.strftime('%Y-%m-%d %H:%M:%S')}\n"
-            f"Modified: {folder_mtime.strftime('%Y-%m-%d %H:%M:%S')}\n"
-            f"Scan time: {now.strftime('%Y-%m-%d %H:%M:%S')}\n"
-            f"User: {os.getlogin()}"
-        )
+        meta_info = {
+            "folder_path": folder,
+            "folder_size": folder_size,
+            "created": folder_ctime.strftime('%Y-%m-%d %H:%M:%S'),
+            "modified": folder_mtime.strftime('%Y-%m-%d %H:%M:%S'),
+            "scan_time": now.strftime('%Y-%m-%d %H:%M:%S'),
+            "user": os.getlogin(),
+            "mtbp3cd_version": getattr(__import__("mtbp3cd"), "__version__", "unknown")
+        }
+        return meta_info
 
-    def list_tree_button_f(self, _p):
-        file_path_base = getattr(_p.tab_starting, "output_folder_path", None)
+    def tab_button_2_f(self, _p):
+        file_path_base = getattr(_p.tab_starting, "gt01_output_folder_path", None)
         if not file_path_base:
             self.show_message("Please select output folder in the previous step", success=False)
             return
-        file_path = os.path.join(file_path_base, "folder_list_tree.txt")
+        file_path = os.path.join(file_path_base, "log_folder_tree.txt")
         try:
             with open(file_path, "w", encoding="utf-8") as f:
-                f.write(self.tab_folder_meta_str + "\n\n")
                 for item in self.tab_folder_tree_str:
-                    f.write(str(item) + "\n")
-                for item in self.folder_file_list:
                     f.write(str(item) + "\n")
             self.show_message(f"Tree exported: {file_path}", success=True)
         except Exception as e:
             self.show_message(f"Failed to export: {e}", success=False)
 
-    def list_table_button_f(self, _p):
-        file_path_base = getattr(_p.tab_starting, "output_folder_path", None)
+        meta_json_path = os.path.join(file_path_base, "log_folder_meta.json")
+        try:
+            with open(meta_json_path, "w", encoding="utf-8") as f:
+                json.dump(self.tab_folder_meta_json, f, indent=2)
+            self.show_message(f"Meta exported: {meta_json_path}", success=True)
+        except Exception as e:
+            self.show_message(f"Failed to export meta.json: {e}", success=False)
+
+    def tab_button_3_f(self, _p):
+        file_path_base = getattr(_p.tab_starting, "gt01_output_folder_path", None)
         if not file_path_base:
             self.show_message("Please select output folder in the previous step", success=False)
             return
-        file_path = os.path.join(file_path_base, "folder_list_table.csv")
+        file_path = os.path.join(file_path_base, "log_folder_table.csv")
         try:
             self.folder_file_df.to_csv(file_path, index=False)
             self.show_message(f"CSV exported: {file_path}", success=True)

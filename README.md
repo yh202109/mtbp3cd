@@ -13,7 +13,9 @@ Quick links:
 
 Functions are grouped into:
 
-- GUI <sup>[*]</sup>
+- File Inventory Tools (fits) <sup>[*]</sup>
+  - gt01: folder snapshot, checksum, record comparison
+  - gt02: column summary
 
 
 <sup>[*]</sup> Documents are not executed while building.

@@ -2,6 +2,18 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.4 (2025-08-10)
+
+- gt01
+    - add package version in output meta to allow auto comparison, and move output meta to json 
+    - change output file names
+    - warn overwrite
+    - add record tab
+- util
+    - add hash function to support comparison 
+- setup 
+    - update requirements
+
 ## v0.1.3 (2025-08-06)
 
 - gt01
