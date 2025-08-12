@@ -13,9 +13,10 @@ Quick links:
 
 Functions are grouped into:
 
-- File Inventory Tools (fits) <sup>[*]</sup>
+- File Inventory Tools <sup>[*]</sup>
   - gt01: folder snapshot, checksum, record comparison
   - gt02: column summary
+- Clinical Data Tools <sup>[*]</sup>
 
 
 <sup>[*]</sup> Documents are not executed while building.

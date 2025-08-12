@@ -108,7 +108,7 @@ class TabFolder(QWidget):
 
         # BOX - Message List Widget
         self.message_list = QListWidget()
-        self.message_list.setFixedHeight(self.message_list.sizeHintForRow(0) + 40)
+        self.message_list.setFixedHeight(self.message_list.sizeHintForRow(0) + 70)
         self.message_list.setStyleSheet("background-color: rgba(80, 80, 80, 0.15);")
 
         layout_tab = QVBoxLayout()

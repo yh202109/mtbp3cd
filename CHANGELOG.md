@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.5 (2025-08-11)
+
+- gt01 fix 
+
 ## v0.1.4 (2025-08-10)
 
 - gt01
