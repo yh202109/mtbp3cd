@@ -5,7 +5,7 @@
 :maxdepth: 1
 :hidden:
 
-cd_file_inventory.ipynb
+file_inventory.ipynb
 
 changelog.md
 contributing.md

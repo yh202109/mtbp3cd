@@ -4,7 +4,7 @@
             "cell_type": "markdown",
             "metadata": {},
             "source": [
-                "# cd/Folder Snapshot\n",
+                "# file/Folder Snapshot\n",
                 "\n",
                 "A quick tool to generate file list without other installations."
             ]
@@ -28,6 +28,25 @@
                 "import mtbp3cd\n",
                 "mtbp3cd.runapp(\"FileInventory\")\n",
                 "```"
+            ]
+        },
+        {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+                "## Overall\n",
+                "\n",
+                "This app includes a set of buttons on the left hand side for **navigating** through major steps.\n",
+                "Within each function set, additional buttons arranged horizontally for **executing** functions.\n",
+                "\n",
+                "Navigating buttons include:\n",
+                "\n",
+                "- `Select output folder`: this page sets output folder path for storing log files from folder snapshot. These log files provides information about the folder structure, time, file size, file type, etc. If the first item is left blank, a existing folder will be selected, and a warning message will be shown if the existing folder is not empty. \n",
+                "- `Select input folder`: this page sets input folder, which could be a data package folder. The `save` buttons keep information about the input folder in log files and save these files in the output folder. NOTE that these two `save` buttons will OVERWRITE log files without sending warning or ask for confirmation.\n",
+                "- `Checksum`: this page can generate a checksum file for all files within the input folder, or select a checksum file and compare that with checksums of files in the input folder. Three options are provided.\n",
+                "- `Comparing records`: this page compare folder logs including size, dates, path, files, folder structure, etc. This page can function with or without an input folder selected: \n",
+                "    - if an input folder is not selected, the function will try to find log files in the output folder, and compare logs in the output folder and logs in the record folder selected in this page.\n",
+                "    - if an input folder is selected, the function will try to create log information, and compare logs of the input folder and logs in the record folder selected in this page "
             ]
         },
         {
