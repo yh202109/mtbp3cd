@@ -5,28 +5,39 @@ mtbp3cd.gui.appfileinventory
 
 .. autoapi-nested-parse::
 
-   This module provides the main GUI components for the File Inventory Tool application.
+   File Inventory Tool GUI
 
-   Classes:
-       MainWedge (QWidget): The main widget containing the sidebar and tabbed interface for navigating
-           between different sections of the application, including output folder selection, input folder
-           selection, and checksum viewing.
-       FileInventoryApp (QMainWindow): The main window of the application, setting up the main widget
-           and window properties.
+   This module provides the graphical user interface for the File Inventory Tool, built using PyQt6.
+   It organizes the workflow into a sidebar and tabbed interface, allowing users to navigate between
+   different sections of the application.
 
-   The GUI is built using PyQt6 and organizes the workflow into three main tabs, accessible via a sidebar:
-       - "Select Output Folder": For selecting and viewing the output folder.
-       - "Select Input Folder": For selecting and viewing the input folder.
-       - "Checksums": For viewing file checksums.
+       MainWedge (QWidget):
+           - Main widget containing the sidebar and tabbed interface.
+           - Sidebar provides navigation buttons for:
+               * "Select Output Folder"
+               * "Select Input Folder"
+               * "Checksum"
+               * "Compare Record"
+           - Each button switches the main view to the corresponding tab.
+           - Tabs are:
+               * Output folder selection/viewing
+               * Input folder selection/viewing
+               * File checksums viewing
+               * Record comparison
 
-   The sidebar buttons update the visible tab and highlight the selected section for user navigation.
+       FileInventoryApp (QMainWindow):
+           - Main application window.
+           - Sets up window properties and embeds the MainWedge widget.
 
-   Dependencies:
-       - PyQt6
-       - pandas
+       - mtbp3cd (local package)
 
-   Usage:
-       Run this module as the main program to launch the File Inventory Tool GUI.
+       Run this module directly to launch the File Inventory Tool GUI.
+
+   License:
+       GNU General Public License v3.0 or later
+
+   Author:
+       Y Hsu <yh202109@gmail.com>
 
 
 
@@ -55,11 +66,6 @@ Module Contents
    Bases: :py:obj:`PyQt6.QtWidgets.QWidget`
 
 
-   .. py:attribute:: style_btn_clicked
-      :value: 'QPushButton { background-color: #0078d7; color: white; border: none; padding: 3px 16px;...
-
-
-
    .. py:attribute:: sidebar_button_starting
 
 
@@ -70,6 +76,9 @@ Module Contents
 
 
    .. py:attribute:: sidebar_button_record
+
+
+   .. py:attribute:: all_buttons
 
 
    .. py:attribute:: tab_starting
@@ -85,9 +94,6 @@ Module Contents
 
 
    .. py:attribute:: tabs
-
-
-   .. py:method:: update_sidebar_buttons_f(clicked_button)
 
 
    .. py:method:: sidebar_button_starting_f()

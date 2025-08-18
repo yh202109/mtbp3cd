@@ -23,7 +23,7 @@
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
     <link rel="next" title="mtbp3cd.gui.gt01o_checksum" href="../gt01o_checksum/index.html" />
-    <link rel="prev" title="mtbp3cd.gui" href="../index.html" /> 
+    <link rel="prev" title="mtbp3cd.gui.appclinicaldata" href="../appclinicaldata/index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -97,31 +97,52 @@
              
   <section id="module-mtbp3cd.gui.appfileinventory">
 <span id="mtbp3cd-gui-appfileinventory"></span><h1>mtbp3cd.gui.appfileinventory<a class="headerlink" href="#module-mtbp3cd.gui.appfileinventory" title="Link to this heading"></a></h1>
-<p>This module provides the main GUI components for the File Inventory Tool application.</p>
-<dl class="simple">
-<dt>Classes:</dt><dd><dl class="simple">
-<dt>MainWedge (QWidget): The main widget containing the sidebar and tabbed interface for navigating</dt><dd><p>between different sections of the application, including output folder selection, input folder
-selection, and checksum viewing.</p>
-</dd>
-<dt>FileInventoryApp (QMainWindow): The main window of the application, setting up the main widget</dt><dd><p>and window properties.</p>
-</dd>
-</dl>
-</dd>
-<dt>The GUI is built using PyQt6 and organizes the workflow into three main tabs, accessible via a sidebar:</dt><dd><ul class="simple">
-<li><p>“Select Output Folder”: For selecting and viewing the output folder.</p></li>
-<li><p>“Select Input Folder”: For selecting and viewing the input folder.</p></li>
-<li><p>“Checksums”: For viewing file checksums.</p></li>
+<p>File Inventory Tool GUI</p>
+<p>This module provides the graphical user interface for the File Inventory Tool, built using PyQt6.
+It organizes the workflow into a sidebar and tabbed interface, allowing users to navigate between
+different sections of the application.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>MainWedge (QWidget):</dt><dd><ul class="simple">
+<li><p>Main widget containing the sidebar and tabbed interface.</p></li>
+<li><dl class="simple">
+<dt>Sidebar provides navigation buttons for:</dt><dd><ul>
+<li><p>“Select Output Folder”</p></li>
+<li><p>“Select Input Folder”</p></li>
+<li><p>“Checksum”</p></li>
+<li><p>“Compare Record”</p></li>
 </ul>
 </dd>
 </dl>
-<p>The sidebar buttons update the visible tab and highlight the selected section for user navigation.</p>
-<dl class="simple">
-<dt>Dependencies:</dt><dd><ul class="simple">
-<li><p>PyQt6</p></li>
-<li><p>pandas</p></li>
+</li>
+<li><p>Each button switches the main view to the corresponding tab.</p></li>
+<li><dl class="simple">
+<dt>Tabs are:</dt><dd><ul>
+<li><p>Output folder selection/viewing</p></li>
+<li><p>Input folder selection/viewing</p></li>
+<li><p>File checksums viewing</p></li>
+<li><p>Record comparison</p></li>
 </ul>
 </dd>
-<dt>Usage:</dt><dd><p>Run this module as the main program to launch the File Inventory Tool GUI.</p>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>FileInventoryApp (QMainWindow):</dt><dd><ul class="simple">
+<li><p>Main application window.</p></li>
+<li><p>Sets up window properties and embeds the MainWedge widget.</p></li>
+</ul>
+</dd>
+</dl>
+<ul class="simple">
+<li><p>mtbp3cd (local package)</p></li>
+</ul>
+<p>Run this module directly to launch the File Inventory Tool GUI.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>License:</dt><dd><p>GNU General Public License v3.0 or later</p>
+</dd>
+<dt>Author:</dt><dd><p>Y Hsu &lt;<a class="reference external" href="mailto:yh202109&#37;&#52;&#48;gmail&#46;com">yh202109<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</p>
 </dd>
 </dl>
 <section id="attributes">
@@ -154,11 +175,6 @@ selection, and checksum viewing.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mtbp3cd.gui.appfileinventory.</span></span><span class="sig-name descname"><span class="pre">MainWedge</span></span><a class="headerlink" href="#mtbp3cd.gui.appfileinventory.MainWedge" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">PyQt6.QtWidgets.QWidget</span></code></p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mtbp3cd.gui.appfileinventory.MainWedge.style_btn_clicked">
-<span class="sig-name descname"><span class="pre">style_btn_clicked</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'QPushButton</span> <span class="pre">{</span> <span class="pre">background-color:</span> <span class="pre">#0078d7;</span> <span class="pre">color:</span> <span class="pre">white;</span> <span class="pre">border:</span> <span class="pre">none;</span> <span class="pre">padding:</span> <span class="pre">3px</span> <span class="pre">16px;...</span></em><a class="headerlink" href="#mtbp3cd.gui.appfileinventory.MainWedge.style_btn_clicked" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="mtbp3cd.gui.appfileinventory.MainWedge.sidebar_button_starting">
 <span class="sig-name descname"><span class="pre">sidebar_button_starting</span></span><a class="headerlink" href="#mtbp3cd.gui.appfileinventory.MainWedge.sidebar_button_starting" title="Link to this definition"></a></dt>
 <dd></dd></dl>
@@ -176,6 +192,11 @@ selection, and checksum viewing.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mtbp3cd.gui.appfileinventory.MainWedge.sidebar_button_record">
 <span class="sig-name descname"><span class="pre">sidebar_button_record</span></span><a class="headerlink" href="#mtbp3cd.gui.appfileinventory.MainWedge.sidebar_button_record" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mtbp3cd.gui.appfileinventory.MainWedge.all_buttons">
+<span class="sig-name descname"><span class="pre">all_buttons</span></span><a class="headerlink" href="#mtbp3cd.gui.appfileinventory.MainWedge.all_buttons" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -201,11 +222,6 @@ selection, and checksum viewing.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mtbp3cd.gui.appfileinventory.MainWedge.tabs">
 <span class="sig-name descname"><span class="pre">tabs</span></span><a class="headerlink" href="#mtbp3cd.gui.appfileinventory.MainWedge.tabs" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mtbp3cd.gui.appfileinventory.MainWedge.update_sidebar_buttons_f">
-<span class="sig-name descname"><span class="pre">update_sidebar_buttons_f</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clicked_button</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mtbp3cd.gui.appfileinventory.MainWedge.update_sidebar_buttons_f" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -253,7 +269,7 @@ selection, and checksum viewing.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../index.html" class="btn btn-neutral float-left" title="mtbp3cd.gui" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../appclinicaldata/index.html" class="btn btn-neutral float-left" title="mtbp3cd.gui.appclinicaldata" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="../gt01o_checksum/index.html" class="btn btn-neutral float-right" title="mtbp3cd.gui.gt01o_checksum" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

@@ -1,0 +1,84 @@
+mtbp3cd.gui.gt03r_inputfolder
+=============================
+
+.. py:module:: mtbp3cd.gui.gt03r_inputfolder
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   mtbp3cd.gui.gt03r_inputfolder.TabInput
+
+
+Module Contents
+---------------
+
+.. py:class:: TabInput(_p)
+
+   Bases: :py:obj:`PyQt6.QtWidgets.QWidget`
+
+
+   .. py:attribute:: _p
+
+
+   .. py:attribute:: tab_button_1
+
+
+   .. py:attribute:: tab_button_2
+
+
+   .. py:attribute:: tab_button_3
+
+
+   .. py:attribute:: tabs
+
+
+   .. py:attribute:: tabs_sd
+
+
+   .. py:attribute:: tabs_ad
+
+
+   .. py:attribute:: tab_sd_meta
+
+
+   .. py:attribute:: tab_sd_tree
+
+
+   .. py:attribute:: tab_ad_meta
+
+
+   .. py:attribute:: tab_ad_tree
+
+
+   .. py:attribute:: tab_sd_meta_table
+
+
+   .. py:attribute:: tab_ad_meta_table
+
+
+   .. py:attribute:: tab_sd_tree_str
+
+
+   .. py:attribute:: tab_ad_tree_str
+
+
+   .. py:attribute:: message_list
+
+
+   .. py:method:: util_get_folder_meta_info(folder)
+      :staticmethod:
+
+
+
+   .. py:method:: tab_button_1_f()
+
+
+   .. py:method:: tab_button_2_f()
+
+
+   .. py:method:: tab_button_3_f()
+
+

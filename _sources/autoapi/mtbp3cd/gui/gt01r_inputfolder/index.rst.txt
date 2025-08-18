@@ -20,13 +20,13 @@ Module Contents
    Bases: :py:obj:`PyQt6.QtWidgets.QWidget`
 
 
+   .. py:attribute:: _p
+
+
    .. py:attribute:: tab_button_1
 
 
    .. py:attribute:: tab_button_2
-
-
-   .. py:attribute:: tab_button_3
 
 
    .. py:attribute:: tabs
@@ -59,9 +59,6 @@ Module Contents
    .. py:attribute:: message_list
 
 
-   .. py:method:: show_message(message, success=True)
-
-
    .. py:method:: tab_button_1_f()
 
 
@@ -70,9 +67,6 @@ Module Contents
 
 
 
-   .. py:method:: tab_button_2_f(_p)
-
-
-   .. py:method:: tab_button_3_f(_p)
+   .. py:method:: tab_button_2_f()
 
 

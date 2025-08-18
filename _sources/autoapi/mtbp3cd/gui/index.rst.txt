@@ -10,11 +10,14 @@ Submodules
 .. toctree::
    :maxdepth: 1
 
+   /autoapi/mtbp3cd/gui/appclinicaldata/index
    /autoapi/mtbp3cd/gui/appfileinventory/index
    /autoapi/mtbp3cd/gui/gt01o_checksum/index
    /autoapi/mtbp3cd/gui/gt01o_record/index
    /autoapi/mtbp3cd/gui/gt01r_inputfolder/index
    /autoapi/mtbp3cd/gui/gt01r_starting/index
+   /autoapi/mtbp3cd/gui/gt03o_define/index
+   /autoapi/mtbp3cd/gui/gt03r_inputfolder/index
 
 
 Attributes
@@ -23,6 +26,8 @@ Attributes
 .. autoapisummary::
 
    mtbp3cd.gui.app
+   mtbp3cd.gui.app
+   mtbp3cd.gui.style_btn_clicked
 
 
 Classes
@@ -32,6 +37,8 @@ Classes
 
    mtbp3cd.gui.MainWedge
    mtbp3cd.gui.FileInventoryApp
+   mtbp3cd.gui.MainWedge
+   mtbp3cd.gui.ClinicalDataApp
 
 
 Functions
@@ -39,6 +46,8 @@ Functions
 
 .. autoapisummary::
 
+   mtbp3cd.gui.update_sidebar_buttons_f
+   mtbp3cd.gui.util_show_message
    mtbp3cd.gui.runapp
 
 
@@ -48,11 +57,6 @@ Package Contents
 .. py:class:: MainWedge
 
    Bases: :py:obj:`PyQt6.QtWidgets.QWidget`
-
-
-   .. py:attribute:: style_btn_clicked
-      :value: 'QPushButton { background-color: #0078d7; color: white; border: none; padding: 3px 16px;...
-
 
 
    .. py:attribute:: sidebar_button_starting
@@ -65,6 +69,9 @@ Package Contents
 
 
    .. py:attribute:: sidebar_button_record
+
+
+   .. py:attribute:: all_buttons
 
 
    .. py:attribute:: tab_starting
@@ -80,9 +87,6 @@ Package Contents
 
 
    .. py:attribute:: tabs
-
-
-   .. py:method:: update_sidebar_buttons_f(clicked_button)
 
 
    .. py:method:: sidebar_button_starting_f()
@@ -106,6 +110,62 @@ Package Contents
 
 
 .. py:data:: app
+
+.. py:class:: MainWedge
+
+   Bases: :py:obj:`PyQt6.QtWidgets.QWidget`
+
+
+   .. py:attribute:: sidebar_button_starting
+
+
+   .. py:attribute:: sidebar_button_input
+
+
+   .. py:attribute:: sidebar_button_ad_define
+
+
+   .. py:attribute:: all_buttons
+
+
+   .. py:attribute:: tab_starting
+
+
+   .. py:attribute:: tab_input
+
+
+   .. py:attribute:: tab_define
+
+
+   .. py:attribute:: tabs
+
+
+   .. py:method:: sidebar_button_starting_f()
+
+
+   .. py:method:: sidebar_button_input_f()
+
+
+   .. py:method:: sidebar_button_define_f()
+
+
+.. py:class:: ClinicalDataApp
+
+   Bases: :py:obj:`PyQt6.QtWidgets.QMainWindow`
+
+
+   .. py:attribute:: main_widget
+
+
+.. py:data:: app
+
+.. py:data:: style_btn_clicked
+   :value: 'QPushButton { background-color: #0078d7; color: white; border: none; padding: 3px 16px;...
+
+
+.. py:function:: update_sidebar_buttons_f(all_buttons=None, clicked_button=None)
+
+.. py:function:: util_show_message(message_list, message, status='info')
 
 .. py:function:: runapp(type='FileInventory')
 

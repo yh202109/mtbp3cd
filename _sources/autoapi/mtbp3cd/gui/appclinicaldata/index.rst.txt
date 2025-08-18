@@ -1,0 +1,74 @@
+mtbp3cd.gui.appclinicaldata
+===========================
+
+.. py:module:: mtbp3cd.gui.appclinicaldata
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   mtbp3cd.gui.appclinicaldata.app
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   mtbp3cd.gui.appclinicaldata.MainWedge
+   mtbp3cd.gui.appclinicaldata.ClinicalDataApp
+
+
+Module Contents
+---------------
+
+.. py:class:: MainWedge
+
+   Bases: :py:obj:`PyQt6.QtWidgets.QWidget`
+
+
+   .. py:attribute:: sidebar_button_starting
+
+
+   .. py:attribute:: sidebar_button_input
+
+
+   .. py:attribute:: sidebar_button_ad_define
+
+
+   .. py:attribute:: all_buttons
+
+
+   .. py:attribute:: tab_starting
+
+
+   .. py:attribute:: tab_input
+
+
+   .. py:attribute:: tab_define
+
+
+   .. py:attribute:: tabs
+
+
+   .. py:method:: sidebar_button_starting_f()
+
+
+   .. py:method:: sidebar_button_input_f()
+
+
+   .. py:method:: sidebar_button_define_f()
+
+
+.. py:class:: ClinicalDataApp
+
+   Bases: :py:obj:`PyQt6.QtWidgets.QMainWindow`
+
+
+   .. py:attribute:: main_widget
+
+
+.. py:data:: app
+

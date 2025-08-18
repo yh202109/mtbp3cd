@@ -20,6 +20,7 @@ Attributes
 
 .. autoapisummary::
 
+   mtbp3cd.style_btn_clicked
    mtbp3cd.app
    mtbp3cd._ROOT
    mtbp3cd.__version__
@@ -32,6 +33,7 @@ Classes
 
    mtbp3cd.MainWedge
    mtbp3cd.FileInventoryApp
+   mtbp3cd.ClinicalDataApp
    mtbp3cd.LsrTree
 
 
@@ -40,6 +42,8 @@ Functions
 
 .. autoapisummary::
 
+   mtbp3cd.update_sidebar_buttons_f
+   mtbp3cd.util_show_message
    mtbp3cd.runapp
    mtbp3cd.get_data
 
@@ -47,16 +51,19 @@ Functions
 Package Contents
 ----------------
 
+.. py:data:: style_btn_clicked
+   :value: 'QPushButton { background-color: #0078d7; color: white; border: none; padding: 3px 16px;...
+
+
+.. py:function:: update_sidebar_buttons_f(all_buttons=None, clicked_button=None)
+
+.. py:function:: util_show_message(message_list, message, status='info')
+
 .. py:function:: runapp(type='FileInventory')
 
 .. py:class:: MainWedge
 
    Bases: :py:obj:`PyQt6.QtWidgets.QWidget`
-
-
-   .. py:attribute:: style_btn_clicked
-      :value: 'QPushButton { background-color: #0078d7; color: white; border: none; padding: 3px 16px;...
-
 
 
    .. py:attribute:: sidebar_button_starting
@@ -69,6 +76,9 @@ Package Contents
 
 
    .. py:attribute:: sidebar_button_record
+
+
+   .. py:attribute:: all_buttons
 
 
    .. py:attribute:: tab_starting
@@ -84,9 +94,6 @@ Package Contents
 
 
    .. py:attribute:: tabs
-
-
-   .. py:method:: update_sidebar_buttons_f(clicked_button)
 
 
    .. py:method:: sidebar_button_starting_f()
@@ -110,6 +117,14 @@ Package Contents
 
 
 .. py:data:: app
+
+.. py:class:: ClinicalDataApp
+
+   Bases: :py:obj:`PyQt6.QtWidgets.QMainWindow`
+
+
+   .. py:attribute:: main_widget
+
 
 .. py:data:: _ROOT
    :value: b'.'

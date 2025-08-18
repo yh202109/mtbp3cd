@@ -62,10 +62,14 @@
 <li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#package-contents">Package Contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mtbp3cd.style_btn_clicked"><code class="docutils literal notranslate"><span class="pre">style_btn_clicked</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mtbp3cd.update_sidebar_buttons_f"><code class="docutils literal notranslate"><span class="pre">update_sidebar_buttons_f()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mtbp3cd.util_show_message"><code class="docutils literal notranslate"><span class="pre">util_show_message()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mtbp3cd.runapp"><code class="docutils literal notranslate"><span class="pre">runapp()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mtbp3cd.MainWedge"><code class="docutils literal notranslate"><span class="pre">MainWedge</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mtbp3cd.FileInventoryApp"><code class="docutils literal notranslate"><span class="pre">FileInventoryApp</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mtbp3cd.app"><code class="docutils literal notranslate"><span class="pre">app</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mtbp3cd.ClinicalDataApp"><code class="docutils literal notranslate"><span class="pre">ClinicalDataApp</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mtbp3cd._ROOT"><code class="docutils literal notranslate"><span class="pre">_ROOT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mtbp3cd.get_data"><code class="docutils literal notranslate"><span class="pre">get_data()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mtbp3cd.LsrTree"><code class="docutils literal notranslate"><span class="pre">LsrTree</span></code></a></li>
@@ -119,13 +123,16 @@
 <h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#mtbp3cd.app" title="mtbp3cd.app"><code class="xref py py-obj docutils literal notranslate"><span class="pre">app</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mtbp3cd.style_btn_clicked" title="mtbp3cd.style_btn_clicked"><code class="xref py py-obj docutils literal notranslate"><span class="pre">style_btn_clicked</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#mtbp3cd._ROOT" title="mtbp3cd._ROOT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_ROOT</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#mtbp3cd.app" title="mtbp3cd.app"><code class="xref py py-obj docutils literal notranslate"><span class="pre">app</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#mtbp3cd.__version__" title="mtbp3cd.__version__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__version__</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mtbp3cd._ROOT" title="mtbp3cd._ROOT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_ROOT</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mtbp3cd.__version__" title="mtbp3cd.__version__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__version__</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -141,7 +148,10 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#mtbp3cd.FileInventoryApp" title="mtbp3cd.FileInventoryApp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FileInventoryApp</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#mtbp3cd.LsrTree" title="mtbp3cd.LsrTree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LsrTree</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mtbp3cd.ClinicalDataApp" title="mtbp3cd.ClinicalDataApp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ClinicalDataApp</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mtbp3cd.LsrTree" title="mtbp3cd.LsrTree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LsrTree</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -151,6 +161,12 @@
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mtbp3cd.update_sidebar_buttons_f" title="mtbp3cd.update_sidebar_buttons_f"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_sidebar_buttons_f</span></code></a>([all_buttons, clicked_button])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mtbp3cd.util_show_message" title="mtbp3cd.util_show_message"><code class="xref py py-obj docutils literal notranslate"><span class="pre">util_show_message</span></code></a>(message_list, message[, status])</p></td>
+<td><p></p></td>
+</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#mtbp3cd.runapp" title="mtbp3cd.runapp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">runapp</span></code></a>([type])</p></td>
 <td><p></p></td>
 </tr>
@@ -162,6 +178,21 @@
 </section>
 <section id="package-contents">
 <h2>Package Contents<a class="headerlink" href="#package-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="mtbp3cd.style_btn_clicked">
+<span class="sig-prename descclassname"><span class="pre">mtbp3cd.</span></span><span class="sig-name descname"><span class="pre">style_btn_clicked</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'QPushButton</span> <span class="pre">{</span> <span class="pre">background-color:</span> <span class="pre">#0078d7;</span> <span class="pre">color:</span> <span class="pre">white;</span> <span class="pre">border:</span> <span class="pre">none;</span> <span class="pre">padding:</span> <span class="pre">3px</span> <span class="pre">16px;...</span></em><a class="headerlink" href="#mtbp3cd.style_btn_clicked" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mtbp3cd.update_sidebar_buttons_f">
+<span class="sig-prename descclassname"><span class="pre">mtbp3cd.</span></span><span class="sig-name descname"><span class="pre">update_sidebar_buttons_f</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_buttons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clicked_button</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mtbp3cd.update_sidebar_buttons_f" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mtbp3cd.util_show_message">
+<span class="sig-prename descclassname"><span class="pre">mtbp3cd.</span></span><span class="sig-name descname"><span class="pre">util_show_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'info'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mtbp3cd.util_show_message" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="mtbp3cd.runapp">
 <span class="sig-prename descclassname"><span class="pre">mtbp3cd.</span></span><span class="sig-name descname"><span class="pre">runapp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'FileInventory'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mtbp3cd.runapp" title="Link to this definition"></a></dt>
@@ -171,11 +202,6 @@
 <dt class="sig sig-object py" id="mtbp3cd.MainWedge">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mtbp3cd.</span></span><span class="sig-name descname"><span class="pre">MainWedge</span></span><a class="headerlink" href="#mtbp3cd.MainWedge" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">PyQt6.QtWidgets.QWidget</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mtbp3cd.MainWedge.style_btn_clicked">
-<span class="sig-name descname"><span class="pre">style_btn_clicked</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'QPushButton</span> <span class="pre">{</span> <span class="pre">background-color:</span> <span class="pre">#0078d7;</span> <span class="pre">color:</span> <span class="pre">white;</span> <span class="pre">border:</span> <span class="pre">none;</span> <span class="pre">padding:</span> <span class="pre">3px</span> <span class="pre">16px;...</span></em><a class="headerlink" href="#mtbp3cd.MainWedge.style_btn_clicked" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mtbp3cd.MainWedge.sidebar_button_starting">
 <span class="sig-name descname"><span class="pre">sidebar_button_starting</span></span><a class="headerlink" href="#mtbp3cd.MainWedge.sidebar_button_starting" title="Link to this definition"></a></dt>
@@ -194,6 +220,11 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mtbp3cd.MainWedge.sidebar_button_record">
 <span class="sig-name descname"><span class="pre">sidebar_button_record</span></span><a class="headerlink" href="#mtbp3cd.MainWedge.sidebar_button_record" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mtbp3cd.MainWedge.all_buttons">
+<span class="sig-name descname"><span class="pre">all_buttons</span></span><a class="headerlink" href="#mtbp3cd.MainWedge.all_buttons" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -219,11 +250,6 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mtbp3cd.MainWedge.tabs">
 <span class="sig-name descname"><span class="pre">tabs</span></span><a class="headerlink" href="#mtbp3cd.MainWedge.tabs" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mtbp3cd.MainWedge.update_sidebar_buttons_f">
-<span class="sig-name descname"><span class="pre">update_sidebar_buttons_f</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clicked_button</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mtbp3cd.MainWedge.update_sidebar_buttons_f" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -263,6 +289,17 @@
 <dt class="sig sig-object py" id="mtbp3cd.app">
 <span class="sig-prename descclassname"><span class="pre">mtbp3cd.</span></span><span class="sig-name descname"><span class="pre">app</span></span><a class="headerlink" href="#mtbp3cd.app" title="Link to this definition"></a></dt>
 <dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mtbp3cd.ClinicalDataApp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mtbp3cd.</span></span><span class="sig-name descname"><span class="pre">ClinicalDataApp</span></span><a class="headerlink" href="#mtbp3cd.ClinicalDataApp" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">PyQt6.QtWidgets.QMainWindow</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mtbp3cd.ClinicalDataApp.main_widget">
+<span class="sig-name descname"><span class="pre">main_widget</span></span><a class="headerlink" href="#mtbp3cd.ClinicalDataApp.main_widget" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="mtbp3cd._ROOT">
