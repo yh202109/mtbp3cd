@@ -17,6 +17,7 @@
 import os
 import pandas as pd
 from mtbp3cd.util.lsr import LsrTree
+import mtbp3cd.gui
 from datetime import datetime
 from PyQt6.QtCore import Qt, QRegularExpression
 from PyQt6.QtGui import QRegularExpressionValidator 
@@ -73,46 +74,46 @@ class TabRecord(QWidget):
     def tab_button_1_f(self):
         start_dir = os.path.expanduser("~")
         if not hasattr(self._p, "tab_folder"):
-            self.show_message("Input folder tab not set.", success=False)
+            mtbp3cd.gui.util_show_message(self.message_list, "Input folder tab not set.", status="f")
             return
         if not hasattr(self._p.tab_folder, "gt01_input_folder_path") or not self._p.tab_folder.gt01_input_folder_path:
-            self.show_message("Input folder path not set.", success=False)
+            mtbp3cd.gui.util_show_message(self.message_list, "Input folder path not set.", status="f")
             if not hasattr(self._p.tab_starting, "gt01_output_folder_path") or not self._p.tab_starting.gt01_output_folder_path:
-                self.show_message("Output folder path not set.", success=False)
+                mtbp3cd.gui.util_show_message(self.message_list, "Output folder path not set.", status="f")
                 return
             start_dir = self._p.tab_starting.gt01_output_folder_path 
             output_meta_path = os.path.join(self._p.tab_starting.gt01_output_folder_path, "log_folder_meta.json")
             if os.path.exists(output_meta_path):
-                self.show_message("Try finding log files in output folder as the recent snapshot.", success=True)
+                mtbp3cd.gui.util_show_message(self.message_list, "Finding log files in output folder...", status="info")
                 try:
                     with open(output_meta_path, "r", encoding="utf-8") as f:
                         self.input_meta_json = json.load(f)
-                    self.show_message(f"Loaded input meta: {output_meta_path}", success=True)
+                    mtbp3cd.gui.util_show_message(self.message_list, f"Loaded input meta: {output_meta_path}", status="s")
                 except Exception as e:
                     self.input_meta_json = None
-                    self.show_message(f"Failed to read input meta.json: {e}", success=False)
+                    mtbp3cd.gui.util_show_message(self.message_list, f"Failed to read input meta.json: {e}", status="f")
             else:
                 self.input_meta_json = None
-                self.show_message("log_folder_meta.json not found in output folder.", success=False)
+                mtbp3cd.gui.util_show_message(self.message_list, "log_folder_meta.json not found in output folder.", status="f")
             # Try to read log_folder_table.csv from output folder
             table_path = os.path.join(self._p.tab_starting.gt01_output_folder_path, "log_folder_table.csv")
             if os.path.exists(table_path):
                 try:
                     self.input_table_df = pd.read_csv(table_path)
-                    self.show_message(f"Loaded table: {table_path}", success=True)
+                    mtbp3cd.gui.util_show_message(self.message_list, f"Loaded table: {table_path}", status="s")
                 except Exception as e:
                     self.input_meta_json = pd.DataFrame()
-                    self.show_message(f"Failed to read table.csv: {e}", success=False)
+                    mtbp3cd.gui.util_show_message(self.message_list, f"Failed to read table.csv: {e}", status="s")
             else:
                 self.input_meta_json = pd.DataFrame()
-                self.show_message("log_folder_table.csv not found in output folder.", success=False)
+                mtbp3cd.gui.util_show_message(self.message_list, "log_folder_table.csv not found in output folder.", status="f")
         else:
             start_dir = self._p.tab_folder.gt01_input_folder_path 
             if not getattr(self._p.tab_folder, "tab_folder_meta_json", None):
-                self.show_message("Input folder meta not found.", success=False)
+                mtbp3cd.gui.util_show_message(self.message_list, "Input folder meta not found.", status="f")
                 return
             if not isinstance(self._p.tab_folder.tab_folder_meta_json, dict):
-                self.show_message("Input folder meta is not a dict.", success=False)
+                mtbp3cd.gui.util_show_message(self.message_list, "Input folder meta is not a dict.", status="f")
                 return
             self.input_meta_json = self._p.tab_folder.tab_folder_meta_json
             if hasattr(self._p.tab_folder, "folder_file_df") and isinstance(self._p.tab_folder.folder_file_df, pd.DataFrame):
@@ -122,17 +123,17 @@ class TabRecord(QWidget):
             
         folder = QFileDialog.getExistingDirectory(self, "Select Record Folder", start_dir)
         if folder:
-            self.show_message(f"Selected folder: {folder}", success=True)
+            mtbp3cd.gui.util_show_message(self.message_list, f"Selected folder: {folder}", status="info")
             log_files = [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and f.startswith("log_folder_")]
             if log_files:
-                self.show_message(f"Found log files: {', '.join(log_files)}", success=True)
+                mtbp3cd.gui.util_show_message(self.message_list, f"Found log files: {', '.join(log_files)}", status="s")
                 table_path = os.path.join(folder, "log_folder_table.csv")
                 if os.path.exists(table_path):
                     try:
                         df = pd.read_csv(table_path)
                         if "md5" in df.columns:
                             df = df.drop(columns=["md5"])
-                        self.show_message(f"Loaded table: {table_path}", success=True)
+                        mtbp3cd.gui.util_show_message(self.message_list, f"Loaded table: {table_path}", status="s")
                         self.tab_tabs_table_2.clear()
                         self.tab_tabs_table_2.setRowCount(len(df))
                         self.tab_tabs_table_2.setColumnCount(len(df.columns))
@@ -147,7 +148,7 @@ class TabRecord(QWidget):
                         if not self.input_table_df.empty:
                             common_cols = [col for col in df.columns if col in self.input_table_df.columns]
                             if not common_cols:
-                                self.show_message("No common columns to compare.", success=False)
+                                mtbp3cd.gui.util_show_message(self.message_list, "No common columns to compare.", status="f")
                             else:
                                 # Merge on common columns (assume first column is a key if exists)
                                 if "size_in_bytes" in df.columns:
@@ -173,18 +174,24 @@ class TabRecord(QWidget):
                                     suffixes=("_I", "_R"), 
                                     indicator=True
                                 )
+
                                 if "md5" in self.merged.columns:
                                     self.merged = self.merged.drop(columns=["md5"])
-
-                                both_count = (self.merged["_merge"] == "both").sum()
-                                left_only_count = (self.merged["_merge"] == "left_only").sum()
-                                right_only_count = (self.merged["_merge"] == "right_only").sum()
-                                total_count = both_count + left_only_count + right_only_count
-                                self.show_message(
-                                    f"Diff summary: both={both_count}, input_only={left_only_count}, record_only={right_only_count}, total={total_count}",
-                                    success=True
-                                )
-                                self.merged = self.merged[self.merged["_merge"] != "both"]
+                                if "_merged" in self.merged.columns:
+                                    both_count = (self.merged["_merge"] == "both").sum()
+                                    left_only_count = (self.merged["_merge"] == "left_only").sum()
+                                    right_only_count = (self.merged["_merge"] == "right_only").sum()
+                                    total_count = both_count + left_only_count + right_only_count
+                                    mtbp3cd.gui.util_show_message(
+                                        self.message_list,
+                                        f"Diff summary: both={both_count}, input_only={left_only_count}, record_only={right_only_count}, total={total_count}",
+                                        status="info"
+                                    )
+                                    self.merged["_merge"] = self.merged["_merge"].replace({
+                                        "left_only": "input",
+                                        "right_only": "record"
+                                    })
+                                    self.merged = self.merged[self.merged["_merge"] != "both"]
                                 # Prepare diff table: show all columns from both, plus indicator
                                 self.tab_tabs_table_3.clear()
                                 if not both_count == total_count:
@@ -197,23 +204,23 @@ class TabRecord(QWidget):
                                             self.tab_tabs_table_3.setItem(row, col, QTableWidgetItem(value))
                                     self.tab_tabs_table_3.resizeColumnsToContents()
                         else:
-                            self.show_message("Input folder_file_df not found or invalid.", success=False)
+                            mtbp3cd.gui.util_show_message(self.message_list, "Input folder_file_df not found or invalid.", status="f")
                     except Exception as e:
-                        self.show_message(f"Failed to read table.csv: {e}", success=False)
+                        mtbp3cd.gui.util_show_message(self.message_list, f"Failed to read table.csv: {e}", status="f")
                 else:
-                    self.show_message("log_folder_table.csv not found.", success=False)
+                    mtbp3cd.gui.util_show_message(self.message_list, "log_folder_table.csv not found.", status="f")
                 meta_path = os.path.join(folder, "log_folder_meta.json")
                 if os.path.exists(meta_path):
                     try:
                         with open(meta_path, "r", encoding="utf-8") as f:
                             meta_data = json.load(f)
-                        self.show_message(f"Loaded meta: {meta_path}", success=True)
+                        mtbp3cd.gui.util_show_message(self.message_list, f"Loaded meta: {meta_path}", status="s")
                         self.tab_tabs_table_1.clear()
                         if isinstance(meta_data, dict):
                             keys = list(meta_data.keys())
                             self.tab_tabs_table_1.setRowCount(len(keys))
                             self.tab_tabs_table_1.setColumnCount(6)
-                            self.tab_tabs_table_1.setHorizontalHeaderLabels(["Key", "Value_in_Rec", "In_R", "In_I", "Changed", "Value_from_Input"])
+                            self.tab_tabs_table_1.setHorizontalHeaderLabels(["Key", "Value_in_Record", "In_R", "In_I", "Changed", "Value_from_Input"])
                             for row, key in enumerate(keys):
                                 self.tab_tabs_table_1.setItem(row, 0, QTableWidgetItem(str(key)))
                                 self.tab_tabs_table_1.setItem(row, 1, QTableWidgetItem(str(meta_data[key])))
@@ -249,37 +256,37 @@ class TabRecord(QWidget):
                             self.tab_tabs_table_1.setItem(0, 0, QTableWidgetItem(str(meta_data)))
                         self.tab_tabs_table_1.resizeColumnsToContents()
                     except Exception as e:
-                        self.show_message(f"Failed to read meta.json: {e}", success=False)
+                        mtbp3cd.gui.util_show_message(self.message_list, f"Failed to read meta.json: {e}", status="f")
                 else:
-                    self.show_message("log_folder_meta.json not found.", success=False)
+                    mtbp3cd.gui.util_show_message(self.message_list, "log_folder_meta.json not found.", status="f")
 
             else:
-                self.show_message("No log_folder_ directories found.", success=False)
+                mtbp3cd.gui.util_show_message(self.message_list, "No log_folder_ directories found.", status="f")
         else:
-            self.show_message("No folder selected.", success=False)
+            mtbp3cd.gui.util_show_message(self.message_list, "No folder selected.", status="f")
     
     def tab_button_2_f(self):
         if not hasattr(self._p, "tab_starting"):
-            self.show_message("Output folder path not set.", success=False)
+            mtbp3cd.gui.util_show_message(self.message_list, "Output folder path not set.", status="f")
             return
         if not hasattr(self._p.tab_starting, "gt01_output_folder_path"):
-            self.show_message("Output folder path not set.", success=False)
+            mtbp3cd.gui.util_show_message(self.message_list, "Output folder path not set.", status="f")
             return
         if not self._p.tab_starting.gt01_output_folder_path:
-            self.show_message("Output folder path not set.", success=False)
+            mtbp3cd.gui.util_show_message(self.message_list, "Output folder path not set.", status="f")
             return
         if not self.merged.empty:
             dt_str = datetime.now().strftime("%Y%m%dT%H%M%S")
             out_path = os.path.join(self._p.tab_starting.gt01_output_folder_path, f"log_folder_diff_table_{dt_str}.csv")
             self.merged.to_csv(out_path, index=False)
-            self.show_message(f"Diff table saved to: {out_path}", success=True)
+            mtbp3cd.gui.util_show_message(self.message_list, f"Diff table saved to: {out_path}", status="s")
         else:
-            self.show_message("No diff to save: diff table is empty.", success=True)
+            mtbp3cd.gui.util_show_message(self.message_list, "No diff to save: diff table is empty.", status="info")
 
-    def show_message(self, message, success=True):
-        self.message_list.addItem(message)
-        self.message_list.item(self.message_list.count() - 1).setForeground(Qt.GlobalColor.green if success else Qt.GlobalColor.red)
-        self.message_list.scrollToBottom()
+    # def show_message(self, message, success=True):
+    #     self.message_list.addItem(message)
+    #     self.message_list.item(self.message_list.count() - 1).setForeground(Qt.GlobalColor.green if success else Qt.GlobalColor.red)
+    #     self.message_list.scrollToBottom()
 
 if __name__ == "__main__":
     pass

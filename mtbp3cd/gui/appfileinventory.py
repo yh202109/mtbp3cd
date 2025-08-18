@@ -1,4 +1,5 @@
 #  Copyright (C) 2025 Y Hsu <yh202109@gmail.com>
+
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public license as published by
@@ -15,34 +16,44 @@
 
 
 """
-This module provides the main GUI components for the File Inventory Tool application.
+File Inventory Tool GUI
 
-Classes:
-    MainWedge (QWidget): The main widget containing the sidebar and tabbed interface for navigating
-        between different sections of the application, including output folder selection, input folder
-        selection, and checksum viewing.
-    FileInventoryApp (QMainWindow): The main window of the application, setting up the main widget
-        and window properties.
+This module provides the graphical user interface for the File Inventory Tool, built using PyQt6.
+It organizes the workflow into a sidebar and tabbed interface, allowing users to navigate between
+different sections of the application.
 
-The GUI is built using PyQt6 and organizes the workflow into three main tabs, accessible via a sidebar:
-    - "Select Output Folder": For selecting and viewing the output folder.
-    - "Select Input Folder": For selecting and viewing the input folder.
-    - "Checksums": For viewing file checksums.
+    MainWedge (QWidget):
+        - Main widget containing the sidebar and tabbed interface.
+        - Sidebar provides navigation buttons for:
+            * "Select Output Folder"
+            * "Select Input Folder"
+            * "Checksum"
+            * "Compare Record"
+        - Each button switches the main view to the corresponding tab.
+        - Tabs are:
+            * Output folder selection/viewing
+            * Input folder selection/viewing
+            * File checksums viewing
+            * Record comparison
 
-The sidebar buttons update the visible tab and highlight the selected section for user navigation.
+    FileInventoryApp (QMainWindow):
+        - Main application window.
+        - Sets up window properties and embeds the MainWedge widget.
 
-Dependencies:
-    - PyQt6
-    - pandas
+    - mtbp3cd (local package)
 
-Usage:
-    Run this module as the main program to launch the File Inventory Tool GUI.
+    Run this module directly to launch the File Inventory Tool GUI.
 
+License:
+    GNU General Public License v3.0 or later
+
+Author:
+    Y Hsu <yh202109@gmail.com>
 """
 import sys
+import mtbp3cd
 from PyQt6.QtCore import Qt
-
-import mtbp3cd.gui.gt01r_starting as gt01r_starting, mtbp3cd.gui.gt01r_inputfolder as gt01r_inputfolder, mtbp3cd.gui.gt01o_checksum as gt01o_checksum, mtbp3cd.gui.gt01o_record as gt01o_record  
+from mtbp3cd.gui import gt01r_starting, gt01r_inputfolder,  gt01o_checksum, gt01o_record
 
 from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QWidget, 
@@ -53,11 +64,10 @@ from PyQt6.QtWidgets import (
 class MainWedge(QWidget):
     def __init__(self):
         super().__init__()
-        self.style_btn_clicked = "QPushButton { background-color: #0078d7; color: white; border: none; padding: 3px 16px; border-radius: 4px; }"
 
         ###### SIDEBAR ######
         self.sidebar_button_starting = QPushButton("Select Output Folder")
-        self.sidebar_button_starting.setStyleSheet(self.style_btn_clicked)
+        self.sidebar_button_starting.setStyleSheet(mtbp3cd.gui.style_btn_clicked)
         self.sidebar_button_starting.clicked.connect(self.sidebar_button_starting_f)
         self.sidebar_button_starting.setCheckable(True)
 
@@ -73,6 +83,8 @@ class MainWedge(QWidget):
         self.sidebar_button_record.clicked.connect(self.sidebar_button_record_f)
         self.sidebar_button_record.setCheckable(True)
 
+        self.all_buttons = [self.sidebar_button_starting, self.sidebar_button_folder, self.sidebar_button_checksum, self.sidebar_button_record]
+
         ###### Layout - SIDEBAR ######
         layout_sidebar = QVBoxLayout()
         layout_sidebar.setAlignment(Qt.AlignmentFlag.AlignTop)
@@ -87,10 +99,10 @@ class MainWedge(QWidget):
         sidebar_widget.setLayout(layout_sidebar)
 
         ###### TAB - ALL ######
-        self.tab_starting = gt01r_starting.TabStarting()
-        self.tab_folder = gt01r_inputfolder.TabFolder(self)
-        self.tab_checksum = gt01o_checksum.TabChecksum(self)
-        self.tab_record = gt01o_record.TabRecord(self)
+        self.tab_starting = mtbp3cd.gui.gt01r_starting.TabStarting()
+        self.tab_folder = mtbp3cd.gui.gt01r_inputfolder.TabFolder(self)
+        self.tab_checksum = mtbp3cd.gui.gt01o_checksum.TabChecksum(self)
+        self.tab_record = mtbp3cd.gui.gt01o_record.TabRecord(self)
 
         self.tabs = QTabWidget()
         self.tabs.tabBar().setVisible(False)
@@ -105,35 +117,21 @@ class MainWedge(QWidget):
         layout_h.addWidget(self.tabs)
         self.setLayout(layout_h)
 
-    def update_sidebar_buttons_f(self, clicked_button):
-        for btn in [
-            self.sidebar_button_starting,
-            self.sidebar_button_folder,
-            self.sidebar_button_checksum,
-            self.sidebar_button_record,
-        ]:
-            if btn is clicked_button:
-                btn.setStyleSheet(self.style_btn_clicked)
-                btn.setChecked(True)
-            else:
-                btn.setStyleSheet("")
-                btn.setChecked(False)
-
     def sidebar_button_starting_f(self):
         self.tabs.setCurrentWidget(self.tab_starting)
-        self.update_sidebar_buttons_f(self.sidebar_button_starting)
+        mtbp3cd.gui.update_sidebar_buttons_f(self.all_buttons, self.sidebar_button_starting)
 
     def sidebar_button_folder_f(self):
         self.tabs.setCurrentWidget(self.tab_folder)
-        self.update_sidebar_buttons_f(self.sidebar_button_folder)
+        mtbp3cd.gui.update_sidebar_buttons_f(self.all_buttons, self.sidebar_button_folder)
 
     def sidebar_button_checksum_f(self):
         self.tabs.setCurrentWidget(self.tab_checksum)
-        self.update_sidebar_buttons_f(self.sidebar_button_checksum)
+        mtbp3cd.gui.update_sidebar_buttons_f(self.all_buttons, self.sidebar_button_checksum)
 
     def sidebar_button_record_f(self):
         self.tabs.setCurrentWidget(self.tab_record)
-        self.update_sidebar_buttons_f(self.sidebar_button_record)
+        mtbp3cd.gui.update_sidebar_buttons_f(self.all_buttons, self.sidebar_button_record)
 
 class FileInventoryApp(QMainWindow):
     def __init__(self):

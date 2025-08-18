@@ -15,9 +15,11 @@ Functions are grouped into:
 
 - File Inventory Tools <sup>[*]</sup>
   - gt01: folder snapshot, checksum, record comparison
-  - gt02: column summary
+  - gt02: column summary 
 - Clinical Data Tools <sup>[*]</sup>
-
+  - gt03: define.xml
+  - gt04: subject
+  - gt05: adverse event
 
 <sup>[*]</sup> Documents are not executed while building.
 

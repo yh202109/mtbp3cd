@@ -18,6 +18,7 @@ import pandas as pd
 from PyQt6.QtCore import Qt
 from datetime import datetime
 from mtbp3cd.util.lsr import LsrTree
+import mtbp3cd.gui
 import json
 
 from PyQt6.QtWidgets import (
@@ -31,23 +32,19 @@ from PyQt6.QtWidgets import (
 class TabFolder(QWidget):
     def __init__(self, _p):
         super().__init__()
+        self._p = _p
 
-        self.tab_button_1 = QPushButton("Step 1: Select")
+        self.tab_button_1 = QPushButton("Step 1: Select Folder")
         self.tab_button_1.setEnabled(True)
         self.tab_button_1.clicked.connect(self.tab_button_1_f)
 
-        self.tab_button_2 = QPushButton("Step 2: Save tree.txt and meta.json")
+        self.tab_button_2 = QPushButton("Step 2: Save tree.txt, meta.json, and table.csv")
         self.tab_button_2.setEnabled(False)
-        self.tab_button_2.clicked.connect(lambda: self.tab_button_2_f(_p))
-
-        self.tab_button_3 = QPushButton("Step 3: Save table.csv")
-        self.tab_button_3.setEnabled(False)
-        self.tab_button_3.clicked.connect(lambda: self.tab_button_3_f(_p))
+        self.tab_button_2.clicked.connect(self.tab_button_2_f)
 
         layout_button = QHBoxLayout()
         layout_button.addWidget(self.tab_button_1)
         layout_button.addWidget(self.tab_button_2)
-        layout_button.addWidget(self.tab_button_3)
 
         # BOX - tabs
         self.tabs = QTabWidget()
@@ -118,10 +115,16 @@ class TabFolder(QWidget):
         layout_tab.addWidget(self.message_list)
         self.setLayout(layout_tab)
 
-    def show_message(self, message, success=True):
-        self.message_list.addItem(message)
-        self.message_list.item(self.message_list.count() - 1).setForeground(Qt.GlobalColor.green if success else Qt.GlobalColor.red)
-        self.message_list.scrollToBottom()
+    # def show_message(self, message, status="info"):
+    #     color_map = {
+    #         "success": Qt.GlobalColor.green,
+    #         "fail": Qt.GlobalColor.red,
+    #         "info": Qt.GlobalColor.blue
+    #     }
+    #     color = color_map.get(status, Qt.GlobalColor.black)
+    #     self.message_list.addItem(message)
+    #     self.message_list.item(self.message_list.count() - 1).setForeground(color)
+    #     self.message_list.scrollToBottom()
 
     def tab_button_1_f(self):
         folder = QFileDialog.getExistingDirectory(self, "Select Folder")
@@ -182,39 +185,34 @@ class TabFolder(QWidget):
         }
         return meta_info
 
-    def tab_button_2_f(self, _p):
-        file_path_base = getattr(_p.tab_starting, "gt01_output_folder_path", None)
+    def tab_button_2_f(self):
+        file_path_base = getattr(self._p.tab_starting, "gt01_output_folder_path", None)
         if not file_path_base:
-            self.show_message("Please select output folder in the previous step", success=False)
+            mtbp3cd.gui.util_show_message(self.message_list, "Please select output folder in the previous step", status="success")
             return
         file_path = os.path.join(file_path_base, "log_folder_tree.txt")
         try:
             with open(file_path, "w", encoding="utf-8") as f:
                 for item in self.tab_folder_tree_str:
                     f.write(str(item) + "\n")
-            self.show_message(f"Tree exported: {file_path}", success=True)
+            mtbp3cd.gui.util_show_message(self.message_list, f"Tree exported: {file_path}", status="s")
         except Exception as e:
-            self.show_message(f"Failed to export: {e}", success=False)
+            mtbp3cd.gui.util_show_message(self.message_list, f"Failed to export: {e}", status="f")
 
         meta_json_path = os.path.join(file_path_base, "log_folder_meta.json")
         try:
             with open(meta_json_path, "w", encoding="utf-8") as f:
                 json.dump(self.tab_folder_meta_json, f, indent=2)
-            self.show_message(f"Meta exported: {meta_json_path}", success=True)
+            mtbp3cd.gui.util_show_message(self.message_list, f"Meta exported: {meta_json_path}", status="s")
         except Exception as e:
-            self.show_message(f"Failed to export meta.json: {e}", success=False)
+            mtbp3cd.gui.util_show_message(self.message_list, f"Failed to export meta.json: {e}", status="f")
 
-    def tab_button_3_f(self, _p):
-        file_path_base = getattr(_p.tab_starting, "gt01_output_folder_path", None)
-        if not file_path_base:
-            self.show_message("Please select output folder in the previous step", success=False)
-            return
         file_path = os.path.join(file_path_base, "log_folder_table.csv")
         try:
             self.folder_file_df.to_csv(file_path, index=False)
-            self.show_message(f"CSV exported: {file_path}", success=True)
+            mtbp3cd.gui.util_show_message(self.message_list, f"CSV exported: {file_path}", status="s")
         except Exception as e:
-            self.show_message(f"Failed to export CSV: {e}", success=False)
+            mtbp3cd.gui.util_show_message(self.message_list, f"Failed to export CSV: {e}", status="f")
 
 
 if __name__ == "__main__":
