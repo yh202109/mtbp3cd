@@ -6,7 +6,7 @@ long_description = (here / "README.md").read_text(encoding="utf-8")
 
 setup(
     name='mtbp3cd',
-    version='0.1.6', # https://packaging.python.org/en/latest/specifications/version-specifiers/#version-specifiers 
+    version='0.1.7', # https://packaging.python.org/en/latest/specifications/version-specifiers/#version-specifiers 
     author='Y. Hsu',
     author_email='yh202109@gmail.com',
     description='My tool box for managing files and contents',

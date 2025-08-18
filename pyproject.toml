@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mtbp3cd"
-version = "0.1.6"
+version = "0.1.7"
 description = "my tool box for file management"
 authors = ["Y. Hsu"]
 license = "GNU General Public License v3.0"
@@ -30,7 +30,6 @@ statsmodels = { version = "*", optional = false }
 defusedxml = { version = "*", optional = false }
 genson = { version = "*", optional = false }
 openpyxl = { version = "*", optional = false }
-PyQt6 = { version = "*", optional = false }
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

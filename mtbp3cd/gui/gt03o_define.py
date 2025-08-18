@@ -179,6 +179,10 @@ class TabDefine(QWidget):
                     if href:
                         meta_info['stylesheet_href'] = href
                     break
+            
+            # Get root tag and attributes
+            meta_info['root_tag'] = root.tag
+            meta_info['root_attributes'] = dict(root.attrib)
 
             # Get first child with OID
             for child in root:
@@ -209,9 +213,9 @@ class TabDefine(QWidget):
                 self.tab_sd_meta_table.setItem(row, 1, value_item)
             self.tab_sd_meta_table.resizeColumnsToContents()
 
-            self.tab_sd_tree_str.clear()
-            width = len(str(len(self.tab_sd_tree_str)))
-            self.tab_sd_tree_str.addItems([f"{str(idx+1).zfill(width)}: {str(item)}" for idx, item in enumerate(self.tab_folder_tree_str)])
+            # self.tab_sd_tree_str.clear()
+            # width = len(str(len(self.tab_sd_tree_str)))
+            # self.tab_sd_tree_str.addItems([f"{str(idx+1).zfill(width)}: {str(item)}" for idx, item in enumerate(self.tab_folder_tree_str)])
 
     # def tab_button_2_f(self):
     #     file_path_base = getattr(self._p.tab_starting, "gt01_output_folder_path", None)
