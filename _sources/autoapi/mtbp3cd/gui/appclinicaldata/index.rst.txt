@@ -38,6 +38,9 @@ Module Contents
    .. py:attribute:: sidebar_button_ad_define
 
 
+   .. py:attribute:: sidebar_button_adsl
+
+
    .. py:attribute:: all_buttons
 
 
@@ -50,6 +53,9 @@ Module Contents
    .. py:attribute:: tab_define
 
 
+   .. py:attribute:: tab_adsl
+
+
    .. py:attribute:: tabs
 
 
@@ -59,7 +65,10 @@ Module Contents
    .. py:method:: sidebar_button_input_f()
 
 
-   .. py:method:: sidebar_button_define_f()
+   .. py:method:: sidebar_button_ad_define_f()
+
+
+   .. py:method:: sidebar_button_adsl_f()
 
 
 .. py:class:: ClinicalDataApp

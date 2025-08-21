@@ -11,6 +11,7 @@ Submodules
    :maxdepth: 1
 
    /autoapi/mtbp3cd/util/lsr/index
+   /autoapi/mtbp3cd/util/ltr/index
 
 
 Attributes

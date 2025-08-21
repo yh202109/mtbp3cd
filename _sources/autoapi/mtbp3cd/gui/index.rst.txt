@@ -16,6 +16,7 @@ Submodules
    /autoapi/mtbp3cd/gui/gt01o_record/index
    /autoapi/mtbp3cd/gui/gt01r_inputfolder/index
    /autoapi/mtbp3cd/gui/gt01r_starting/index
+   /autoapi/mtbp3cd/gui/gt03o_adsl/index
    /autoapi/mtbp3cd/gui/gt03o_define/index
    /autoapi/mtbp3cd/gui/gt03r_inputfolder/index
 
@@ -125,6 +126,9 @@ Package Contents
    .. py:attribute:: sidebar_button_ad_define
 
 
+   .. py:attribute:: sidebar_button_adsl
+
+
    .. py:attribute:: all_buttons
 
 
@@ -137,6 +141,9 @@ Package Contents
    .. py:attribute:: tab_define
 
 
+   .. py:attribute:: tab_adsl
+
+
    .. py:attribute:: tabs
 
 
@@ -146,7 +153,10 @@ Package Contents
    .. py:method:: sidebar_button_input_f()
 
 
-   .. py:method:: sidebar_button_define_f()
+   .. py:method:: sidebar_button_ad_define_f()
+
+
+   .. py:method:: sidebar_button_adsl_f()
 
 
 .. py:class:: ClinicalDataApp

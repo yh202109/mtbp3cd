@@ -1,0 +1,94 @@
+mtbp3cd.util.ltr
+================
+
+.. py:module:: mtbp3cd.util.ltr
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   mtbp3cd.util.ltr.ListTree
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   mtbp3cd.util.ltr.color_str
+
+
+Module Contents
+---------------
+
+.. py:function:: color_str(input_str='', words=None, colors='red', exact=False)
+
+   Colorize specified words in a given string.
+   :param input_str: The input string in which words will be colorized.
+   :type input_str: str
+   :param words: A list of words or a single word to be colorized in the input string.
+   :type words: list or str
+   :param colors: A list of colors or a single color to be used for colorizing the words.
+                  Supported colors are 'red', 'green', 'yellow', 'blue', 'magenta', and 'cyan'.
+   :type colors: list or str
+
+   :returns:
+
+             The input string with specified words colorized. If input_str is not a string, returns an error message.
+                  If words is empty or not found in the input string, returns the original input string.
+   :rtype: str
+
+   :raises ValueError: If the length of colors list does not match the length of words list, colors will be repeated to match the length.
+
+   .. rubric:: Example
+
+   >>> color_str("Hello World", ["Hello", "World"], ["red", "blue"])
+   '[31mHello[0m [34mWorld[0m'
+
+
+.. py:class:: ListTree(lst=[], label=[], infmt='path')
+
+   .. py:attribute:: lst
+      :value: []
+
+
+
+   .. py:attribute:: label
+      :value: []
+
+
+
+   .. py:attribute:: infmt
+      :value: 'path'
+
+
+
+   .. py:attribute:: df
+
+
+   .. py:attribute:: prelst
+
+
+   .. py:attribute:: tree
+
+
+   .. py:method:: __list_tree_df()
+
+
+   .. py:method:: __list_tree_pre(to_right=False)
+
+
+   .. py:method:: list_tree(to_right=False)
+
+      Returns a DataFrame representing the tree structure of the object.
+
+      Parameters:
+      - to_right (bool): If True, aligns the tree structure to the right by padding with spaces.
+
+      Returns:
+      - tree (DataFrame): DataFrame representing the tree structure.
+
+
+
