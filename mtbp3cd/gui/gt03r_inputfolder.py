@@ -162,12 +162,12 @@ class TabInput(QWidget):
                 self.tab_sd_meta_table.setItem(row, 1, value_item)
             self.tab_sd_meta_table.resizeColumnsToContents()
             lsr1 = LsrTree(folder, outfmt="tree", with_counts=True)
-            self.tab_sd_tree_str = lsr1.list_files() 
-            self.tab_sd_tree_str.clear()
-            width = len(str(len(self.tab_sd_tree_str)))
-            self.tab_sd_tree_str.addItems([f"{str(idx+1).rjust(width, ' ')}: {str(item)}" for idx, item in enumerate(self.tab_sd_tree_str)])
+            self.tab_sd_tree_str0 = lsr1.list_files() 
+            width = len(str(len(self.tab_sd_tree_str0)))
+            self.tab_sd_tree_str.addItems([f"{str(idx+1).rjust(width, ' ')}: {str(item)}" for idx, item in enumerate(self.tab_sd_tree_str0)])
             lsr2 = LsrTree(folder, outfmt="dataframe")
             self.tab_sd_df = lsr2.list_files_dataframe()
+            self.tabs.setCurrentWidget(self.tabs_sd)
 
     def tab_button_2_f(self):
         folder = QFileDialog.getExistingDirectory(self, "Analysis datasets")
@@ -186,12 +186,14 @@ class TabInput(QWidget):
                 self.tab_ad_meta_table.setItem(row, 1, value_item)
             self.tab_ad_meta_table.resizeColumnsToContents()
             lsr1 = LsrTree(folder, outfmt="tree", with_counts=True)
-            self.tab_ad_tree_str = lsr1.list_files() 
+            self.tab_ad_tree_str0 = lsr1.list_files() 
             self.tab_ad_tree_str.clear()
-            width = len(str(len(self.tab_ad_tree_str)))
-            self.tab_ad_tree_str.addItems([f"{str(idx+1).rjust(width, ' ')}: {str(item)}" for idx, item in enumerate(self.tab_ad_tree_str)])
+            width = len(str(len(self.tab_ad_tree_str0)))
+            self.tab_ad_tree_str.addItems([f"{str(idx+1).rjust(width, ' ')}: {str(item)}" for idx, item in enumerate(self.tab_ad_tree_str0)])
             lsr2 = LsrTree(folder, outfmt="dataframe")
             self.tab_ad_df = lsr2.list_files_dataframe()
+
+            self.tabs.setCurrentWidget(self.tabs_ad)
 
     def tab_button_3_f(self):
         file_path_base = getattr(self._p.tab_starting, "gt01_output_folder_path", None)
@@ -211,12 +213,12 @@ class TabInput(QWidget):
             os.makedirs(log_ad_path, exist_ok=True)
 
         file_path = os.path.join(log_sd_path, "log_folder_tree.txt")
-        if not self.tab_sd_tree_str or len(self.tab_sd_tree_str) == 0:
+        if self.tab_sd_tree_str0.empty or len(self.tab_sd_tree_str0) == 0:
             mtbp3cd.gui.util_show_message(self.message_list, "No tabulation folder tree to export.", status="i")
         else:
             try:
                 with open(file_path, "w", encoding="utf-8") as f:
-                    for item in self.tab_sd_tree_str:
+                    for item in self.tab_sd_tree_str0:
                         f.write(str(item) + "\n")
                 mtbp3cd.gui.util_show_message(self.message_list, f"Tree exported (sdtm): {file_path}", status="s")
             except Exception as e:
@@ -244,12 +246,12 @@ class TabInput(QWidget):
                 mtbp3cd.gui.util_show_message(self.message_list, f"Failed to export CSV (sdtm): {e}", status="f")
 
         file_path = os.path.join(log_ad_path, "log_folder_tree.txt")
-        if not self.tab_ad_tree_str or len(self.tab_ad_tree_str) == 0:
+        if self.tab_ad_tree_str0.empty or len(self.tab_ad_tree_str0) == 0:
             mtbp3cd.gui.util_show_message(self.message_list, "No analysis folder tree to export.", status="i")
         else:
             try:
                 with open(file_path, "w", encoding="utf-8") as f:
-                    for item in self.tab_sd_tree_str:
+                    for item in self.tab_sd_tree_str0:
                         f.write(str(item) + "\n")
                 mtbp3cd.gui.util_show_message(self.message_list, f"Tree exported (adam): {file_path}", status="s")
             except Exception as e:
