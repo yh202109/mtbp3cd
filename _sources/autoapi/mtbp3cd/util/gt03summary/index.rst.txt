@@ -1,0 +1,35 @@
+mtbp3cd.util.gt03summary
+========================
+
+.. py:module:: mtbp3cd.util.gt03summary
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   mtbp3cd.util.gt03summary.data
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   mtbp3cd.util.gt03summary.pd_df_flag_to_category
+   mtbp3cd.util.gt03summary.crosstab_from_lists
+   mtbp3cd.util.gt03summary.geo_mean_sd_by_group
+
+
+Module Contents
+---------------
+
+.. py:function:: pd_df_flag_to_category(df)
+
+.. py:function:: crosstab_from_lists(df, rows, cols, perct_within_index)
+
+.. py:function:: geo_mean_sd_by_group(df, group_by, var)
+
+.. py:data:: data
+

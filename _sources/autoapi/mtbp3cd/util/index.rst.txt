@@ -10,6 +10,9 @@ Submodules
 .. toctree::
    :maxdepth: 1
 
+   /autoapi/mtbp3cd/util/gt03define/index
+   /autoapi/mtbp3cd/util/gt03plot/index
+   /autoapi/mtbp3cd/util/gt03summary/index
    /autoapi/mtbp3cd/util/lsr/index
    /autoapi/mtbp3cd/util/ltr/index
 

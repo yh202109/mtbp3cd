@@ -1,0 +1,55 @@
+mtbp3cd.util.gt03define
+=======================
+
+.. py:module:: mtbp3cd.util.gt03define
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   mtbp3cd.util.gt03define.DefineXML
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   mtbp3cd.util.gt03define.find_domain_files
+   mtbp3cd.util.gt03define._file_to_df
+
+
+Module Contents
+---------------
+
+.. py:function:: find_domain_files(folder, domain='', extensions=None)
+
+.. py:function:: _file_to_df(filepath, extension=None)
+
+.. py:class:: DefineXML
+
+   .. py:attribute:: meta
+      :value: []
+
+
+
+   .. py:attribute:: ig_desc
+      :value: []
+
+
+
+   .. py:attribute:: ig_structure
+      :value: []
+
+
+
+   .. py:attribute:: ig_it_desc
+      :value: []
+
+
+
+   .. py:method:: read(filepath)
+
+

@@ -1,0 +1,141 @@
+mtbp3cd.util.gt03plot
+=====================
+
+.. py:module:: mtbp3cd.util.gt03plot
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   mtbp3cd.util.gt03plot.catPlotter
+
+
+Module Contents
+---------------
+
+.. py:class:: catPlotter(df, y_col, group_col=None, grid_col=None, grid_wrap=None, x_col=None, pt_size=5, y_scale_base=0, x_scale_base=0, title='', fig_size_0=7, fig_size_1=6, point_position='swarm', x_label_rotate=None, grid_kws=None, line_color_col=None)
+
+   A class for creating categorical box plots and strip plots.
+
+   Parameters:
+   - df (pandas.DataFrame): The input DataFrame.
+   - group_col (str): The column name for grouping the data.
+   - y_col (str): The column name for the y-axis variable.
+   - x_col (str): The column name for the x-axis variable.
+   - grid_col (str, optional): The column name for creating subplots based on a grid. Default is None.
+   - grid_wrap (int, optional): The number of columns in the grid. Default is None.
+   - pt_size (int, optional): The size of the points in the strip plot. Default is 5.
+   - x_scale_base (int, optional): The base for the x-axis scale. Default is 10.
+   - title (str, optional): The title of the plot. Default is an empty string.
+   - fig_size_0 (int, optional): The width of the figure. Default is 7.
+   - fig_size_1 (int, optional): The height of the figure. Default is 6.
+   - grid_kws (dict, optional): Additional keyword arguments for the FacetGrid. Default is None.
+
+   Methods:
+   - update_parameters(**kwargs): Update the parameters of the catPlotter instance.
+   - boxplot(): Create a categorical box plot and strip plot.
+   - lineplot(): Create a line plot by categorical group_col on the x-axis with grid option.
+   - generate_example_dataset(): Generate an example dataset.
+
+   Raises:
+   - ValueError: If an invalid parameter is provided or if group_col, x_col, or y_col is not found in DataFrame columns.
+
+
+   .. py:attribute:: df
+
+
+   .. py:attribute:: grid_col
+      :value: None
+
+
+
+   .. py:attribute:: point_position
+      :value: 'swarm'
+
+
+
+   .. py:attribute:: grid_wrap
+      :value: None
+
+
+
+   .. py:attribute:: group_col
+      :value: None
+
+
+
+   .. py:attribute:: y_col
+
+
+   .. py:attribute:: x_col
+      :value: None
+
+
+
+   .. py:attribute:: pt_size
+      :value: 5
+
+
+
+   .. py:attribute:: x_scale_base
+      :value: 0
+
+
+
+   .. py:attribute:: y_scale_base
+      :value: 0
+
+
+
+   .. py:attribute:: title
+      :value: ''
+
+
+
+   .. py:attribute:: fig_size_0
+      :value: 7
+
+
+
+   .. py:attribute:: fig_size_1
+      :value: 6
+
+
+
+   .. py:attribute:: x_label_rotate
+      :value: None
+
+
+
+   .. py:attribute:: line_color_col
+      :value: None
+
+
+
+   .. py:attribute:: grid_kws
+      :value: None
+
+
+
+   .. py:method:: update_parameters(**kwargs)
+
+
+   .. py:method:: boxplot()
+
+
+   .. py:method:: generate_example_dataset()
+      :staticmethod:
+
+
+      Generate an example dataset.
+
+      :returns: The example dataset.
+      :rtype: pandas.DataFrame
+
+
+
+   .. py:method:: lineplot()
+
+
