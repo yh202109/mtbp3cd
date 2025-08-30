@@ -55,7 +55,7 @@
             "source": [
                 "To start, select an output folder:\n",
                 "\n",
-                "![demo1](_static/img/demo1.jpeg)"
+                "![demo1](_static/img/demo1.jpg)"
             ]
         },
         {
@@ -64,7 +64,7 @@
             "source": [
                 "To select the folder that includes data files:\n",
                 "\n",
-                "![demo2](_static/img/demo2.jpeg)"
+                "![demo2](_static/img/demo2.jpg)"
             ]
         }
     ],
