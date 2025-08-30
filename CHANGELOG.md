@@ -2,12 +2,18 @@
 
 <!--next-version-placeholder-->
 
-## v0.1.5 (2025-08-11)
+## v0.1.60 (2025-08-20)
+
+- fix many things
+- clinical data
+    - add define-xml 
+
+## v0.1.6 (2025-08-19)
 
 - file inventory
-    - gt02 in work
+    - update
 - clinical data
-    - add gt03
+    - add gt03 
 
 ## v0.1.5 (2025-08-11)
 

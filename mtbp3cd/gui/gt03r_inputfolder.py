@@ -212,71 +212,77 @@ class TabInput(QWidget):
         else:
             os.makedirs(log_ad_path, exist_ok=True)
 
-        file_path = os.path.join(log_sd_path, "log_folder_tree.txt")
-        if self.tab_sd_tree_str0.empty or len(self.tab_sd_tree_str0) == 0:
-            mtbp3cd.gui.util_show_message(self.message_list, "No tabulation folder tree to export.", status="i")
-        else:
-            try:
-                with open(file_path, "w", encoding="utf-8") as f:
-                    for item in self.tab_sd_tree_str0:
-                        f.write(str(item) + "\n")
-                mtbp3cd.gui.util_show_message(self.message_list, f"Tree exported (sdtm): {file_path}", status="s")
-            except Exception as e:
-                mtbp3cd.gui.util_show_message(self.message_list, f"Failed to export (sdtm): {e}", status="f")
+        if hasattr(self, "tab_sd_tree_str0"):
+            file_path = os.path.join(log_sd_path, "log_folder_tree.txt")
+            if self.tab_sd_tree_str0.empty or len(self.tab_sd_tree_str0) == 0:
+                mtbp3cd.gui.util_show_message(self.message_list, "No tabulation folder tree to export.", status="i")
+            else:
+                try:
+                    with open(file_path, "w", encoding="utf-8") as f:
+                        for item in self.tab_sd_tree_str0:
+                            f.write(str(item) + "\n")
+                    mtbp3cd.gui.util_show_message(self.message_list, f"Tree exported (sdtm): {file_path}", status="s")
+                except Exception as e:
+                    mtbp3cd.gui.util_show_message(self.message_list, f"Failed to export (sdtm): {e}", status="f")
 
-        meta_json_path = os.path.join(log_sd_path, "log_folder_meta.json")
-        if not self.tab_sd_meta_json or len(self.tab_sd_meta_json) == 0:
-            mtbp3cd.gui.util_show_message(self.message_list, "No tabulation folder meta to export.", status="i")
-        else:
-            try:
-                with open(meta_json_path, "w", encoding="utf-8") as f:
-                    json.dump(self.tab_sd_meta_json, f, indent=2)
-                mtbp3cd.gui.util_show_message(self.message_list, f"Meta exported (sdtm): {meta_json_path}", status="s")
-            except Exception as e:
-                mtbp3cd.gui.util_show_message(self.message_list, f"Failed to export meta.json (sdtm): {e}", status="f")
+        if hasattr(self, "tab_sd_meta_json"):
+            meta_json_path = os.path.join(log_sd_path, "log_folder_meta.json")
+            if not self.tab_sd_meta_json or len(self.tab_sd_meta_json) == 0:
+                mtbp3cd.gui.util_show_message(self.message_list, "No tabulation folder meta to export.", status="i")
+            else:
+                try:
+                    with open(meta_json_path, "w", encoding="utf-8") as f:
+                        json.dump(self.tab_sd_meta_json, f, indent=2)
+                    mtbp3cd.gui.util_show_message(self.message_list, f"Meta exported (sdtm): {meta_json_path}", status="s")
+                except Exception as e:
+                    mtbp3cd.gui.util_show_message(self.message_list, f"Failed to export meta.json (sdtm): {e}", status="f")
 
-        file_path = os.path.join(log_sd_path, "log_folder_table.csv")
-        if not hasattr(self, "tab_sd_df") or self.tab_sd_df is None or self.tab_sd_df.empty:
-            mtbp3cd.gui.util_show_message(self.message_list, "No tabulation folder dataframe to export.", status="i")
-        else:
-            try:
-                self.tab_sd_df.to_csv(file_path, index=False)
-                mtbp3cd.gui.util_show_message(self.message_list, f"CSV exported (sdtm): {file_path}", status="s")
-            except Exception as e:
-                mtbp3cd.gui.util_show_message(self.message_list, f"Failed to export CSV (sdtm): {e}", status="f")
+        if hasattr(self, "tab_sd_df"):
+            file_path = os.path.join(log_sd_path, "log_folder_table.csv")
+            if not hasattr(self, "tab_sd_df") or self.tab_sd_df is None or self.tab_sd_df.empty:
+                mtbp3cd.gui.util_show_message(self.message_list, "No tabulation folder dataframe to export.", status="i")
+            else:
+                try:
+                    self.tab_sd_df.to_csv(file_path, index=False)
+                    mtbp3cd.gui.util_show_message(self.message_list, f"CSV exported (sdtm): {file_path}", status="s")
+                except Exception as e:
+                    mtbp3cd.gui.util_show_message(self.message_list, f"Failed to export CSV (sdtm): {e}", status="f")
 
-        file_path = os.path.join(log_ad_path, "log_folder_tree.txt")
-        if self.tab_ad_tree_str0.empty or len(self.tab_ad_tree_str0) == 0:
-            mtbp3cd.gui.util_show_message(self.message_list, "No analysis folder tree to export.", status="i")
-        else:
-            try:
-                with open(file_path, "w", encoding="utf-8") as f:
-                    for item in self.tab_sd_tree_str0:
-                        f.write(str(item) + "\n")
-                mtbp3cd.gui.util_show_message(self.message_list, f"Tree exported (adam): {file_path}", status="s")
-            except Exception as e:
-                mtbp3cd.gui.util_show_message(self.message_list, f"Failed to export (adam): {e}", status="f")
+        if hasattr(self, "tab_ad_tree_str0"):
+            file_path = os.path.join(log_ad_path, "log_folder_tree.txt")
+            if self.tab_ad_tree_str0.empty or len(self.tab_ad_tree_str0) == 0:
+                mtbp3cd.gui.util_show_message(self.message_list, "No analysis folder tree to export.", status="i")
+            else:
+                try:
+                    with open(file_path, "w", encoding="utf-8") as f:
+                        for item in self.tab_ad_tree_str0:
+                            f.write(str(item) + "\n")
+                    mtbp3cd.gui.util_show_message(self.message_list, f"Tree exported (adam): {file_path}", status="s")
+                except Exception as e:
+                    mtbp3cd.gui.util_show_message(self.message_list, f"Failed to export (adam): {e}", status="f")
 
-        meta_json_path = os.path.join(log_ad_path, "log_folder_meta.json")
-        if not self.tab_ad_meta_json or len(self.tab_ad_meta_json) == 0:
-            mtbp3cd.gui.util_show_message(self.message_list, "No analysis folder meta to export.", status="i")
-        else:
-            try:
-                with open(meta_json_path, "w", encoding="utf-8") as f:
-                    json.dump(self.tab_sd_meta_json, f, indent=2)
-                mtbp3cd.gui.util_show_message(self.message_list, f"Meta exported (adam): {meta_json_path}", status="s")
-            except Exception as e:
-                mtbp3cd.gui.util_show_message(self.message_list, f"Failed to export meta.json (adam): {e}", status="f")
+        if hasattr(self, "tab_ad_meta_json"):
+            meta_json_path = os.path.join(log_ad_path, "log_folder_meta.json")
+            if not self.tab_ad_meta_json or len(self.tab_ad_meta_json) == 0:
+                mtbp3cd.gui.util_show_message(self.message_list, "No analysis folder meta to export.", status="i")
+            else:
+                try:
+                    with open(meta_json_path, "w", encoding="utf-8") as f:
+                        json.dump(self.tab_ad_meta_json, f, indent=2)
+                    mtbp3cd.gui.util_show_message(self.message_list, f"Meta exported (adam): {meta_json_path}", status="s")
+                except Exception as e:
+                    mtbp3cd.gui.util_show_message(self.message_list, f"Failed to export meta.json (adam): {e}", status="f")
 
-        file_path = os.path.join(log_ad_path, "log_folder_table.csv")
-        if not hasattr(self, "tab_ad_df") or self.tab_ad_df is None or self.tab_ad_df.empty:
-            mtbp3cd.gui.util_show_message(self.message_list, "No analysis folder dataframe to export.", status="i")
-        else:
-            try:
-                self.tab_sd_df.to_csv(file_path, index=False)
-                mtbp3cd.gui.util_show_message(self.message_list, f"CSV exported (adam): {file_path}", status="s")
-            except Exception as e:
-                mtbp3cd.gui.util_show_message(self.message_list, f"Failed to export CSV (adam): {e}", status="f")
+        if hasattr(self, "tab_ad_df"):
+            file_path = os.path.join(log_ad_path, "log_folder_table.csv")
+            if not hasattr(self, "tab_ad_df") or self.tab_ad_df is None or self.tab_ad_df.empty:
+                mtbp3cd.gui.util_show_message(self.message_list, "No analysis folder dataframe to export.", status="i")
+            else:
+                try:
+                    self.tab_ad_df.to_csv(file_path, index=False)
+                    mtbp3cd.gui.util_show_message(self.message_list, f"CSV exported (adam): {file_path}", status="s")
+                except Exception as e:
+                    mtbp3cd.gui.util_show_message(self.message_list, f"Failed to export CSV (adam): {e}", status="f")
 
 if __name__ == "__main__":
     pass
