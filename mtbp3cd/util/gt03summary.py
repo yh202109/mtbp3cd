@@ -73,7 +73,13 @@ def crosstab_from_lists(df, rows, cols, perct_within_index=None):
             if idx not in rows and idx not in cols:
                 raise ValueError(f"'{idx}' must be in either 'rows' or 'cols'.")
 
-    ct1 = pd.crosstab([df[r] for r in rows], [df[c] for c in cols], margins=True)
+    subdf_cols = set(rows + cols)
+    if perct_within_index is not None:
+        subdf_cols.update(perct_within_index)
+    subdf = df[list(subdf_cols)].copy()
+    pd_df_flag_to_category(subdf)
+
+    ct1 = pd.crosstab([subdf[r] for r in rows], [subdf[c] for c in cols], margins=True)
     
     if perct_within_index is not None and len(perct_within_index) > 0:
         ct_perc = ct1.copy().astype(float)
