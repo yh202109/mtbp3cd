@@ -77,7 +77,7 @@ def crosstab_from_lists(df, rows, cols, perct_within_index=None):
     
     if perct_within_index is not None and len(perct_within_index) > 0:
         ct_perc = ct1.copy().astype(float)
-        ct_total = ct1.copy().astype(float)
+        ct_total = ct1.copy().astype(float).round(0)
         # Normalize within all indices in perct_within_index together
         idx_names = [i for i in rows if i in perct_within_index]
         col_names = [i for i in cols if i in perct_within_index]
@@ -104,12 +104,11 @@ def crosstab_from_lists(df, rows, cols, perct_within_index=None):
                 mask = col_vals == combo
                 subtable = ct1.loc[:, mask].drop("All", axis=1, errors="ignore")
                 total = subtable.sum(axis=1)
-                # total[:] = total.sum()
+                total[:] = (total.sum()/2)
                 ct_perc.loc[:, mask] = subtable.div(total, axis=0)
                 ct_total.loc[:, mask] = total.iloc[0]
             if "All" in ct_perc.columns.get_level_values(-1):
                 ct_perc.loc[:, ct_perc.columns.get_level_values(-1) == "All"] = np.nan
-                ct_total.loc[:, ct_perc.columns.get_level_values(-1) == "All"] = np.nan
 
         elif col_names and idx_names:
             # Normalize within both index and column levels in perct_within_index together
