@@ -268,7 +268,7 @@
 <p>Create a table with row-wise percentage:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">row_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">col_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -331,7 +331,7 @@
       <td>1 (100.0%)</td>
       <td>0 (0.0%)</td>
       <td>0 (0.0%)</td>
-      <td>1 (100.0%)</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>two</th>
@@ -340,7 +340,7 @@
       <td>0 (0.0%)</td>
       <td>1 (100.0%)</td>
       <td>0 (0.0%)</td>
-      <td>1 (100.0%)</td>
+      <td>1</td>
     </tr>
     <tr>
       <th rowspan="3" valign="top">baz</th>
@@ -350,7 +350,7 @@
       <td>0 (0.0%)</td>
       <td>1 (100.0%)</td>
       <td>0 (0.0%)</td>
-      <td>1 (100.0%)</td>
+      <td>1</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">two</th>
@@ -359,7 +359,7 @@
       <td>1 (100.0%)</td>
       <td>0 (0.0%)</td>
       <td>0 (0.0%)</td>
-      <td>1 (100.0%)</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>y</th>
@@ -367,7 +367,7 @@
       <td>0 (0.0%)</td>
       <td>1 (100.0%)</td>
       <td>0 (0.0%)</td>
-      <td>1 (100.0%)</td>
+      <td>1</td>
     </tr>
     <tr>
       <th rowspan="3" valign="top">foo</th>
@@ -377,7 +377,7 @@
       <td>2 (66.7%)</td>
       <td>0 (0.0%)</td>
       <td>0 (0.0%)</td>
-      <td>3 (100.0%)</td>
+      <td>3</td>
     </tr>
     <tr>
       <th>y</th>
@@ -385,7 +385,7 @@
       <td>1 (50.0%)</td>
       <td>0 (0.0%)</td>
       <td>1 (50.0%)</td>
-      <td>2 (100.0%)</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>two</th>
@@ -394,16 +394,16 @@
       <td>0 (0.0%)</td>
       <td>0 (0.0%)</td>
       <td>0 (0.0%)</td>
-      <td>1 (100.0%)</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>All</th>
       <th></th>
       <th></th>
-      <td>2</td>
-      <td>5</td>
-      <td>3</td>
-      <td>1</td>
+      <td>2 (18.2%)</td>
+      <td>5 (45.5%)</td>
+      <td>3 (27.3%)</td>
+      <td>1 (9.1%)</td>
       <td>11</td>
     </tr>
   </tbody>
@@ -413,7 +413,7 @@
 <p>Create a table with grouped row-wise percentage:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="n">row_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="n">col_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -476,7 +476,7 @@
       <td>1 (100.0%)</td>
       <td>0 (0.0%)</td>
       <td>0 (0.0%)</td>
-      <td>1 (100.0%)</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>two</th>
@@ -485,7 +485,7 @@
       <td>0 (0.0%)</td>
       <td>1 (100.0%)</td>
       <td>0 (0.0%)</td>
-      <td>1 (100.0%)</td>
+      <td>1</td>
     </tr>
     <tr>
       <th rowspan="3" valign="top">baz</th>
@@ -495,7 +495,7 @@
       <td>0 (0.0%)</td>
       <td>1 (100.0%)</td>
       <td>0 (0.0%)</td>
-      <td>1 (100.0%)</td>
+      <td>1</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">two</th>
@@ -504,7 +504,7 @@
       <td>1 (50.0%)</td>
       <td>0 (0.0%)</td>
       <td>0 (0.0%)</td>
-      <td>1 (50.0%)</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>y</th>
@@ -512,7 +512,7 @@
       <td>0 (0.0%)</td>
       <td>1 (50.0%)</td>
       <td>0 (0.0%)</td>
-      <td>1 (50.0%)</td>
+      <td>1</td>
     </tr>
     <tr>
       <th rowspan="3" valign="top">foo</th>
@@ -522,7 +522,7 @@
       <td>2 (40.0%)</td>
       <td>0 (0.0%)</td>
       <td>0 (0.0%)</td>
-      <td>3 (60.0%)</td>
+      <td>3</td>
     </tr>
     <tr>
       <th>y</th>
@@ -530,7 +530,7 @@
       <td>1 (20.0%)</td>
       <td>0 (0.0%)</td>
       <td>1 (20.0%)</td>
-      <td>2 (40.0%)</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>two</th>
@@ -539,7 +539,152 @@
       <td>0 (0.0%)</td>
       <td>0 (0.0%)</td>
       <td>0 (0.0%)</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>All</th>
+      <th></th>
+      <th></th>
+      <td>2 (18.2%)</td>
+      <td>5 (45.5%)</td>
+      <td>3 (27.3%)</td>
+      <td>1 (9.1%)</td>
+      <td>11</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Create a table with column-wise percentage:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">row_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>D</th>
+      <th colspan="2" halign="left">apple</th>
+      <th colspan="2" halign="left">banana</th>
+      <th>All</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>E</th>
+      <th>blue</th>
+      <th>red</th>
+      <th>blue</th>
+      <th>red</th>
+      <th></th>
+    </tr>
+    <tr>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">bar</th>
+      <th>one</th>
+      <th>x</th>
+      <td>0 (0.0%)</td>
+      <td>1 (20.0%)</td>
+      <td>0 (0.0%)</td>
+      <td>0 (0.0%)</td>
+      <td>1 (9.1%)</td>
+    </tr>
+    <tr>
+      <th>two</th>
+      <th>y</th>
+      <td>0 (0.0%)</td>
+      <td>0 (0.0%)</td>
+      <td>1 (33.3%)</td>
+      <td>0 (0.0%)</td>
+      <td>1 (9.1%)</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">baz</th>
+      <th>one</th>
+      <th>y</th>
+      <td>0 (0.0%)</td>
+      <td>0 (0.0%)</td>
+      <td>1 (33.3%)</td>
+      <td>0 (0.0%)</td>
+      <td>1 (9.1%)</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">two</th>
+      <th>x</th>
+      <td>0 (0.0%)</td>
+      <td>1 (20.0%)</td>
+      <td>0 (0.0%)</td>
+      <td>0 (0.0%)</td>
+      <td>1 (9.1%)</td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td>0 (0.0%)</td>
+      <td>0 (0.0%)</td>
+      <td>1 (33.3%)</td>
+      <td>0 (0.0%)</td>
+      <td>1 (9.1%)</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">foo</th>
+      <th rowspan="2" valign="top">one</th>
+      <th>x</th>
+      <td>1 (50.0%)</td>
+      <td>2 (40.0%)</td>
+      <td>0 (0.0%)</td>
+      <td>0 (0.0%)</td>
+      <td>3 (27.3%)</td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td>0 (0.0%)</td>
+      <td>1 (20.0%)</td>
+      <td>0 (0.0%)</td>
       <td>1 (100.0%)</td>
+      <td>2 (18.2%)</td>
+    </tr>
+    <tr>
+      <th>two</th>
+      <th>x</th>
+      <td>1 (50.0%)</td>
+      <td>0 (0.0%)</td>
+      <td>0 (0.0%)</td>
+      <td>0 (0.0%)</td>
+      <td>1 (9.1%)</td>
     </tr>
     <tr>
       <th>All</th>
@@ -555,155 +700,10 @@
 </table>
 </div></div></div>
 </div>
-<p>Create a table with column-wise percentage:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">col_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-
-    .dataframe thead tr:last-of-type th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th>D</th>
-      <th colspan="2" halign="left">apple</th>
-      <th colspan="2" halign="left">banana</th>
-      <th>All</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th></th>
-      <th>E</th>
-      <th>blue</th>
-      <th>red</th>
-      <th>blue</th>
-      <th>red</th>
-      <th></th>
-    </tr>
-    <tr>
-      <th>A</th>
-      <th>B</th>
-      <th>C</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th rowspan="2" valign="top">bar</th>
-      <th>one</th>
-      <th>x</th>
-      <td>0 (0.0%)</td>
-      <td>1 (20.0%)</td>
-      <td>0 (0.0%)</td>
-      <td>0 (0.0%)</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>two</th>
-      <th>y</th>
-      <td>0 (0.0%)</td>
-      <td>0 (0.0%)</td>
-      <td>1 (33.3%)</td>
-      <td>0 (0.0%)</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th rowspan="3" valign="top">baz</th>
-      <th>one</th>
-      <th>y</th>
-      <td>0 (0.0%)</td>
-      <td>0 (0.0%)</td>
-      <td>1 (33.3%)</td>
-      <td>0 (0.0%)</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th rowspan="2" valign="top">two</th>
-      <th>x</th>
-      <td>0 (0.0%)</td>
-      <td>1 (20.0%)</td>
-      <td>0 (0.0%)</td>
-      <td>0 (0.0%)</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>y</th>
-      <td>0 (0.0%)</td>
-      <td>0 (0.0%)</td>
-      <td>1 (33.3%)</td>
-      <td>0 (0.0%)</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th rowspan="3" valign="top">foo</th>
-      <th rowspan="2" valign="top">one</th>
-      <th>x</th>
-      <td>1 (50.0%)</td>
-      <td>2 (40.0%)</td>
-      <td>0 (0.0%)</td>
-      <td>0 (0.0%)</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>y</th>
-      <td>0 (0.0%)</td>
-      <td>1 (20.0%)</td>
-      <td>0 (0.0%)</td>
-      <td>1 (100.0%)</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>two</th>
-      <th>x</th>
-      <td>1 (50.0%)</td>
-      <td>0 (0.0%)</td>
-      <td>0 (0.0%)</td>
-      <td>0 (0.0%)</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>All</th>
-      <th></th>
-      <th></th>
-      <td>2 (100.0%)</td>
-      <td>5 (100.0%)</td>
-      <td>3 (100.0%)</td>
-      <td>1 (100.0%)</td>
-      <td>11</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
 <p>Create a table with grouped column-wise percentage:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">],</span> <span class="n">col_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">],</span> <span class="n">row_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -766,7 +766,7 @@
       <td>1 (14.3%)</td>
       <td>0 (0.0%)</td>
       <td>0 (0.0%)</td>
-      <td>1</td>
+      <td>1 (9.1%)</td>
     </tr>
     <tr>
       <th>two</th>
@@ -775,7 +775,7 @@
       <td>0 (0.0%)</td>
       <td>1 (25.0%)</td>
       <td>0 (0.0%)</td>
-      <td>1</td>
+      <td>1 (9.1%)</td>
     </tr>
     <tr>
       <th rowspan="3" valign="top">baz</th>
@@ -785,7 +785,7 @@
       <td>0 (0.0%)</td>
       <td>1 (25.0%)</td>
       <td>0 (0.0%)</td>
-      <td>1</td>
+      <td>1 (9.1%)</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">two</th>
@@ -794,7 +794,7 @@
       <td>1 (14.3%)</td>
       <td>0 (0.0%)</td>
       <td>0 (0.0%)</td>
-      <td>1</td>
+      <td>1 (9.1%)</td>
     </tr>
     <tr>
       <th>y</th>
@@ -802,7 +802,7 @@
       <td>0 (0.0%)</td>
       <td>1 (25.0%)</td>
       <td>0 (0.0%)</td>
-      <td>1</td>
+      <td>1 (9.1%)</td>
     </tr>
     <tr>
       <th rowspan="3" valign="top">foo</th>
@@ -812,7 +812,7 @@
       <td>2 (28.6%)</td>
       <td>0 (0.0%)</td>
       <td>0 (0.0%)</td>
-      <td>3</td>
+      <td>3 (27.3%)</td>
     </tr>
     <tr>
       <th>y</th>
@@ -820,7 +820,7 @@
       <td>1 (14.3%)</td>
       <td>0 (0.0%)</td>
       <td>1 (25.0%)</td>
-      <td>2</td>
+      <td>2 (18.2%)</td>
     </tr>
     <tr>
       <th>two</th>
@@ -829,16 +829,16 @@
       <td>0 (0.0%)</td>
       <td>0 (0.0%)</td>
       <td>0 (0.0%)</td>
-      <td>1</td>
+      <td>1 (9.1%)</td>
     </tr>
     <tr>
       <th>All</th>
       <th></th>
       <th></th>
-      <td>2 (28.6%)</td>
-      <td>5 (71.4%)</td>
-      <td>3 (75.0%)</td>
-      <td>1 (25.0%)</td>
+      <td>2</td>
+      <td>5</td>
+      <td>3</td>
+      <td>1</td>
       <td>11</td>
     </tr>
   </tbody>
