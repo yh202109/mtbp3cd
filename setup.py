@@ -20,10 +20,11 @@ setup(
     ],
     packages=find_packages(),  # Required
     python_requires=">=3.7, <4",
-    install_requires=['pathlib', 'json', 'pandas', 'matplotlib', 'seaborn', 'pypdf', 'PyQt6', 'openpyxl', 'hashlib'],
+    install_requires=['pathlib', 'json', 'pandas', 'matplotlib', 'seaborn', 'pypdf', 'PyQt6', 'openpyxl', 'hashlib', 'PyQt6'],
     project_urls={  # Optional
         "Bug Reports": "https://github.com/yh202109/mtbp3cd/issues",
         "Source": "https://github.com/yh202109/mtbp3cd/",
     },
+    extras_Require=dict(test=["pytest"]),
     keywords=['tree', 'MedDRA', 'Clinical Trial'],
 )
