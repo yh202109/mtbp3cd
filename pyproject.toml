@@ -12,7 +12,7 @@ python = "^3.10"
 pandas = "^2.0.0"
 seaborn = "^0.13.2"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 sphinx = { version = "7.4.7", optional = false }
 myst-nb = { version = "*", optional = false }
 sphinx-autoapi = { version = "*", optional = false }
@@ -31,7 +31,6 @@ defusedxml = { version = "*", optional = false }
 genson = { version = "*", optional = false }
 openpyxl = { version = "*", optional = false }
 PyQt6 = { version = "*", optional = false }
-libgl1 = { version = "*", optional = false }
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
