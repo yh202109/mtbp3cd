@@ -26,6 +26,9 @@ jobs:
       #- name: Install dvipng
       #  run: sudo apt-get install dvisvgm
 
+      - name: install
+        run: sudo apt-get install freeglut3-dev
+
       - name: Install package
         run: poetry install
 
