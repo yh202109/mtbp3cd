@@ -25,26 +25,43 @@ from scipy.stats import norm
 def pd_df_flag_to_category(df):
     flag_cols = [col for col in df.columns if col.lower().endswith('fl')]
     for col in flag_cols:
-        if not pd.api.types.is_categorical_dtype(df[col]):
-            values = set(df[col].dropna().unique())
+        if not isinstance(df[col].dtype, pd.CategoricalDtype):
+            values = sorted(set(df[col].dropna().unique()))
             if "Y" in values or "N" in values:
-                values2 = values - {"Y", "N"}
-                df[col] = pd.Categorical(df[col].fillna(""), categories=["Y", "N"] + sorted(values2), ordered=True)
+                if "N" in values:
+                    values.remove("N")
+                    values = ["N"] + list(values)
+                if "Y" in values:
+                    values.remove("Y")
+                    values = ["Y"] + list(values)
             elif "{'Y'}" in values or "{'N'}" in values:
-                values2 = values - {"{'Y'}", "{'N'}"}
-                df[col] = pd.Categorical(df[col].fillna(""), categories=["{'Y'}", "{'N'}"] + sorted(values2), ordered=True)
+                if "{'N'}" in values:
+                    values.remove("{'N'}")
+                    values = ["{'N'}"] + list(values)
+                if "{'Y'}" in values:
+                    values.remove("{'Y'}")
+                    values = ["{'Y'}"] + list(values)
+            df[col] = pd.Categorical(df[col].fillna(""), categories=values, ordered=True)
         else:
             cats = list(df[col].cat.categories)
             if "Y" in cats or "N" in cats:
-                cats2 = ["Y", "N"] + [c for c in cats if c not in ("Y", "N")]
-            if "{'Y'}" in cats or "{'N'}" in cats:
-                cats2 = ["{'Y'}", "{'N'}"] + [c for c in cats if c not in ("{'Y'}", "{'N'}")]
-            else:
-                cats2 = cats
-            df[col] = df[col].cat.reorder_categories(cats2, ordered=True)
+                if "N" in cats:
+                    cats.remove("N")
+                    cats = ["N"] + cats
+                if "Y" in cats:
+                    cats.remove("Y")
+                    cats = ["Y"] + cats
+            elif "{'Y'}" in cats or "{'N'}" in cats:
+                if "{'N'}" in cats:
+                    cats.remove("{'N'}")
+                    cats = ["{'N'}"] + cats
+                if "{'Y'}" in cats:
+                    cats.remove("{'Y'}")
+                    cats = ["{'Y'}"] + cats
+            df[col] = df[col].cat.reorder_categories(cats, ordered=True)
     return 
 
-def crosstab_from_lists(df, rows, cols, perct_within_index):
+def crosstab_from_lists(df, rows, cols, perct_within_index=None):
     if not all(col in df.columns for col in rows):
         raise ValueError("All elements in 'rows' must be column names of df.")
     if not all(col in df.columns for col in cols):
@@ -53,15 +70,14 @@ def crosstab_from_lists(df, rows, cols, perct_within_index):
         if not isinstance(perct_within_index, list):
             raise ValueError("'perct_within_index' must be a list of column names.")
         for idx in perct_within_index:
-            if idx not in df.columns:
-                raise ValueError(f"'{idx}' is not a column name of df.")
             if idx not in rows and idx not in cols:
                 raise ValueError(f"'{idx}' must be in either 'rows' or 'cols'.")
 
     ct1 = pd.crosstab([df[r] for r in rows], [df[c] for c in cols], margins=True)
-
+    
     if perct_within_index is not None and len(perct_within_index) > 0:
-        ct_perc = ct1.copy()
+        ct_perc = ct1.copy().astype(float)
+        ct_total = ct1.copy().astype(float)
         # Normalize within all indices in perct_within_index together
         idx_names = [i for i in rows if i in perct_within_index]
         col_names = [i for i in cols if i in perct_within_index]
@@ -74,11 +90,13 @@ def crosstab_from_lists(df, rows, cols, perct_within_index):
                 mask = idx_vals == combo
                 subtable = ct1[mask].drop("All", errors="ignore")
                 total = subtable.sum(axis=0)
+                total[:] = (total.sum()/2)
                 ct_perc.loc[mask, :] = subtable.div(total, axis=1)
+                ct_total.loc[mask, :] = total.iloc[0]
             if "All" in ct_perc.index.get_level_values(-1):
                 ct_perc.loc[ct_perc.index.get_level_values(-1) == "All", :] = np.nan
 
-        if col_names and not idx_names:
+        elif col_names and not idx_names:
             # Normalize within all column levels in col_names together
             col_vals = ct1.columns.droplevel([n for n in ct1.columns.names if n not in col_names])
             unique_col_combos = col_vals.unique()
@@ -86,11 +104,14 @@ def crosstab_from_lists(df, rows, cols, perct_within_index):
                 mask = col_vals == combo
                 subtable = ct1.loc[:, mask].drop("All", axis=1, errors="ignore")
                 total = subtable.sum(axis=1)
+                # total[:] = total.sum()
                 ct_perc.loc[:, mask] = subtable.div(total, axis=0)
+                ct_total.loc[:, mask] = total.iloc[0]
             if "All" in ct_perc.columns.get_level_values(-1):
                 ct_perc.loc[:, ct_perc.columns.get_level_values(-1) == "All"] = np.nan
+                ct_total.loc[:, ct_perc.columns.get_level_values(-1) == "All"] = np.nan
 
-        if col_names and idx_names:
+        elif col_names and idx_names:
             # Normalize within both index and column levels in perct_within_index together
             idx_vals = ct1.index.droplevel([n for n in ct1.index.names if n not in idx_names])
             col_vals = ct1.columns.droplevel([n for n in ct1.columns.names if n not in col_names])
@@ -106,16 +127,22 @@ def crosstab_from_lists(df, rows, cols, perct_within_index):
                         ct_perc.loc[idx_mask, col_mask] = subtable / total
                     else:
                         ct_perc.loc[idx_mask, col_mask] = np.nan
-            if "All" in ct_perc.index.get_level_values(-1) or "All" in ct_perc.columns.get_level_values(-1):
-                ct_perc.loc[ct_perc.index.get_level_values(-1) == "All", :] = np.nan
-                ct_perc.loc[:, ct_perc.columns.get_level_values(-1) == "All"] = np.nan
+                    ct_total.loc[idx_mask, col_mask] = total
+            # if "All" in ct_perc.index.get_level_values(-1) or "All" in ct_perc.columns.get_level_values(-1):
+            #     ct_perc.loc[ct_perc.index.get_level_values(-1) == "All", :] = np.nan
+            #     ct_perc.loc[:, ct_perc.columns.get_level_values(-1) == "All"] = np.nan
+        else:
+            # If perct_within_index is specified but does not match any row or column, just return NaN percent table
+            ct_perc[:] = np.nan
+            ct_total[:] = np.nan
 
         ct_perc = (100 * ct_perc).round(1)
-        report = ct1.astype(str) + " (" + ct_perc.astype(str) + "%)"
-        report = report.replace(" (nan%)", "")
-        ct = {"count": ct1, "percent_within_index": ct_perc, "report": report}
+        report = ct1.fillna("-").astype(str) + " (" + ct_perc.fillna("-").astype(str) + "%)"
+        report = report.map(lambda x: x.replace(" (-%)", "") if isinstance(x, str) else x)
+        # report = report.applymap(lambda x: x.replace(" (-%)", "") if isinstance(x, str) else x)
+        ct = {"count": ct1, "percent": ct_perc, "report": report, "total": ct_total}
     else:
-        ct = ct1
+        ct = {"count": ct1, "percent": None, "report": None, "total": None}
 
     return ct
 
@@ -127,7 +154,7 @@ def geo_mean_sd_by_group(df, group_by, var):
         x = x.dropna()
         x = x[x > 0]
         if len(x) == 0:
-            return [np.nan, np.nan, np.nan, np.nan]
+            return [np.nan, np.nan, np.nan, np.nan, np.nan, np.nan, np.nan]
         logs = np.log(x)
         gm = np.exp(logs.mean())
         gsd = np.exp(logs.std(ddof=1))
@@ -146,28 +173,10 @@ def geo_mean_sd_by_group(df, group_by, var):
     return result
 
 if __name__ == "__main__":
-    # Example DataFrame with 3-level multi-index columns and rows
-    data = {
-        'A': ['foo','foo', 'foo', 'foo', 'foo', 'foo', 'bar', 'bar', 'baz', 'baz', 'baz'],
-        'B': ['one','one','one','one', 'one', 'two', 'two', 'one', 'one', 'two', 'two'],
-        'C': ['y','x','x','x', 'y', 'x', 'y', 'x', 'y', 'x', 'y'],
-        'D': ['apple','apple','apple','apple', 'banana', 'apple', 'banana', 'apple', 'banana', 'apple', 'banana'],
-        'E': ['red','blue','red','red', 'red', 'blue', 'blue', 'red', 'blue', 'red', 'blue'],
-        'value': [0,1,1,1, 2, 3, 4, 5, 6, 7, 8]
-    }
-    df = pd.DataFrame(data)
-
-    # Use crosstab_from_lists with 3-level multi-index for rows and columns
-    rows = ['A', 'B', 'C']
-    cols = ['D', 'E']
-    perct_within_index = ['A', 'D']
-
-    ct = crosstab_from_lists(df, rows, cols, perct_within_index)
-
-    print("Count table:")
-    print(ct['count'])
-    print("\nPercent within index table:")
-    print(ct['percent_within_index'])
-    print("\nReport table:")
-    print(ct['report'])
+    df = pd.DataFrame({
+        'A_fl': pd.Categorical(['N', 'Y', ''], categories=['N', 'Y', '']),
+        'B': [1, 2, 3]
+    })
+    pd_df_flag_to_category(df)
+    print(df['A_fl'].cat.categories)
     pass
