@@ -61,7 +61,7 @@ def pd_df_flag_to_category(df):
             df[col] = df[col].cat.reorder_categories(cats, ordered=True)
     return 
 
-def crosstab_from_lists(df, rows, cols, perct_within_index=None):
+def crosstab_from_lists(df, rows, cols, perct_within_index=None, col_margin_perct=False, row_margin_perct=False, report_type=1):
     if not all(col in df.columns for col in rows):
         raise ValueError("All elements in 'rows' must be column names of df.")
     if not all(col in df.columns for col in cols):
@@ -72,6 +72,12 @@ def crosstab_from_lists(df, rows, cols, perct_within_index=None):
         for idx in perct_within_index:
             if idx not in rows and idx not in cols:
                 raise ValueError(f"'{idx}' must be in either 'rows' or 'cols'.")
+    if report_type not in [1, 2]:
+        raise ValueError("'report_type' must be either 1 or 2.")
+    if not isinstance(col_margin_perct, bool):
+        raise ValueError("'col_margin_perct' must be a boolean.")
+    if not isinstance(row_margin_perct, bool):
+        raise ValueError("'row_margin_perct' must be a boolean.")
 
     subdf_cols = set(rows + cols)
     if perct_within_index is not None:
@@ -83,41 +89,49 @@ def crosstab_from_lists(df, rows, cols, perct_within_index=None):
     
     if perct_within_index is not None and len(perct_within_index) > 0:
         ct_perc = ct1.copy().astype(float)
-        ct_total = ct1.copy().astype(float).round(0)
-        # Normalize within all indices in perct_within_index together
+        ct_total = ct1.copy().astype(float)
         idx_names = [i for i in rows if i in perct_within_index]
         col_names = [i for i in cols if i in perct_within_index]
 
         if idx_names and not col_names:
-            # Normalize within all index levels in idx_names together
             idx_vals = ct1.index.droplevel([n for n in ct1.index.names if n not in idx_names])
             unique_idx_combos = idx_vals.unique()
             for combo in unique_idx_combos:
                 mask = idx_vals == combo
-                subtable = ct1[mask].drop("All", errors="ignore")
-                total = subtable.sum(axis=0)
-                total[:] = (total.sum()/2)
-                ct_perc.loc[mask, :] = subtable.div(total, axis=1)
-                ct_total.loc[mask, :] = total.iloc[0]
-            if "All" in ct_perc.index.get_level_values(-1):
-                ct_perc.loc[ct_perc.index.get_level_values(-1) == "All", :] = np.nan
+                subtable = ct1[mask].drop("All", axis=1, errors="ignore")
+                ct_total.loc[mask, :] = subtable.values.sum() 
+
+            if not row_margin_perct:
+                if "All" in ct_total.columns.get_level_values(0):
+                    ct_total.loc[:, ct_total.columns.get_level_values(0) == "All"] = np.nan
+
+            if not col_margin_perct:
+                if "All" in ct_total.index.get_level_values(0):
+                    ct_total.loc[ct_total.index.get_level_values(0) == "All", :] = np.nan
+
+            ct_perc = ct1 / ct_total 
+            ct_perc = (100*ct_perc).round(1)
 
         elif col_names and not idx_names:
-            # Normalize within all column levels in col_names together
             col_vals = ct1.columns.droplevel([n for n in ct1.columns.names if n not in col_names])
             unique_col_combos = col_vals.unique()
             for combo in unique_col_combos:
                 mask = col_vals == combo
-                subtable = ct1.loc[:, mask].drop("All", axis=1, errors="ignore")
-                total = subtable.sum(axis=1)
-                total[:] = (total.sum()/2)
-                ct_perc.loc[:, mask] = subtable.div(total, axis=0)
-                ct_total.loc[:, mask] = total.iloc[0]
-            if "All" in ct_perc.columns.get_level_values(-1):
-                ct_perc.loc[:, ct_perc.columns.get_level_values(-1) == "All"] = np.nan
+                subtable = ct1.loc[:, mask].drop("All", axis=0, errors="ignore", level=0)
+                ct_total.loc[:,mask] = subtable.values.sum() 
+
+            if not col_margin_perct:
+                if "All" in ct_total.index.get_level_values(0):
+                    ct_total.loc[ct_total.index.get_level_values(0) == "All", :] = np.nan
+
+            if not row_margin_perct:
+                if "All" in ct_total.columns.get_level_values(0):
+                    ct_total.loc[:, ct_total.columns.get_level_values(0) == "All"] = np.nan
+
+            ct_perc = ct1 / ct_total 
+            ct_perc = (100*ct_perc).round(1)
 
         elif col_names and idx_names:
-            # Normalize within both index and column levels in perct_within_index together
             idx_vals = ct1.index.droplevel([n for n in ct1.index.names if n not in idx_names])
             col_vals = ct1.columns.droplevel([n for n in ct1.columns.names if n not in col_names])
             unique_idx_combos = idx_vals.unique()
@@ -127,24 +141,43 @@ def crosstab_from_lists(df, rows, cols, perct_within_index=None):
                 for col_combo in unique_col_combos:
                     col_mask = col_vals == col_combo
                     subtable = ct1.loc[idx_mask, col_mask].drop("All", axis=1, errors="ignore").drop("All", axis=0, errors="ignore")
-                    total = subtable.values.sum()
-                    if total > 0:
-                        ct_perc.loc[idx_mask, col_mask] = subtable / total
-                    else:
-                        ct_perc.loc[idx_mask, col_mask] = np.nan
-                    ct_total.loc[idx_mask, col_mask] = total
-            # if "All" in ct_perc.index.get_level_values(-1) or "All" in ct_perc.columns.get_level_values(-1):
-            #     ct_perc.loc[ct_perc.index.get_level_values(-1) == "All", :] = np.nan
-            #     ct_perc.loc[:, ct_perc.columns.get_level_values(-1) == "All"] = np.nan
+                    ct_total.loc[idx_mask, col_mask] = subtable.values.sum()
+
+                if row_margin_perct:
+                    if "All" in ct_total.columns.get_level_values(0):
+                        subtable = ct1.loc[idx_mask, 'All'].drop("All", axis=0, errors="ignore")
+                        ct_total.loc[idx_mask, ct_total.columns.get_level_values(0) == "All"] = subtable.values.sum()
+                else:
+                        ct_total.loc[idx_mask, ct_total.columns.get_level_values(0) == "All"] = np.nan
+
+            if col_margin_perct:
+                if "All" in ct_total.index.get_level_values(0):
+                    for col_combo in unique_col_combos:
+                        col_mask = col_vals == col_combo
+                        subtable = ct1.loc[:, col_mask].drop("All", axis=1, errors="ignore")
+                        ct_total.loc[ct_total.index.get_level_values(0) == "All",col_mask] = subtable.values.sum()
+            else:
+                ct_total.loc[ct_total.index.get_level_values(0) == "All",:] = np.nan
+
+            if col_margin_perct and row_margin_perct:
+                ct_total.loc[ct_total.index.get_level_values(0) == "All",ct_total.columns.get_level_values(0) == "All"] = ct1.loc[ct_total.index.get_level_values(0) == "All",ct_total.columns.get_level_values(0) == "All"] 
+
+            ct_perc = ct1 / ct_total 
+            ct_perc = (100*ct_perc).round(1)
+
         else:
-            # If perct_within_index is specified but does not match any row or column, just return NaN percent table
             ct_perc[:] = np.nan
             ct_total[:] = np.nan
 
-        ct_perc = (100 * ct_perc).round(1)
-        report = ct1.fillna("-").astype(str) + " (" + ct_perc.fillna("-").astype(str) + "%)"
-        report = report.map(lambda x: x.replace(" (-%)", "") if isinstance(x, str) else x)
-        # report = report.applymap(lambda x: x.replace(" (-%)", "") if isinstance(x, str) else x)
+        if report_type == 1:
+            report = ct1.fillna("-").astype(str) + " (" + ct_perc.fillna("-").astype(str) + "%)"
+            report = report.map(lambda x: x.replace(" (-%)", "") if isinstance(x, str) else x)
+        elif report_type == 2:
+            report = ct1.fillna("-").astype(str) + "/" + ct_total.map(lambda x: f'{x:.0f}') + " (" + ct_perc.fillna("-").astype(str) + "%)"
+            report = report.map(lambda x: x.replace(" (-%)", "") if isinstance(x, str) else x).map(lambda x: x.replace("/nan", "") if isinstance(x, str) else x)
+        else:
+            report = None
+
         ct = {"count": ct1, "percent": ct_perc, "report": report, "total": ct_total}
     else:
         ct = {"count": ct1, "percent": None, "report": None, "total": None}
@@ -178,10 +211,4 @@ def geo_mean_sd_by_group(df, group_by, var):
     return result
 
 if __name__ == "__main__":
-    df = pd.DataFrame({
-        'A_fl': pd.Categorical(['N', 'Y', ''], categories=['N', 'Y', '']),
-        'B': [1, 2, 3]
-    })
-    pd_df_flag_to_category(df)
-    print(df['A_fl'].cat.categories)
     pass
