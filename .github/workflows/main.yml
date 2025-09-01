@@ -35,7 +35,7 @@ jobs:
       - name: Test with pytest
         run: |
           poetry run pytest --junitxml=docs/_static/reports/junit/junit.xml --html=docs/_static/reports/junit/report.html --self-contained-html
-          poetry run coverage run --source=mtbp3 -m pytest tests 
+          poetry run coverage run --source=mtbp3cd -m pytest tests 
           poetry run coverage xml -o docs/_static/reports/coverage/coverage.xml
 
       #- name: Use Codecov to track coverage
