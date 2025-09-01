@@ -1,4 +1,3 @@
-from .gui import *
 from .util import *
 
 from importlib.metadata import version
