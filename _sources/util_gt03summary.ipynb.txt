@@ -34,7 +34,7 @@
             ],
             "source": [
                 "import pandas as pd\n",
-                "import mtbp3cd.util.gt03summary"
+                "from mtbp3cd.util.gt03summary import crosstab_from_lists"
             ]
         },
         {
