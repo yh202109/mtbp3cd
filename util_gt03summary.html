@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>gt03/Summary Table &mdash; mtbp3cd  documentation</title>
+  <title>cd/gt03/Summary Table &mdash; mtbp3cd  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
@@ -47,8 +47,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="file_inventory.html">file/Folder Snapshot</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">gt03/Summary Table</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#example-1">Example - 1</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">cd/gt03/Summary Table</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example-1-generate-data-summary-tables">Example - 1 Generate data summary tables</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
@@ -71,7 +71,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">gt03/Summary Table</li>
+      <li class="breadcrumb-item active">cd/gt03/Summary Table</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/util_gt03summary.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -81,8 +81,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="gt03-summary-table">
-<h1>gt03/Summary Table<a class="headerlink" href="#gt03-summary-table" title="Link to this heading"></a></h1>
+  <section id="cd-gt03-summary-table">
+<h1>cd/gt03/Summary Table<a class="headerlink" href="#cd-gt03-summary-table" title="Link to this heading"></a></h1>
 <p>To import the module</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -92,9 +92,9 @@
 </div>
 </div>
 </div>
-<section id="example-1">
-<h2>Example - 1<a class="headerlink" href="#example-1" title="Link to this heading"></a></h2>
-<p>Generate data summary tables. The output includes 3 df:</p>
+<section id="example-1-generate-data-summary-tables">
+<h2>Example - 1 Generate data summary tables<a class="headerlink" href="#example-1-generate-data-summary-tables" title="Link to this heading"></a></h2>
+<p>The output includes:</p>
 <ol class="arabic simple">
 <li><p>Count of rows of input data by output-col-columns and output-row-columns</p></li>
 <li><p>Normalized counts by perct_within_index</p></li>
@@ -120,7 +120,7 @@
 </div>
 </div>
 </div>
-<p>Create a frequency (count) table:</p>
+<p>To create a frequency (count) table:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">))[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
@@ -265,7 +265,7 @@
 </table>
 </div></div></div>
 </div>
-<p>Create a table with row-wise percentage:</p>
+<p>To create a table with row-wise percentage:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">col_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
@@ -410,7 +410,7 @@
 </table>
 </div></div></div>
 </div>
-<p>Create a table with grouped row-wise percentage:</p>
+<p>To create a table with grouped row-wise percentage:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="n">col_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
@@ -555,7 +555,7 @@
 </table>
 </div></div></div>
 </div>
-<p>Create a table with column-wise percentage:</p>
+<p>To create a table with column-wise percentage:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">row_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
@@ -700,7 +700,7 @@
 </table>
 </div></div></div>
 </div>
-<p>Create a table with grouped column-wise percentage:</p>
+<p>To create a table with grouped column-wise percentage:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">],</span> <span class="n">row_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
@@ -845,7 +845,7 @@
 </table>
 </div></div></div>
 </div>
-<p>Create a table with grouped row-and-column-wise percentage:</p>
+<p>To create a table with grouped row-and-column-wise percentage:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
