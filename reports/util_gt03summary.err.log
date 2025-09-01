@@ -22,25 +22,34 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-import mtbp3cd.util.gt03summary
+data = {
+    'A': ['foo','foo', 'foo', 'foo', 'foo', 'foo', 'bar', 'bar', 'baz', 'baz', 'baz'],
+    'B': ['one','one','one','one', 'one', 'two', 'two', 'one', 'one', 'two', 'two'],
+    'C': ['y','x','x','x', 'y', 'x', 'y', 'x', 'y', 'x', 'y'],
+    'D': ['apple','apple','apple','apple', 'banana', 'apple', 'banana', 'apple', 'banana', 'apple', 'banana'],
+    'E': ['red','blue','red','red', 'red', 'blue', 'blue', 'red', 'blue', 'red', 'blue'],
+    'value': [0,1,1,1, 2, 3, 4, 5, 6, 7, 8]
+}
+df = pd.DataFrame(data)
+
+# Use crosstab_from_lists with 3-level multi-index for rows and columns
+rows = ['A', 'B', 'C']
+cols = ['D', 'E']
 ------------------
 
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-Cell [0;32mIn[1], line 1[0m
-[0;32m----> 1[0m [38;5;28;01mimport[39;00m[38;5;250m [39m[38;5;21;01mmtbp3cd[39;00m[38;5;21;01m.[39;00m[38;5;21;01mutil[39;00m[38;5;21;01m.[39;00m[38;5;21;01mgt03summary[39;00m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn[2], line 9[0m
+[1;32m      1[0m data [38;5;241m=[39m {
+[1;32m      2[0m     [38;5;124m'[39m[38;5;124mA[39m[38;5;124m'[39m: [[38;5;124m'[39m[38;5;124mfoo[39m[38;5;124m'[39m,[38;5;124m'[39m[38;5;124mfoo[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mfoo[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mfoo[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mfoo[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mfoo[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mbar[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mbar[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mbaz[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mbaz[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mbaz[39m[38;5;124m'[39m],
+[1;32m      3[0m     [38;5;124m'[39m[38;5;124mB[39m[38;5;124m'[39m: [[38;5;124m'[39m[38;5;124mone[39m[38;5;124m'[39m,[38;5;124m'[39m[38;5;124mone[39m[38;5;124m'[39m,[38;5;124m'[39m[38;5;124mone[39m[38;5;124m'[39m,[38;5;124m'[39m[38;5;124mone[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mone[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mtwo[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mtwo[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mone[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mone[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mtwo[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mtwo[39m[38;5;124m'[39m],
+[0;32m   (...)[0m
+[1;32m      7[0m     [38;5;124m'[39m[38;5;124mvalue[39m[38;5;124m'[39m: [[38;5;241m0[39m,[38;5;241m1[39m,[38;5;241m1[39m,[38;5;241m1[39m, [38;5;241m2[39m, [38;5;241m3[39m, [38;5;241m4[39m, [38;5;241m5[39m, [38;5;241m6[39m, [38;5;241m7[39m, [38;5;241m8[39m]
+[1;32m      8[0m }
+[0;32m----> 9[0m df [38;5;241m=[39m [43mpd[49m[38;5;241m.[39mDataFrame(data)
+[1;32m     11[0m [38;5;66;03m# Use crosstab_from_lists with 3-level multi-index for rows and columns[39;00m
+[1;32m     12[0m rows [38;5;241m=[39m [[38;5;124m'[39m[38;5;124mA[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mB[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mC[39m[38;5;124m'[39m]
 
-File [0;32m~/work/mtbp3cd/mtbp3cd/mtbp3cd/__init__.py:1[0m
-[0;32m----> 1[0m [38;5;28;01mfrom[39;00m[38;5;250m [39m[38;5;21;01m.[39;00m[38;5;21;01mgui[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m [38;5;241m*[39m
-[1;32m      2[0m [38;5;28;01mfrom[39;00m[38;5;250m [39m[38;5;21;01m.[39;00m[38;5;21;01mutil[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m [38;5;241m*[39m
-[1;32m      4[0m [38;5;28;01mfrom[39;00m[38;5;250m [39m[38;5;21;01mimportlib[39;00m[38;5;21;01m.[39;00m[38;5;21;01mmetadata[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m version
-
-File [0;32m~/work/mtbp3cd/mtbp3cd/mtbp3cd/gui/__init__.py:2[0m
-[1;32m      1[0m [38;5;28;01mimport[39;00m[38;5;250m [39m[38;5;21;01msys[39;00m
-[0;32m----> 2[0m [38;5;28;01mfrom[39;00m[38;5;250m [39m[38;5;21;01mPyQt6[39;00m[38;5;21;01m.[39;00m[38;5;21;01mQtWidgets[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m QApplication
-[1;32m      3[0m [38;5;28;01mfrom[39;00m[38;5;250m [39m[38;5;21;01m.[39;00m[38;5;21;01mappfileinventory[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m [38;5;241m*[39m
-[1;32m      4[0m [38;5;28;01mfrom[39;00m[38;5;250m [39m[38;5;21;01m.[39;00m[38;5;21;01mappclinicaldata[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m [38;5;241m*[39m
-
-[0;31mModuleNotFoundError[0m: No module named 'PyQt6'
+[0;31mNameError[0m: name 'pd' is not defined
 

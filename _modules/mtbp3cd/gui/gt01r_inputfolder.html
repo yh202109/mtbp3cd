@@ -1,0 +1,338 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mtbp3cd.gui.gt01r_inputfolder &mdash; mtbp3cd  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=ce7ddcad" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            mtbp3cd
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../file_inventory.html">file/Folder Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">mtbp3cd</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../gui.html">mtbp3cd.gui</a></li>
+      <li class="breadcrumb-item active">mtbp3cd.gui.gt01r_inputfolder</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for mtbp3cd.gui.gt01r_inputfolder</h1><div class="highlight"><pre>
+<span></span><span class="c1">#  Copyright (C) 2025 Y Hsu &lt;yh202109@gmail.com&gt;</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software: you can redistribute it and/or modify</span>
+<span class="c1">#  it under the terms of the GNU General Public license as published by</span>
+<span class="c1">#  the Free software Foundation, either version 3 of the License, or</span>
+<span class="c1">#  any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the</span>
+<span class="c1">#  GNU General Public License for more details</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU General Public license</span>
+<span class="c1">#  along with this program. If not, see &lt;https://www.gnu.org/license/&gt;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">Qt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mtbp3cd.util.lsr</span><span class="w"> </span><span class="kn">import</span> <span class="n">LsrTree</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mtbp3cd.gui</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QWidget</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> 
+    <span class="n">QPushButton</span><span class="p">,</span> <span class="n">QLabel</span><span class="p">,</span>
+    <span class="n">QTableWidget</span><span class="p">,</span> <span class="n">QFileDialog</span><span class="p">,</span>
+    <span class="n">QTabWidget</span><span class="p">,</span> <span class="n">QHBoxLayout</span><span class="p">,</span>
+    <span class="n">QTableWidgetItem</span><span class="p">,</span> <span class="n">QListWidget</span>
+<span class="p">)</span>
+
+<div class="viewcode-block" id="TabFolder">
+<a class="viewcode-back" href="../../../autoapi/mtbp3cd/gui/gt01r_inputfolder/index.html#mtbp3cd.gui.gt01r_inputfolder.TabFolder">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TabFolder</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_p</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_p</span> <span class="o">=</span> <span class="n">_p</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_button_1</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Step 1: Select Folder&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_button_1</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_button_1</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_button_1_f</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_button_2</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Step 2: Save tree.txt, meta.json, and table.csv&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_button_2</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_button_2</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_button_2_f</span><span class="p">)</span>
+
+        <span class="n">layout_button</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">layout_button</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_button_1</span><span class="p">)</span>
+        <span class="n">layout_button</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_button_2</span><span class="p">)</span>
+
+        <span class="c1"># BOX - tabs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span> <span class="o">=</span> <span class="n">QTabWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_meta</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_tree</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_table</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_list</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+
+        <span class="c1"># BOX - Tab Meta </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_meta_table</span> <span class="o">=</span> <span class="n">QTableWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_meta_table</span><span class="o">.</span><span class="n">setColumnCount</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_meta_table</span><span class="o">.</span><span class="n">setHorizontalHeaderLabels</span><span class="p">([</span><span class="s2">&quot;Key&quot;</span><span class="p">,</span> <span class="s2">&quot;Value&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_meta_table</span><span class="o">.</span><span class="n">setEditTriggers</span><span class="p">(</span><span class="n">QTableWidget</span><span class="o">.</span><span class="n">EditTrigger</span><span class="o">.</span><span class="n">NoEditTriggers</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_meta_table</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="n">QTableWidget</span><span class="o">.</span><span class="n">SelectionMode</span><span class="o">.</span><span class="n">NoSelection</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_meta_table</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;font-family: &#39;Courier New&#39;, monospace;&quot;</span><span class="p">)</span>
+
+        <span class="n">layout_tab_meta</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout_tab_meta</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignTop</span><span class="p">)</span>
+        <span class="n">layout_tab_meta</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_meta_table</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_meta</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout_tab_meta</span><span class="p">)</span>
+
+        <span class="c1"># BOX - Tab Tree </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_tree_str</span> <span class="o">=</span> <span class="n">QListWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_tree_str</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="n">QListWidget</span><span class="o">.</span><span class="n">SelectionMode</span><span class="o">.</span><span class="n">ExtendedSelection</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_tree_str</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;font-family: &#39;Courier New&#39;, monospace;&quot;</span><span class="p">)</span>
+
+        <span class="n">layout_tab_tree</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout_tab_tree</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignTop</span><span class="p">)</span>
+        <span class="n">layout_tab_tree</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_tree_str</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_tree</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout_tab_tree</span><span class="p">)</span>
+
+        <span class="c1"># BOX - DataFrame Preview </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_table_qttable</span> <span class="o">=</span> <span class="n">QTableWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_table_qttable</span><span class="o">.</span><span class="n">setColumnCount</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_table_qttable</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_table_qttable</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">layout_tab_table</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout_tab_table</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignTop</span><span class="p">)</span>
+        <span class="n">layout_tab_table</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_table_qttable</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_table</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout_tab_table</span><span class="p">)</span>
+
+        <span class="c1"># BOX - Tab List </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_list_str</span> <span class="o">=</span> <span class="n">QListWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_list_str</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="n">QListWidget</span><span class="o">.</span><span class="n">SelectionMode</span><span class="o">.</span><span class="n">ExtendedSelection</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_list_str</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;font-family: &#39;Courier New&#39;, monospace;&quot;</span><span class="p">)</span>
+
+        <span class="n">layout_tab_list</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout_tab_list</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignTop</span><span class="p">)</span>
+        <span class="n">layout_tab_list</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_list_str</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tab_list</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout_tab_list</span><span class="p">)</span>
+
+        <span class="c1">###### TAB - ALL ######</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">addTab</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_meta</span><span class="p">,</span> <span class="s2">&quot;Meta&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">addTab</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_tree</span><span class="p">,</span> <span class="s2">&quot;Tree&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">addTab</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_table</span><span class="p">,</span> <span class="s2">&quot;Table&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="o">.</span><span class="n">addTab</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_list</span><span class="p">,</span> <span class="s2">&quot;List&quot;</span><span class="p">)</span>
+
+        <span class="c1"># BOX - Message List Widget</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message_list</span> <span class="o">=</span> <span class="n">QListWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message_list</span><span class="o">.</span><span class="n">setFixedHeight</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message_list</span><span class="o">.</span><span class="n">sizeHintForRow</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">70</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message_list</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;background-color: rgba(80, 80, 80, 0.15);&quot;</span><span class="p">)</span>
+
+        <span class="n">layout_tab</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout_tab</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignTop</span><span class="p">)</span>
+        <span class="n">layout_tab</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout_button</span><span class="p">)</span>
+        <span class="n">layout_tab</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tabs</span><span class="p">)</span>
+        <span class="n">layout_tab</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout_tab</span><span class="p">)</span>
+
+    <span class="c1"># def show_message(self, message, status=&quot;info&quot;):</span>
+    <span class="c1">#     color_map = {</span>
+    <span class="c1">#         &quot;success&quot;: Qt.GlobalColor.green,</span>
+    <span class="c1">#         &quot;fail&quot;: Qt.GlobalColor.red,</span>
+    <span class="c1">#         &quot;info&quot;: Qt.GlobalColor.blue</span>
+    <span class="c1">#     }</span>
+    <span class="c1">#     color = color_map.get(status, Qt.GlobalColor.black)</span>
+    <span class="c1">#     self.message_list.addItem(message)</span>
+    <span class="c1">#     self.message_list.item(self.message_list.count() - 1).setForeground(color)</span>
+    <span class="c1">#     self.message_list.scrollToBottom()</span>
+
+<div class="viewcode-block" id="TabFolder.tab_button_1_f">
+<a class="viewcode-back" href="../../../autoapi/mtbp3cd/gui/gt01r_inputfolder/index.html#mtbp3cd.gui.gt01r_inputfolder.TabFolder.tab_button_1_f">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tab_button_1_f</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">folder</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Select Folder&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">folder</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gt01_input_folder_path</span> <span class="o">=</span> <span class="n">folder</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_folder_meta_json</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">util_get_folder_meta_info</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_meta_table</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_folder_meta_json</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_folder_meta_json</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+                <span class="n">key_item</span> <span class="o">=</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+                <span class="n">value_item</span> <span class="o">=</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tab_meta_table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">key_item</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tab_meta_table</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">value_item</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_meta_table</span><span class="o">.</span><span class="n">resizeColumnsToContents</span><span class="p">()</span>
+            <span class="n">lsr1</span> <span class="o">=</span> <span class="n">LsrTree</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">outfmt</span><span class="o">=</span><span class="s2">&quot;tree&quot;</span><span class="p">,</span> <span class="n">with_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_folder_tree_str</span> <span class="o">=</span> <span class="n">lsr1</span><span class="o">.</span><span class="n">list_files</span><span class="p">()</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_button_2</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_folder_tree_str</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_tree_str</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_folder_tree_str</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_tree_str</span><span class="o">.</span><span class="n">addItems</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_folder_tree_str</span><span class="p">)])</span>
+            <span class="n">lsr2</span> <span class="o">=</span> <span class="n">LsrTree</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">outfmt</span><span class="o">=</span><span class="s2">&quot;dataframe&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">folder_file_list</span> <span class="o">=</span> <span class="n">lsr2</span><span class="o">.</span><span class="n">list_files_list</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">folder_file_df</span> <span class="o">=</span> <span class="n">lsr2</span><span class="o">.</span><span class="n">list_files_dataframe</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_list_str</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_list_str</span><span class="o">.</span><span class="n">addItems</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">folder_file_list</span><span class="p">)])</span>
+
+            <span class="c1"># Display DataFrame in the QTableWidget</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_table_qttable</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_table_qttable</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">folder_file_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_table_qttable</span><span class="o">.</span><span class="n">setColumnCount</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">folder_file_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_table_qttable</span><span class="o">.</span><span class="n">setHorizontalHeaderLabels</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">folder_file_df</span><span class="o">.</span><span class="n">columns</span><span class="p">])</span>
+
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">folder_file_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">folder_file_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">folder_file_df</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">])</span>
+                    <span class="n">item</span> <span class="o">=</span> <span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tab_table_qttable</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tab_table_qttable</span><span class="o">.</span><span class="n">resizeColumnsToContents</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="TabFolder.util_get_folder_meta_info">
+<a class="viewcode-back" href="../../../autoapi/mtbp3cd/gui/gt01r_inputfolder/index.html#mtbp3cd.gui.gt01r_inputfolder.TabFolder.util_get_folder_meta_info">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">util_get_folder_meta_info</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
+        <span class="n">folder_size</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">dirpath</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">filenames</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filenames</span>
+        <span class="p">)</span>
+        <span class="n">folder_ctime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getctime</span><span class="p">(</span><span class="n">folder</span><span class="p">))</span>
+        <span class="n">folder_mtime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="n">folder</span><span class="p">))</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="n">meta_info</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;folder_path&quot;</span><span class="p">:</span> <span class="n">folder</span><span class="p">,</span>
+            <span class="s2">&quot;folder_size&quot;</span><span class="p">:</span> <span class="n">folder_size</span><span class="p">,</span>
+            <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="n">folder_ctime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">),</span>
+            <span class="s2">&quot;modified&quot;</span><span class="p">:</span> <span class="n">folder_mtime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">),</span>
+            <span class="s2">&quot;scan_time&quot;</span><span class="p">:</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">),</span>
+            <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getlogin</span><span class="p">(),</span>
+            <span class="s2">&quot;mtbp3cd_version&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">__import__</span><span class="p">(</span><span class="s2">&quot;mtbp3cd&quot;</span><span class="p">),</span> <span class="s2">&quot;__version__&quot;</span><span class="p">,</span> <span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">meta_info</span></div>
+
+
+<div class="viewcode-block" id="TabFolder.tab_button_2_f">
+<a class="viewcode-back" href="../../../autoapi/mtbp3cd/gui/gt01r_inputfolder/index.html#mtbp3cd.gui.gt01r_inputfolder.TabFolder.tab_button_2_f">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tab_button_2_f</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">file_path_base</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p</span><span class="o">.</span><span class="n">tab_starting</span><span class="p">,</span> <span class="s2">&quot;gt01_output_folder_path&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path_base</span><span class="p">:</span>
+            <span class="n">mtbp3cd</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">util_show_message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message_list</span><span class="p">,</span> <span class="s2">&quot;Please select output folder in the previous step&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s2">&quot;success&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file_path_base</span><span class="p">,</span> <span class="s2">&quot;log_folder_tree.txt&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tab_folder_tree_str</span><span class="p">:</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">mtbp3cd</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">util_show_message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message_list</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Tree exported: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">mtbp3cd</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">util_show_message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message_list</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Failed to export: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s2">&quot;f&quot;</span><span class="p">)</span>
+
+        <span class="n">meta_json_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file_path_base</span><span class="p">,</span> <span class="s2">&quot;log_folder_meta.json&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">meta_json_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_folder_meta_json</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">mtbp3cd</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">util_show_message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message_list</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Meta exported: </span><span class="si">{</span><span class="n">meta_json_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">mtbp3cd</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">util_show_message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message_list</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Failed to export meta.json: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s2">&quot;f&quot;</span><span class="p">)</span>
+
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file_path_base</span><span class="p">,</span> <span class="s2">&quot;log_folder_table.csv&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">folder_file_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">mtbp3cd</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">util_show_message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message_list</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;CSV exported: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">mtbp3cd</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">util_show_message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message_list</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Failed to export CSV: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s2">&quot;f&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Y. Hsu.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

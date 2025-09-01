@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mtbp3cd.util.gt03summary &mdash; mtbp3cd  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=ce7ddcad" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            mtbp3cd
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../file_inventory.html">file/Folder Snapshot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">mtbp3cd</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../util.html">mtbp3cd.util</a></li>
+      <li class="breadcrumb-item active">mtbp3cd.util.gt03summary</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for mtbp3cd.util.gt03summary</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1">#  Copyright (C) 2025 Y Hsu &lt;yh202109@gmail.com&gt;</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software: you can redistribute it and/or modify</span>
+<span class="c1">#  it under the terms of the GNU General Public license as published by</span>
+<span class="c1">#  the Free software Foundation, either version 3 of the License, or</span>
+<span class="c1">#  any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the</span>
+<span class="c1">#  GNU General Public License for more details</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU General Public license</span>
+<span class="c1">#  along with this program. If not, see &lt;https://www.gnu.org/license/&gt;</span>
+
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">norm</span>
+
+<div class="viewcode-block" id="pd_df_flag_to_category">
+<a class="viewcode-back" href="../../../autoapi/mtbp3cd/util/gt03summary/index.html#mtbp3cd.util.gt03summary.pd_df_flag_to_category">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">pd_df_flag_to_category</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">flag_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;fl&#39;</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">flag_cols</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">):</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">()))</span>
+            <span class="k">if</span> <span class="s2">&quot;Y&quot;</span> <span class="ow">in</span> <span class="n">values</span> <span class="ow">or</span> <span class="s2">&quot;N&quot;</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">&quot;N&quot;</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                    <span class="n">values</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">)</span>
+                    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;N&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s2">&quot;Y&quot;</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                    <span class="n">values</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">)</span>
+                    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Y&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="s2">&quot;{&#39;Y&#39;}&quot;</span> <span class="ow">in</span> <span class="n">values</span> <span class="ow">or</span> <span class="s2">&quot;{&#39;N&#39;}&quot;</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">&quot;{&#39;N&#39;}&quot;</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                    <span class="n">values</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;{&#39;N&#39;}&quot;</span><span class="p">)</span>
+                    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;{&#39;N&#39;}&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s2">&quot;{&#39;Y&#39;}&quot;</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                    <span class="n">values</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;{&#39;Y&#39;}&quot;</span><span class="p">)</span>
+                    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;{&#39;Y&#39;}&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="n">categories</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">ordered</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cats</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s2">&quot;Y&quot;</span> <span class="ow">in</span> <span class="n">cats</span> <span class="ow">or</span> <span class="s2">&quot;N&quot;</span> <span class="ow">in</span> <span class="n">cats</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">&quot;N&quot;</span> <span class="ow">in</span> <span class="n">cats</span><span class="p">:</span>
+                    <span class="n">cats</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">)</span>
+                    <span class="n">cats</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;N&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">cats</span>
+                <span class="k">if</span> <span class="s2">&quot;Y&quot;</span> <span class="ow">in</span> <span class="n">cats</span><span class="p">:</span>
+                    <span class="n">cats</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">)</span>
+                    <span class="n">cats</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Y&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">cats</span>
+            <span class="k">elif</span> <span class="s2">&quot;{&#39;Y&#39;}&quot;</span> <span class="ow">in</span> <span class="n">cats</span> <span class="ow">or</span> <span class="s2">&quot;{&#39;N&#39;}&quot;</span> <span class="ow">in</span> <span class="n">cats</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">&quot;{&#39;N&#39;}&quot;</span> <span class="ow">in</span> <span class="n">cats</span><span class="p">:</span>
+                    <span class="n">cats</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;{&#39;N&#39;}&quot;</span><span class="p">)</span>
+                    <span class="n">cats</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;{&#39;N&#39;}&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">cats</span>
+                <span class="k">if</span> <span class="s2">&quot;{&#39;Y&#39;}&quot;</span> <span class="ow">in</span> <span class="n">cats</span><span class="p">:</span>
+                    <span class="n">cats</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;{&#39;Y&#39;}&quot;</span><span class="p">)</span>
+                    <span class="n">cats</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;{&#39;Y&#39;}&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">cats</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">reorder_categories</span><span class="p">(</span><span class="n">cats</span><span class="p">,</span> <span class="n">ordered</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> </div>
+
+
+<div class="viewcode-block" id="crosstab_from_lists">
+<a class="viewcode-back" href="../../../autoapi/mtbp3cd/util/gt03summary/index.html#mtbp3cd.util.gt03summary.crosstab_from_lists">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">perct_within_index</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All elements in &#39;rows&#39; must be column names of df.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All elements in &#39;cols&#39; must be column names of df.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">perct_within_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">perct_within_index</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;perct_within_index&#39; must be a list of column names.&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">perct_within_index</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">rows</span> <span class="ow">and</span> <span class="n">idx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&#39; must be in either &#39;rows&#39; or &#39;cols&#39;.&quot;</span><span class="p">)</span>
+
+    <span class="n">ct1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">([</span><span class="n">df</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">],</span> <span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">],</span> <span class="n">margins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">perct_within_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">perct_within_index</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">ct_perc</span> <span class="o">=</span> <span class="n">ct1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">ct_total</span> <span class="o">=</span> <span class="n">ct1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="c1"># Normalize within all indices in perct_within_index together</span>
+        <span class="n">idx_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rows</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">perct_within_index</span><span class="p">]</span>
+        <span class="n">col_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cols</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">perct_within_index</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">idx_names</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">col_names</span><span class="p">:</span>
+            <span class="c1"># Normalize within all index levels in idx_names together</span>
+            <span class="n">idx_vals</span> <span class="o">=</span> <span class="n">ct1</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">droplevel</span><span class="p">([</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ct1</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">idx_names</span><span class="p">])</span>
+            <span class="n">unique_idx_combos</span> <span class="o">=</span> <span class="n">idx_vals</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">combo</span> <span class="ow">in</span> <span class="n">unique_idx_combos</span><span class="p">:</span>
+                <span class="n">mask</span> <span class="o">=</span> <span class="n">idx_vals</span> <span class="o">==</span> <span class="n">combo</span>
+                <span class="n">subtable</span> <span class="o">=</span> <span class="n">ct1</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;All&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+                <span class="n">total</span> <span class="o">=</span> <span class="n">subtable</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">total</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">total</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+                <span class="n">ct_perc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">subtable</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">ct_total</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">total</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s2">&quot;All&quot;</span> <span class="ow">in</span> <span class="n">ct_perc</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">ct_perc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ct_perc</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;All&quot;</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="k">elif</span> <span class="n">col_names</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">idx_names</span><span class="p">:</span>
+            <span class="c1"># Normalize within all column levels in col_names together</span>
+            <span class="n">col_vals</span> <span class="o">=</span> <span class="n">ct1</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">droplevel</span><span class="p">([</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ct1</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">names</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">col_names</span><span class="p">])</span>
+            <span class="n">unique_col_combos</span> <span class="o">=</span> <span class="n">col_vals</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">combo</span> <span class="ow">in</span> <span class="n">unique_col_combos</span><span class="p">:</span>
+                <span class="n">mask</span> <span class="o">=</span> <span class="n">col_vals</span> <span class="o">==</span> <span class="n">combo</span>
+                <span class="n">subtable</span> <span class="o">=</span> <span class="n">ct1</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;All&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+                <span class="n">total</span> <span class="o">=</span> <span class="n">subtable</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="c1"># total[:] = total.sum()</span>
+                <span class="n">ct_perc</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">subtable</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">ct_total</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">total</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s2">&quot;All&quot;</span> <span class="ow">in</span> <span class="n">ct_perc</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">ct_perc</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">ct_perc</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;All&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="n">ct_total</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">ct_perc</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;All&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="k">elif</span> <span class="n">col_names</span> <span class="ow">and</span> <span class="n">idx_names</span><span class="p">:</span>
+            <span class="c1"># Normalize within both index and column levels in perct_within_index together</span>
+            <span class="n">idx_vals</span> <span class="o">=</span> <span class="n">ct1</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">droplevel</span><span class="p">([</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ct1</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">idx_names</span><span class="p">])</span>
+            <span class="n">col_vals</span> <span class="o">=</span> <span class="n">ct1</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">droplevel</span><span class="p">([</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ct1</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">names</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">col_names</span><span class="p">])</span>
+            <span class="n">unique_idx_combos</span> <span class="o">=</span> <span class="n">idx_vals</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+            <span class="n">unique_col_combos</span> <span class="o">=</span> <span class="n">col_vals</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">idx_combo</span> <span class="ow">in</span> <span class="n">unique_idx_combos</span><span class="p">:</span>
+                <span class="n">idx_mask</span> <span class="o">=</span> <span class="n">idx_vals</span> <span class="o">==</span> <span class="n">idx_combo</span>
+                <span class="k">for</span> <span class="n">col_combo</span> <span class="ow">in</span> <span class="n">unique_col_combos</span><span class="p">:</span>
+                    <span class="n">col_mask</span> <span class="o">=</span> <span class="n">col_vals</span> <span class="o">==</span> <span class="n">col_combo</span>
+                    <span class="n">subtable</span> <span class="o">=</span> <span class="n">ct1</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx_mask</span><span class="p">,</span> <span class="n">col_mask</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;All&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;All&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+                    <span class="n">total</span> <span class="o">=</span> <span class="n">subtable</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">ct_perc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx_mask</span><span class="p">,</span> <span class="n">col_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">subtable</span> <span class="o">/</span> <span class="n">total</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">ct_perc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx_mask</span><span class="p">,</span> <span class="n">col_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                    <span class="n">ct_total</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx_mask</span><span class="p">,</span> <span class="n">col_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">total</span>
+            <span class="c1"># if &quot;All&quot; in ct_perc.index.get_level_values(-1) or &quot;All&quot; in ct_perc.columns.get_level_values(-1):</span>
+            <span class="c1">#     ct_perc.loc[ct_perc.index.get_level_values(-1) == &quot;All&quot;, :] = np.nan</span>
+            <span class="c1">#     ct_perc.loc[:, ct_perc.columns.get_level_values(-1) == &quot;All&quot;] = np.nan</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If perct_within_index is specified but does not match any row or column, just return NaN percent table</span>
+            <span class="n">ct_perc</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="n">ct_total</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="n">ct_perc</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">ct_perc</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="n">ct1</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; (&quot;</span> <span class="o">+</span> <span class="n">ct_perc</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;%)&quot;</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="n">report</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; (-%)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span><span class="p">)</span>
+        <span class="c1"># report = report.applymap(lambda x: x.replace(&quot; (-%)&quot;, &quot;&quot;) if isinstance(x, str) else x)</span>
+        <span class="n">ct</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="n">ct1</span><span class="p">,</span> <span class="s2">&quot;percent&quot;</span><span class="p">:</span> <span class="n">ct_perc</span><span class="p">,</span> <span class="s2">&quot;report&quot;</span><span class="p">:</span> <span class="n">report</span><span class="p">,</span> <span class="s2">&quot;total&quot;</span><span class="p">:</span> <span class="n">ct_total</span><span class="p">}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ct</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="n">ct1</span><span class="p">,</span> <span class="s2">&quot;percent&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;report&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;total&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">ct</span></div>
+
+
+<div class="viewcode-block" id="geo_mean_sd_by_group">
+<a class="viewcode-back" href="../../../autoapi/mtbp3cd/util/gt03summary/index.html#mtbp3cd.util.gt03summary.geo_mean_sd_by_group">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">geo_mean_sd_by_group</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">group_by</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">geo_stats</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="c1"># Change output from pd.Series to list</span>
+        <span class="n">n1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span>
+        <span class="n">logs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">gm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logs</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+        <span class="n">gsd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logs</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">se</span> <span class="o">=</span> <span class="n">logs</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">ci_lower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logs</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">se</span><span class="p">)</span>
+        <span class="n">ci_upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logs</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">se</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">gm</span><span class="p">,</span> <span class="n">gsd</span><span class="p">,</span> <span class="n">ci_lower</span><span class="p">,</span> <span class="n">ci_upper</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">group_by</span><span class="p">)[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">geo_stats</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Geo_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;Geo_sd&#39;</span><span class="p">,</span> <span class="s1">&#39;CI_lower&#39;</span><span class="p">,</span> <span class="s1">&#39;CI_upper&#39;</span><span class="p">,</span> <span class="s1">&#39;Alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;N_total&#39;</span><span class="p">,</span> <span class="s1">&#39;N_included&#39;</span><span class="p">]</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;A_fl&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">([</span><span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">],</span> <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">]),</span>
+        <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+    <span class="p">})</span>
+    <span class="n">pd_df_flag_to_category</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;A_fl&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="p">)</span>
+    <span class="k">pass</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Y. Hsu.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

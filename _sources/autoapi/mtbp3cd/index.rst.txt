@@ -20,8 +20,6 @@ Attributes
 
 .. autoapisummary::
 
-   mtbp3cd.style_btn_clicked
-   mtbp3cd.app
    mtbp3cd._ROOT
    mtbp3cd.__version__
 
@@ -31,9 +29,6 @@ Classes
 
 .. autoapisummary::
 
-   mtbp3cd.MainWedge
-   mtbp3cd.FileInventoryApp
-   mtbp3cd.ClinicalDataApp
    mtbp3cd.LsrTree
 
 
@@ -42,89 +37,11 @@ Functions
 
 .. autoapisummary::
 
-   mtbp3cd.update_sidebar_buttons_f
-   mtbp3cd.util_show_message
-   mtbp3cd.runapp
    mtbp3cd.get_data
 
 
 Package Contents
 ----------------
-
-.. py:data:: style_btn_clicked
-   :value: 'QPushButton { background-color: #0078d7; color: white; border: none; padding: 3px 16px;...
-
-
-.. py:function:: update_sidebar_buttons_f(all_buttons=None, clicked_button=None)
-
-.. py:function:: util_show_message(message_list, message, status='info')
-
-.. py:function:: runapp(type='FileInventory')
-
-.. py:class:: MainWedge
-
-   Bases: :py:obj:`PyQt6.QtWidgets.QWidget`
-
-
-   .. py:attribute:: sidebar_button_starting
-
-
-   .. py:attribute:: sidebar_button_folder
-
-
-   .. py:attribute:: sidebar_button_checksum
-
-
-   .. py:attribute:: sidebar_button_record
-
-
-   .. py:attribute:: all_buttons
-
-
-   .. py:attribute:: tab_starting
-
-
-   .. py:attribute:: tab_folder
-
-
-   .. py:attribute:: tab_checksum
-
-
-   .. py:attribute:: tab_record
-
-
-   .. py:attribute:: tabs
-
-
-   .. py:method:: sidebar_button_starting_f()
-
-
-   .. py:method:: sidebar_button_folder_f()
-
-
-   .. py:method:: sidebar_button_checksum_f()
-
-
-   .. py:method:: sidebar_button_record_f()
-
-
-.. py:class:: FileInventoryApp
-
-   Bases: :py:obj:`PyQt6.QtWidgets.QMainWindow`
-
-
-   .. py:attribute:: main_widget
-
-
-.. py:data:: app
-
-.. py:class:: ClinicalDataApp
-
-   Bases: :py:obj:`PyQt6.QtWidgets.QMainWindow`
-
-
-   .. py:attribute:: main_widget
-
 
 .. py:data:: _ROOT
    :value: b'.'
