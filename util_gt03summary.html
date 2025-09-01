@@ -268,7 +268,7 @@
 <p>Create a table with row-wise percentage:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">rows</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">row_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -413,7 +413,7 @@
 <p>Create a table with grouped row-wise percentage:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">]))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="n">row_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -558,7 +558,7 @@
 <p>Create a table with column-wise percentage:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">cols</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">col_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -703,7 +703,7 @@
 <p>Create a table with grouped column-wise percentage:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">],</span> <span class="n">col_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>

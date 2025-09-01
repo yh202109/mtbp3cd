@@ -4,14 +4,6 @@ mtbp3cd.util.gt03summary
 .. py:module:: mtbp3cd.util.gt03summary
 
 
-Attributes
-----------
-
-.. autoapisummary::
-
-   mtbp3cd.util.gt03summary.df
-
-
 Functions
 ---------
 
@@ -27,9 +19,7 @@ Module Contents
 
 .. py:function:: pd_df_flag_to_category(df)
 
-.. py:function:: crosstab_from_lists(df, rows, cols, perct_within_index=None)
+.. py:function:: crosstab_from_lists(df, rows, cols, perct_within_index=None, col_margin_perct=False, row_margin_perct=False, report_type=1)
 
 .. py:function:: geo_mean_sd_by_group(df, group_by, var)
-
-.. py:data:: df
 
