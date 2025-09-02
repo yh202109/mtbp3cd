@@ -62,16 +62,29 @@ def pd_df_flag_to_category(df):
     return 
 
 def crosstab_from_lists(df, rows, cols, perct_within_index=None, col_margin_perct=False, row_margin_perct=False, report_type=1):
+    # s.1
+    if not isinstance(df, pd.DataFrame):
+        raise TypeError("'df' must be a pandas DataFrame.")
+    if df.empty:
+        raise ValueError("'df' must not be empty.")
+    if not rows or not cols:
+        raise ValueError("'rows' and 'cols' must be non-empty lists.")
+    rows = list(set(rows))
+    cols = list(set(cols))
     if not all(col in df.columns for col in rows):
         raise ValueError("All elements in 'rows' must be column names of df.")
     if not all(col in df.columns for col in cols):
         raise ValueError("All elements in 'cols' must be column names of df.")
+    if rows.intersection(cols):
+        raise ValueError("The intersection of 'rows' and 'cols' must be empty.")
+    # s.2
     if perct_within_index is not None:
         if not isinstance(perct_within_index, list):
             raise ValueError("'perct_within_index' must be a list of column names.")
         for idx in perct_within_index:
             if idx not in rows and idx not in cols:
                 raise ValueError(f"'{idx}' must be in either 'rows' or 'cols'.")
+    # s.3
     if report_type not in [1, 2]:
         raise ValueError("'report_type' must be either 1 or 2.")
     if not isinstance(col_margin_perct, bool):
@@ -154,7 +167,7 @@ def crosstab_from_lists(df, rows, cols, perct_within_index=None, col_margin_perc
                 if "All" in ct_total.index.get_level_values(0):
                     for col_combo in unique_col_combos:
                         col_mask = col_vals == col_combo
-                        subtable = ct1.loc[:, col_mask].drop("All", axis=1, errors="ignore")
+                        subtable = ct1.loc['All', col_mask].drop("All", axis=1, errors="ignore")
                         ct_total.loc[ct_total.index.get_level_values(0) == "All",col_mask] = subtable.values.sum()
             else:
                 ct_total.loc[ct_total.index.get_level_values(0) == "All",:] = np.nan
