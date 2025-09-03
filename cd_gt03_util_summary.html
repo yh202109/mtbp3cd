@@ -73,7 +73,7 @@
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">cd/gt03/Summary Table</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/cd_util_gt03summary.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/cd_gt03_util_summary.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -181,6 +181,22 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To create a table with grouped row-and-column-wise percentage:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]),</span> <span class="n">row_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">col_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To create a table with grouped row-wise percentage and total:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">crosstab_from_lists</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="n">col_margin_perct</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">report_type</span><span class="o">=</span><span class="mi">2</span><span class="p">))[</span><span class="s1">&#39;report&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>

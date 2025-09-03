@@ -6,7 +6,7 @@
 :hidden:
 
 file_inventory.ipynb
-cd_util_gt03summary.ipynb
+cd_gt03_util_summary.ipynb
 
 changelog.md
 contributing.md
