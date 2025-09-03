@@ -75,7 +75,7 @@ def crosstab_from_lists(df, rows, cols, perct_within_index=None, col_margin_perc
         raise ValueError("All elements in 'rows' must be column names of df.")
     if not all(col in df.columns for col in cols):
         raise ValueError("All elements in 'cols' must be column names of df.")
-    if rows.intersection(cols):
+    if len([x for x in cols if x in rows])>0:
         raise ValueError("The intersection of 'rows' and 'cols' must be empty.")
     # s.2
     if perct_within_index is not None:
@@ -202,6 +202,7 @@ def geo_mean_sd_by_group(df, group_by, var):
     def geo_stats(x):
         # Change output from pd.Series to list
         n1 = len(x)
+        x = x.replace([np.inf, -np.inf], np.nan)
         x = x.dropna()
         x = x[x > 0]
         if len(x) == 0:
@@ -218,8 +219,10 @@ def geo_mean_sd_by_group(df, group_by, var):
         return [gm, gsd, ci_lower, ci_upper, alpha, n1, n]
 
     result = df.groupby(group_by)[var].apply(geo_stats).apply(pd.Series)
-    result.columns = ['Geo_mean', 'Geo_sd', 'CI_lower', 'CI_upper', 'Alpha', 'N_total', 'N_included']
+    result.columns = ['Geo_mean', 'Geo_sd_natural', 'CI_lower', 'CI_upper', 'Alpha', 'N_total', 'N_included']
     result = result.reset_index()
+    result['N_total'] = result['N_total']
+    result['N_included'] = result['N_included']
 
     return result
 
