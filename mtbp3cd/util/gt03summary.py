@@ -69,8 +69,10 @@ def crosstab_from_lists(df, rows, cols, perct_within_index=None, col_margin_perc
         raise ValueError("'df' must not be empty.")
     if not rows or not cols:
         raise ValueError("'rows' and 'cols' must be non-empty lists.")
-    # rows = list(set(rows))
-    # cols = list(set(cols))
+    if len(cols) != len(set(cols)):
+        raise ValueError("'cols' must not contain duplicate column names.")
+    if len(rows) != len(set(rows)):
+        raise ValueError("'rows' must not contain duplicate column names.")
     if not all(col in df.columns for col in rows):
         raise ValueError("All elements in 'rows' must be column names of df.")
     if not all(col in df.columns for col in cols):
