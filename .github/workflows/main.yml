@@ -25,6 +25,8 @@ jobs:
 
       #- name: Install dvipng
       #  run: sudo apt-get install dvisvgm
+      - name: update
+        run: sudo apt-get update
 
       - name: install
         run: sudo apt-get install freeglut3-dev
