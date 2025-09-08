@@ -199,29 +199,38 @@ def crosstab_from_lists(df, rows, cols, perct_within_index=None, col_margin_perc
 
     return ct
 
-def geo_mean_sd_by_group(df, group_by, var):
+def geo_mean_sd_by_group(df, group_by, var, base=None, alpha=0.05):
 
-    def geo_stats(x):
-        # Change output from pd.Series to list
+    if not isinstance(alpha, float) or not (0 < alpha < 1):
+        raise ValueError("'alpha' must be a float between 0 and 1 (exclusive).")
+
+    if base is not None:
+        if not (isinstance(base, (int, float)) and base > 0):
+            raise ValueError("'base' must be a positive number if specified.")
+    else:
+        base = np.e
+    z = norm.ppf(1 - alpha/2)
+
+    def geo_stats_base(x):
         n1 = len(x)
         x = x.replace([np.inf, -np.inf], np.nan)
         x = x.dropna()
         x = x[x > 0]
         if len(x) == 0:
             return [np.nan, np.nan, np.nan, np.nan, np.nan, np.nan, np.nan]
-        logs = np.log(x)
-        gm = np.exp(logs.mean())
-        gsd = np.exp(logs.std(ddof=1))
+
         n = len(x)
+        logs = np.log(x) / np.log(base)
+        gm = base ** logs.mean()
+        gsd = base ** logs.std(ddof=1)
         se = logs.std(ddof=1) / np.sqrt(n)
-        alpha = 0.05
-        z = norm.ppf(1 - alpha/2)
-        ci_lower = np.exp(logs.mean() - z * se)
-        ci_upper = np.exp(logs.mean() + z * se)
+        ci_lower = base ** (logs.mean() - z * se)
+        ci_upper = base ** (logs.mean() + z * se)
         return [gm, gsd, ci_lower, ci_upper, alpha, n1, n]
 
-    result = df.groupby(group_by)[var].apply(geo_stats).apply(pd.Series)
-    result.columns = ['Geo_mean', 'Geo_sd_natural', 'CI_lower', 'CI_upper', 'Alpha', 'N_total', 'N_included']
+    result = df.groupby(group_by)[var].apply(geo_stats_base).apply(pd.Series)
+
+    result.columns = ['Geo_mean', 'Geo_sd', 'CI_lower', 'CI_upper', 'Alpha', 'N_total', 'N_included']
     result = result.reset_index()
     result['N_total'] = result['N_total']
     result['N_included'] = result['N_included']
