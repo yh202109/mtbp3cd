@@ -21,5 +21,5 @@ Module Contents
 
 .. py:function:: crosstab_from_lists(df, rows, cols, perct_within_index=None, col_margin_perct=False, row_margin_perct=False, report_type=1)
 
-.. py:function:: geo_mean_sd_by_group(df, group_by, var)
+.. py:function:: geo_mean_sd_by_group(df, group_by, var, base=None, alpha=0.05)
 
