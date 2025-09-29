@@ -54,7 +54,7 @@ class MainWedge(QWidget):
         layout_sidebar.addWidget(QLabel("<b>Starts Here:</b>"))
         layout_sidebar.addWidget(self.sidebar_button_starting)
         layout_sidebar.addWidget(self.sidebar_button_input)
-        layout_sidebar.addWidget(QLabel("<b>Data Exchange:</b>"))
+        layout_sidebar.addWidget(QLabel("<b>Define:</b>"))
         layout_sidebar.addWidget(self.sidebar_button_ad_define)
         layout_sidebar.addWidget(QLabel("<b>ADaM:</b>"))
         layout_sidebar.addWidget(self.sidebar_button_adsl)

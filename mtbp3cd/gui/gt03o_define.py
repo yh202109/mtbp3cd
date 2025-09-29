@@ -72,12 +72,12 @@ class TabDefine(QWidget):
         self.tab_sd_meta = QWidget()
         self.tab_sd_igdef = QWidget()
         self.tab_sd_desc = QWidget()
-        self.tab_sd_descf = QWidget()
+        self.tab_sd_flag = QWidget()
 
         self.tab_ad_meta = QWidget()
         self.tab_ad_igdef = QWidget()
         self.tab_ad_desc = QWidget()
-        self.tab_ad_descf = QWidget()
+        self.tab_ad_flag = QWidget()
 
         # BOX - Tab Meta 
         self.tab_sd_meta_table = DefaultTableWidget(["Key", "Value", "ns"])
@@ -119,29 +119,29 @@ class TabDefine(QWidget):
         self.tab_ad_desc.setLayout(layout_tab_ad_desc)
 
         # BOX - Tab desc Flag
-        self.tab_sd_descf_table = DefaultTableWidget(["Domain", "Column_value", "Type", "Length", "Description", "CL_OID", "Flag", "AVAL"])
-        layout_tab_sd_descf = QVBoxLayout()
-        layout_tab_sd_descf.setAlignment(Qt.AlignmentFlag.AlignTop)
-        layout_tab_sd_descf.addWidget(self.tab_sd_descf_table)
-        self.tab_sd_descf.setLayout(layout_tab_sd_descf)
+        self.tab_sd_flag_table = DefaultTableWidget(["Domain", "Column_value", "Type", "Length", "Description", "CL_OID", "Flag", "AVAL"])
+        layout_tab_sd_flag = QVBoxLayout()
+        layout_tab_sd_flag.setAlignment(Qt.AlignmentFlag.AlignTop)
+        layout_tab_sd_flag.addWidget(self.tab_sd_flag_table)
+        self.tab_sd_flag.setLayout(layout_tab_sd_flag)
 
-        self.tab_ad_descf_table = DefaultTableWidget(["Domain", "Column_value", "Type", "Length", "Description", "CL_OID", "Flag", "AVAL"])
-        layout_tab_ad_descf = QVBoxLayout()
-        layout_tab_ad_descf.setAlignment(Qt.AlignmentFlag.AlignTop)
-        layout_tab_ad_descf.addWidget(self.tab_ad_descf_table)
-        self.tab_ad_descf.setLayout(layout_tab_ad_descf)
+        self.tab_ad_flag_table = DefaultTableWidget(["Domain", "Column_value", "Type", "Length", "Description", "CL_OID", "Flag", "AVAL"])
+        layout_tab_ad_flag = QVBoxLayout()
+        layout_tab_ad_flag.setAlignment(Qt.AlignmentFlag.AlignTop)
+        layout_tab_ad_flag.addWidget(self.tab_ad_flag_table)
+        self.tab_ad_flag.setLayout(layout_tab_ad_flag)
 
         ###### TAB - ALL ######
         self.tabs.addTab(self.tabs_sd, "Data tabulation")
         self.tabs_sd.addTab(self.tab_sd_meta, "Meta")
         self.tabs_sd.addTab(self.tab_sd_igdef, "File")
         self.tabs_sd.addTab(self.tab_sd_desc, "Col. Description")
-        self.tabs_sd.addTab(self.tab_sd_descf, "Flag")
+        self.tabs_sd.addTab(self.tab_sd_flag, "Flag")
         self.tabs.addTab(self.tabs_ad, "Analysis datasets")
         self.tabs_ad.addTab(self.tab_ad_meta, "Meta")
         self.tabs_ad.addTab(self.tab_ad_igdef, "File")
         self.tabs_ad.addTab(self.tab_ad_desc, "Col. Description")
-        self.tabs_ad.addTab(self.tab_ad_descf, "Flag")
+        self.tabs_ad.addTab(self.tab_ad_flag, "Flag")
 
         # BOX - Message List Widget
         self.message_list = QListWidget()
@@ -168,13 +168,22 @@ class TabDefine(QWidget):
 
         if folder:
             self.sd_folder_path = folder
+            xml_file = None
             for f in os.listdir(folder):
                 if f.lower() == "define.xml":
                     xml_file = os.path.join(folder, f)
                     break
 
+            if xml_file is None:
+                xml_file, _ = QFileDialog.getOpenFileName(self, "Select define.xml File", folder, "XML Files (*.xml);;All Files (*)")
+                if not xml_file:
+                    return
+
             dx = DefineXML()
             result = dx.read(xml_file)
+            if result is None:
+                mtbp3cd.gui.util_show_message(self.message_list, "File format not recognized", status="f")
+                return
 
             self.tab_sd_meta_df=pd.DataFrame(result["meta"], columns=["key", "value", "ns"])
             self.tab_sd_igdef_df=pd.DataFrame(result["ig_desc"], columns=["key", "value", "description"])
@@ -224,7 +233,7 @@ class TabDefine(QWidget):
 
             self.tab_sd_flag_df = self.tab_sd_igdef_oid_desc[self.tab_sd_igdef_oid_desc["flag"]]
 
-            self.tab_sd_descf_table.setRowCount(0)
+            self.tab_sd_flag_table.setRowCount(0)
             for row_idx, row in self.tab_sd_flag_df.iterrows():
                 item0 = QTableWidgetItem(str(row["domain"]))
                 item1 = QTableWidgetItem(str(row["column"]))
@@ -234,16 +243,16 @@ class TabDefine(QWidget):
                 item5 = QTableWidgetItem(str(row["cloid"]))
                 item6 = QTableWidgetItem(str(row["flag"]))
                 item7 = QTableWidgetItem(str(row["aval"]))
-                self.tab_sd_descf_table.insertRow(row_idx)
-                self.tab_sd_descf_table.setItem(row_idx, 0, item0)
-                self.tab_sd_descf_table.setItem(row_idx, 1, item1)
-                self.tab_sd_descf_table.setItem(row_idx, 2, item2)
-                self.tab_sd_descf_table.setItem(row_idx, 3, item3)
-                self.tab_sd_descf_table.setItem(row_idx, 4, item4)
-                self.tab_sd_descf_table.setItem(row_idx, 5, item5)
-                self.tab_sd_descf_table.setItem(row_idx, 6, item6)
-                self.tab_sd_descf_table.setItem(row_idx, 7, item7)
-            self.tab_sd_descf_table.resizeColumnsToContents()
+                self.tab_sd_flag_table.insertRow(row_idx)
+                self.tab_sd_flag_table.setItem(row_idx, 0, item0)
+                self.tab_sd_flag_table.setItem(row_idx, 1, item1)
+                self.tab_sd_flag_table.setItem(row_idx, 2, item2)
+                self.tab_sd_flag_table.setItem(row_idx, 3, item3)
+                self.tab_sd_flag_table.setItem(row_idx, 4, item4)
+                self.tab_sd_flag_table.setItem(row_idx, 5, item5)
+                self.tab_sd_flag_table.setItem(row_idx, 6, item6)
+                self.tab_sd_flag_table.setItem(row_idx, 7, item7)
+            self.tab_sd_flag_table.resizeColumnsToContents()
 
     def tab_button_2_f(self):
         folder = None
@@ -258,13 +267,19 @@ class TabDefine(QWidget):
 
         if folder:
             self.ad_folder_path = folder
+            xml_file = None
             for f in os.listdir(folder):
                 if f.lower() == "define.xml":
                     xml_file = os.path.join(folder, f)
                     break
 
+            if xml_file is None:
+                xml_file, _ = QFileDialog.getOpenFileName(self, "Select define.xml File", folder, "XML Files (*.xml);;All Files (*)")
             dx = DefineXML()
             result = dx.read(xml_file)
+            if result is None:
+                mtbp3cd.gui.util_show_message(self.message_list, "File format not recognized", status="f")
+                return
 
             self.tab_ad_meta_df=pd.DataFrame(result["meta"], columns=["key", "value", "ns"])
             self.tab_ad_igdef_df=pd.DataFrame(result["ig_desc"], columns=["key", "value", "description"])
@@ -314,7 +329,7 @@ class TabDefine(QWidget):
 
             self.tab_ad_flag_df = self.tab_ad_igdef_oid_desc[self.tab_ad_igdef_oid_desc["flag"]]
 
-            self.tab_ad_descf_table.setRowCount(0)
+            self.tab_ad_flag_table.setRowCount(0)
             for row_idx, row in self.tab_ad_flag_df.iterrows():
                 item0 = QTableWidgetItem(str(row["domain"]))
                 item1 = QTableWidgetItem(str(row["column"]))
@@ -324,16 +339,16 @@ class TabDefine(QWidget):
                 item5 = QTableWidgetItem(str(row["cloid"]))
                 item6 = QTableWidgetItem(str(row["flag"]))
                 item7 = QTableWidgetItem(str(row["aval"]))
-                self.tab_ad_descf_table.insertRow(row_idx)
-                self.tab_ad_descf_table.setItem(row_idx, 0, item0)
-                self.tab_ad_descf_table.setItem(row_idx, 1, item1)
-                self.tab_ad_descf_table.setItem(row_idx, 2, item2)
-                self.tab_ad_descf_table.setItem(row_idx, 3, item3)
-                self.tab_ad_descf_table.setItem(row_idx, 4, item4)
-                self.tab_ad_descf_table.setItem(row_idx, 5, item5)
-                self.tab_ad_descf_table.setItem(row_idx, 6, item6)
-                self.tab_ad_descf_table.setItem(row_idx, 7, item7)
-            self.tab_ad_descf_table.resizeColumnsToContents()
+                self.tab_ad_flag_table.insertRow(row_idx)
+                self.tab_ad_flag_table.setItem(row_idx, 0, item0)
+                self.tab_ad_flag_table.setItem(row_idx, 1, item1)
+                self.tab_ad_flag_table.setItem(row_idx, 2, item2)
+                self.tab_ad_flag_table.setItem(row_idx, 3, item3)
+                self.tab_ad_flag_table.setItem(row_idx, 4, item4)
+                self.tab_ad_flag_table.setItem(row_idx, 5, item5)
+                self.tab_ad_flag_table.setItem(row_idx, 6, item6)
+                self.tab_ad_flag_table.setItem(row_idx, 7, item7)
+            self.tab_ad_flag_table.resizeColumnsToContents()
 
 
     def tab_button_3_f(self):
