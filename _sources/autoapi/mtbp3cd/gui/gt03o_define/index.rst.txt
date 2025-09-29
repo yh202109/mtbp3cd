@@ -56,7 +56,7 @@ Module Contents
    .. py:attribute:: tab_sd_desc
 
 
-   .. py:attribute:: tab_sd_descf
+   .. py:attribute:: tab_sd_flag
 
 
    .. py:attribute:: tab_ad_meta
@@ -68,7 +68,7 @@ Module Contents
    .. py:attribute:: tab_ad_desc
 
 
-   .. py:attribute:: tab_ad_descf
+   .. py:attribute:: tab_ad_flag
 
 
    .. py:attribute:: tab_sd_meta_table
@@ -89,10 +89,10 @@ Module Contents
    .. py:attribute:: tab_ad_desc_table
 
 
-   .. py:attribute:: tab_sd_descf_table
+   .. py:attribute:: tab_sd_flag_table
 
 
-   .. py:attribute:: tab_ad_descf_table
+   .. py:attribute:: tab_ad_flag_table
 
 
    .. py:attribute:: message_list
