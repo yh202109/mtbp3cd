@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mtbp3cd"
-version = "0.1.65"
+version = "0.1.66"
 description = "my tool box for file management"
 authors = ["Y. Hsu"]
 license = "GNU General Public License v3.0"

@@ -153,6 +153,8 @@ class LsrTree:
                     num_columns = None
                     num_rows = None
                     file_md5 = self.get_md5(file_path)
+                    if len(file_path) > 255:
+                        continue
                     if file_type == "xlsx":
                         try:
                             excel_file = pd.ExcelFile(file_path)
