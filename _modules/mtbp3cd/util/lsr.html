@@ -248,6 +248,8 @@
                     <span class="n">num_columns</span> <span class="o">=</span> <span class="kc">None</span>
                     <span class="n">num_rows</span> <span class="o">=</span> <span class="kc">None</span>
                     <span class="n">file_md5</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_md5</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">255</span><span class="p">:</span>
+                        <span class="k">continue</span>
                     <span class="k">if</span> <span class="n">file_type</span> <span class="o">==</span> <span class="s2">&quot;xlsx&quot;</span><span class="p">:</span>
                         <span class="k">try</span><span class="p">:</span>
                             <span class="n">excel_file</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelFile</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
