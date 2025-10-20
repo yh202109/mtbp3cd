@@ -93,13 +93,13 @@ class TabDefine(QWidget):
         self.tab_ad_meta.setLayout(layout_tab_ad_meta)
 
         # BOX - Tab igdef 
-        self.tab_sd_igdef_table = DefaultTableWidget(["Id", "File Name", "Description"])
+        self.tab_sd_igdef_table = DefaultTableWidget(["Id", "File Name", "Description", "Found"])
         layout_tab_sd_igdef = QVBoxLayout()
         layout_tab_sd_igdef.setAlignment(Qt.AlignmentFlag.AlignTop)
         layout_tab_sd_igdef.addWidget(self.tab_sd_igdef_table)
         self.tab_sd_igdef.setLayout(layout_tab_sd_igdef)
 
-        self.tab_ad_igdef_table = DefaultTableWidget(["Id", "File Name", "Description"])
+        self.tab_ad_igdef_table = DefaultTableWidget(["Id", "File Name", "Description", "Found"])
         layout_tab_ad_igdef = QVBoxLayout()
         layout_tab_ad_igdef.setAlignment(Qt.AlignmentFlag.AlignTop)
         layout_tab_ad_igdef.addWidget(self.tab_ad_igdef_table)
@@ -190,6 +190,28 @@ class TabDefine(QWidget):
             self.tab_sd_igdef_oid=result["ig_structure"]
             self.tab_sd_igdef_oid_desc=pd.DataFrame(result["ig_it_desc"], columns=["idx","domain","column","type", "length", "description", "cloid","flag","aval"])
 
+            self.tab_sd_igdef_df["found"] = False
+            tab_sd_igdef_df_found = getattr(getattr(self._p, "tab_input", None), "tab_sd_df", None)
+
+            if tab_sd_igdef_df_found is not None and isinstance(tab_sd_igdef_df_found, pd.DataFrame):
+                # build a set of existing file names (lowercased) from the found dataframe/sequence
+                found_files = set()
+                if isinstance(tab_sd_igdef_df_found, pd.DataFrame) and "file" in tab_sd_igdef_df_found.columns:
+                    found_files = set(str(x).strip().lower() for x in tab_sd_igdef_df_found["file"].dropna().unique())
+                # elif isinstance(tab_sd_igdef_df_found, (pd.Series, list, tuple)):
+                #     found_files = set(str(x).strip().lower() for x in pd.Series(tab_sd_igdef_df_found).dropna().unique())
+
+                # for each row, check value + ".xpt" (and the value itself) against the found files
+                for idx, row in self.tab_sd_igdef_df.iterrows():
+                    val = str(row.get("value", "")).strip()
+                    if not val:
+                        continue
+                    candidates = {val.lower()}
+                    if not val.lower().endswith(".xpt"):
+                        candidates.add((val + ".xpt").lower())
+                    if candidates & found_files:
+                        self.tab_sd_igdef_df.at[idx, "found"] = True
+
             self.tab_sd_meta_table.setRowCount(0)
             for row_idx, row in self.tab_sd_meta_df.iterrows():
                 item1 = QTableWidgetItem(str(row["key"]))
@@ -204,10 +226,12 @@ class TabDefine(QWidget):
                 item1 = QTableWidgetItem(str(row["key"]))
                 item2 = QTableWidgetItem(str(row["value"]))
                 item3 = QTableWidgetItem(str(row["description"]))
+                item4 = QTableWidgetItem(str(row["found"]))
                 self.tab_sd_igdef_table.insertRow(row_idx)
                 self.tab_sd_igdef_table.setItem(row_idx, 0, item1)
                 self.tab_sd_igdef_table.setItem(row_idx, 1, item2)
                 self.tab_sd_igdef_table.setItem(row_idx, 2, item3)
+                self.tab_sd_igdef_table.setItem(row_idx, 3, item4)
             self.tab_sd_igdef_table.resizeColumnsToContents()
 
             self.tab_sd_desc_table.setRowCount(0)
@@ -286,6 +310,28 @@ class TabDefine(QWidget):
             self.tab_ad_igdef_oid=result["ig_structure"]
             self.tab_ad_igdef_oid_desc=pd.DataFrame(result["ig_it_desc"], columns=["idx", "domain", "column","type", "length", "description", "cloid","flag","aval"])
 
+            self.tab_ad_igdef_df["found"] = False
+            tab_ad_igdef_df_found = getattr(getattr(self._p, "tab_input", None), "tab_ad_df", None)
+
+            if tab_ad_igdef_df_found is not None and isinstance(tab_ad_igdef_df_found, pd.DataFrame):
+                # build a set of existing file names (lowercased) from the found dataframe/sequence
+                found_files = set()
+                if isinstance(tab_ad_igdef_df_found, pd.DataFrame) and "file" in tab_ad_igdef_df_found.columns:
+                    found_files = set(str(x).strip().lower() for x in tab_ad_igdef_df_found["file"].dropna().unique())
+                # elif isinstance(tab_ad_igdef_df_found, (pd.Series, list, tuple)):
+                #     found_files = set(str(x).strip().lower() for x in pd.Series(tab_ad_igdef_df_found).dropna().unique())
+
+                # for each row, check value + ".xpt" (and the value itself) against the found files
+                for idx, row in self.tab_ad_igdef_df.iterrows():
+                    val = str(row.get("value", "")).strip()
+                    if not val:
+                        continue
+                    candidates = {val.lower()}
+                    if not val.lower().endswith(".xpt"):
+                        candidates.add((val + ".xpt").lower())
+                    if candidates & found_files:
+                        self.tab_ad_igdef_df.at[idx, "found"] = True
+
             self.tab_ad_meta_table.setRowCount(0)
             for row_idx, row in self.tab_ad_meta_df.iterrows():
                 item1 = QTableWidgetItem(str(row["key"]))
@@ -300,10 +346,12 @@ class TabDefine(QWidget):
                 item1 = QTableWidgetItem(str(row["key"]))
                 item2 = QTableWidgetItem(str(row["value"]))
                 item3 = QTableWidgetItem(str(row["description"]))
+                item4 = QTableWidgetItem(str(row["found"]))
                 self.tab_ad_igdef_table.insertRow(row_idx)
                 self.tab_ad_igdef_table.setItem(row_idx, 0, item1)
                 self.tab_ad_igdef_table.setItem(row_idx, 1, item2)
                 self.tab_ad_igdef_table.setItem(row_idx, 2, item3)
+                self.tab_ad_igdef_table.setItem(row_idx, 3, item4)
             self.tab_ad_igdef_table.resizeColumnsToContents()
 
             self.tab_ad_desc_table.setRowCount(0)
@@ -349,7 +397,6 @@ class TabDefine(QWidget):
                 self.tab_ad_flag_table.setItem(row_idx, 6, item6)
                 self.tab_ad_flag_table.setItem(row_idx, 7, item7)
             self.tab_ad_flag_table.resizeColumnsToContents()
-
 
     def tab_button_3_f(self):
         file_path_base = getattr(self._p.tab_starting, "gt01_output_folder_path", None)

@@ -2,6 +2,19 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.66 (2025-10-19)
+
+- clinical data
+    - if input folder is specified, define reading will try to compare input folder with define grouped items 
+
+## v0.1.65 (2025-09-07)
+
+- gt03/util: add base option
+
+## v0.1.61 (2025-08-31)
+
+- update tests
+
 ## v0.1.60 (2025-08-20)
 
 - fix many things
